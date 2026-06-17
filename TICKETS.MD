@@ -144,41 +144,41 @@
 
 ### Ticket 3.1: AuthContext
 
-* [ ] Crear `src/context/AuthContext.js`
-* [ ] State: `user`, `session`, `profile`, `loading`
-* [ ] Funciones: `signIn`, `signUp`, `signOut`, `refreshProfile`
-* [ ] Persistir sesión con `expo-secure-store`
-* [ ] Provider que envuelve toda la app
+* [X] Crear `src/context/AuthContext.js`
+* [X] State: `user`, `session`, `profile`, `loading`
+* [X] Funciones: `signIn`, `signUp`, `signOut`, `refreshProfile`
+* [X] Persistir sesión con `expo-secure-store`
+* [X] Provider que envuelve toda la app
 
 ### Ticket 3.2: Navegación — Auth Stack
 
-* [ ] Crear `src/navigation/AuthStack.js`
-* [ ] Screens: Login, Registro, ForgotPassword
-* [ ] Transiciones: slide from bottom
+* [X] Crear `src/navigation/AuthStack.js`
+* [X] Screens: Login, Registro, ForgotPassword
+* [X] Transiciones: slide from bottom
 
 ### Ticket 3.3: Navegación — Main Tabs
 
-* [ ] Crear `src/navigation/MainTabs.js`
-* [ ] 4 tabs: Perfil, Estadísticas, Multimedia, Ajustes
-* [ ] Tab bar con estilo del DESIGN.md (fondo #1A1F2B, borde superior)
-* [ ] Íconos Lucide: User, BarChart2, Camera, Settings
-* [ ] Tab activo: color #4C8DFF con indicador de 3px
+* [X] Crear `src/navigation/MainTabs.js`
+* [X] 4 tabs: Perfil, Estadísticas, Multimedia, Ajustes
+* [X] Tab bar con estilo del DESIGN.md (fondo #1A1F2B, borde superior)
+* [X] Íconos Lucide: User, BarChart2, Camera, Settings
+* [X] Tab activo: color #4C8DFF con indicador de 3px
 
 ### Ticket 3.4: Navegación — Profile Stack (nested)
 
-* [ ] Screens: MiPerfil, EditarPerfil, Atributos
-* [ ] Header con título uppercase display-md
+* [X] Screens: MiPerfil, EditarPerfil, Atributos
+* [X] Header con título uppercase display-md
 
 ### Ticket 3.5: Navegación — Multimedia Stack (nested)
 
-* [ ] Screens: BibliotecaMultimedia, SubirMultimedia, VerMedia
-* [ ] FAB flotante para subir
+* [X] Screens: BibliotecaMultimedia, SubirMultimedia, VerMedia
+* [X] FAB flotante para subir
 
 ### Ticket 3.6: Navegación — Root Navigator
 
-* [ ] Crear `src/navigation/RootNavigator.js`
-* [ ] Lógica: si hay sesión → MainTabs, si no → AuthStack
-* [ ] Splash screen mientras verifica sesión
+* [X] Crear `src/navigation/RootNavigator.js`
+* [X] Lógica: si hay sesión → MainTabs, si no → AuthStack
+* [X] Splash screen mientras verifica sesión
 
 ---
 
@@ -186,91 +186,91 @@
 
 ### Ticket 4.1: Componente Button
 
-* [ ] Crear `src/components/Button.js`
-* [ ] Variantes: primary (pill, azul), secondary (outline), ghost (texto)
-* [ ] Estados: enabled, disabled (opacidad 0.4), loading
-* [ ] Estilo: radius-full, alto 52px, uppercase en primary
+* [X] Crear `src/components/Button.js`
+* [X] Variantes: primary (pill, azul), secondary (outline), ghost (texto)
+* [X] Estados: enabled, disabled (opacidad 0.4), loading
+* [X] Estilo: radius-full, alto 52px, uppercase en primary
 
 ### Ticket 4.2: Componente Input
 
-* [ ] Crear `src/components/Input.js`
-* [ ] Label flotante, placeholder, icono izquierdo
-* [ ] Estados: focus (borde azul), error (borde rojo + mensaje)
-* [ ] Estilo: fondo #20262F, radio 12px, alto 52px
+* [X] Crear `src/components/Input.js`
+* [X] Label flotante, placeholder, icono izquierdo
+* [X] Estados: focus (borde azul), error (borde rojo + mensaje)
+* [X] Estilo: fondo #20262F, radio 12px, alto 52px
 
 ### Ticket 4.3: Componente Card
 
-* [ ] Crear `src/components/Card.js`
-* [ ] Variantes: default, raised, glow-blue
-* [ ] Estilo: fondo #12161F, radio 16px, elevation-card
+* [X] Crear `src/components/Card.js`
+* [X] Variantes: default, raised, glow-blue
+* [X] Estilo: fondo #12161F, radio 16px, elevation-card
 
 ### Ticket 4.4: Componente Badge / Chip
 
-* [ ] Crear `src/components/Badge.js`
-* [ ] Variantes: default, destacada (azul), logro (dorado), tarjeta amarilla/roja
-* [ ] Radio: sm o full según tipo
+* [X] Crear `src/components/Badge.js`
+* [X] Variantes: default, destacada (azul), logro (dorado), tarjeta amarilla/roja
+* [X] Radio: sm o full según tipo
 
 ### Ticket 4.5: Componente Avatar
 
-* [ ] Crear `src/components/Avatar.js`
-* [ ] Circular 96px, borde 2px
-* [ ] Borde azul si perfil completo, gris si incompleto
-* [ ] Icono de cámara overlay para edición
+* [X] Crear `src/components/Avatar.js`
+* [X] Circular 96px, borde 2px
+* [X] Borde azul si perfil completo, gris si incompleto
+* [X] Icono de cámara overlay para edición
 
 ### Ticket 4.6: Componente Header
 
-* [ ] Crear `src/components/Header.js`
-* [ ] Altura 56px + safe area
-* [ ] Título centrado uppercase display-md
-* [ ] Botón back (izquierda) y acción derecha opcionales
+* [X] Crear `src/components/Header.js`
+* [X] Altura 56px + safe area
+* [X] Título centrado uppercase display-md
+* [X] Botón back (izquierda) y acción derecha opcionales
 
 ### Ticket 4.7: Componente RadarChart
 
-* [ ] Crear `src/components/RadarChart.js`
-* [ ] Usar react-native-svg
-* [ ] 4 dimensiones: Técnica, Física, Táctica, Mental
-* [ ] Fondo #12161F, polígono azul con glow
-* [ ] Labels en las puntas, mínimo 280x280px
-* [ ] Tamaño proporcional con Dimensions
+* [X] Crear `src/components/RadarChart.js`
+* [X] Usar react-native-svg
+* [X] 4 dimensiones: Técnica, Física, Táctica, Mental
+* [X] Fondo #12161F, polígono azul con glow
+* [X] Labels en las puntas, mínimo 280x280px
+* [X] Tamaño proporcional con Dimensions
 
 ### Ticket 4.8: Componente MediaCard
 
-* [ ] Crear `src/components/MediaCard.js`
-* [ ] Aspect ratio 9:16 (video) o 1:1 (foto)
-* [ ] Overlay con gradiente, ícono play, duración
-* [ ] Badge de categoría arriba a la izquierda
+* [X] Crear `src/components/MediaCard.js`
+* [X] Aspect ratio 9:16 (video) o 1:1 (foto)
+* [X] Overlay con gradiente, ícono play, duración
+* [X] Badge de categoría arriba a la izquierda
 
 ### Ticket 4.9: Componente StatCard
 
-* [ ] Crear `src/components/StatCard.js`
-* [ ] Número grande display-md, label debajo body-sm
-* [ ] Grid: 2x2 o 3 en fila
-* [ ] Color dorado si es récord
+* [X] Crear `src/components/StatCard.js`
+* [X] Número grande display-md, label debajo body-sm
+* [X] Grid: 2x2 o 3 en fila
+* [X] Color dorado si es récord
 
 ### Ticket 4.10: Componente ProgressBar (Onboarding)
 
-* [ ] Crear `src/components/ProgressBar.js`
-* [ ] Segmentos: activo #2D6FE0, pendiente #272E3A
-* [ ] Transición animada entre pasos
+* [X] Crear `src/components/ProgressBar.js`
+* [X] Segmentos: activo #2D6FE0, pendiente #272E3A
+* [X] Transición animada entre pasos
 
 ### Ticket 4.11: Componente Toast / Snackbar
 
-* [ ] Crear `src/components/Toast.js`
-* [ ] Variantes: success (verde), error (rojo), warning (amarillo)
-* [ ] Auto-dismiss 2.5s, borde izquierdo 3px
-* [ ] Posición inferior
+* [X] Crear `src/components/Toast.js`
+* [X] Variantes: success (verde), error (rojo), warning (amarillo)
+* [X] Auto-dismiss 2.5s, borde izquierdo 3px
+* [X] Posición inferior
 
 ### Ticket 4.12: Componente EmptyState
 
-* [ ] Crear `src/components/EmptyState.js`
-* [ ] Ilustración outline monocromática + detalle azul
-* [ ] Texto con personalidad (voseo) + CTA opcional
+* [X] Crear `src/components/EmptyState.js`
+* [X] Ilustración outline monocromática + detalle azul
+* [X] Texto con personalidad (voseo) + CTA opcional
 
 ### Ticket 4.13: Componente SkeletonLoader
 
-* [ ] Crear `src/components/SkeletonLoader.js`
-* [ ] Shimmer animation entre #12161F y #20262F
-* [ ] Variantes: rectángulo, círculo, texto
+* [X] Crear `src/components/SkeletonLoader.js`
+* [X] Shimmer animation entre #12161F y #20262F
+* [X] Variantes: rectángulo, círculo, texto
 
 ---
 
