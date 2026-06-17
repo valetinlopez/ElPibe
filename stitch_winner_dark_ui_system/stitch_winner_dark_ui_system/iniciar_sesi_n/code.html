@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EL PIBE - Entrar a la Cancha</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,700;1,700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#e1e2eb",
+                      "secondary-container": "#034d79",
+                      "secondary": "#97ccfe",
+                      "surface-container-low": "#191c22",
+                      "tertiary-container": "#cca830",
+                      "surface-bright": "#363940",
+                      "accent-blue-dim": "#1C3A66",
+                      "primary-fixed-dim": "#afc6ff",
+                      "on-tertiary-container": "#4f3e00",
+                      "accent-yellow-card": "#F2C94C",
+                      "on-tertiary": "#3c2f00",
+                      "tertiary-fixed": "#ffe088",
+                      "primary": "#afc6ff",
+                      "accent-blue-bright": "#4C8DFF",
+                      "on-error": "#690005",
+                      "border-default": "#343C4A",
+                      "accent-blue-metal": "#3A5A8C",
+                      "bg-surface-overlay": "#20262F",
+                      "outline": "#8c909f",
+                      "inverse-on-surface": "#2e3037",
+                      "bg-surface": "#12161F",
+                      "primary-container": "#2d6fe0",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "secondary-fixed-dim": "#97ccfe",
+                      "surface-container-lowest": "#0b0e14",
+                      "on-primary-fixed-variant": "#004299",
+                      "outline-variant": "#424753",
+                      "surface-container": "#1d2026",
+                      "on-secondary-container": "#88bdef",
+                      "surface-container-high": "#272a31",
+                      "on-surface-variant": "#c2c6d6",
+                      "surface-tint": "#afc6ff",
+                      "on-secondary": "#003353",
+                      "text-tertiary": "#6B7280",
+                      "surface": "#10131a",
+                      "on-primary-fixed": "#001944",
+                      "on-tertiary-fixed": "#241a00",
+                      "on-primary": "#002d6d",
+                      "tertiary": "#eac349",
+                      "surface-variant": "#32353c",
+                      "background": "#10131a",
+                      "surface-dim": "#10131a",
+                      "accent-green-success": "#3FB873",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "on-secondary-fixed": "#001d32",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "secondary-fixed": "#cee5ff",
+                      "border-subtle": "#272E3A",
+                      "accent-red-card": "#E5484D",
+                      "text-primary": "#F4F5F7",
+                      "text-secondary": "#A8AFBD",
+                      "inverse-primary": "#0059c8",
+                      "surface-container-highest": "#32353c",
+                      "on-primary-container": "#fcfaff",
+                      "bg-surface-raised": "#1A1F2B",
+                      "primary-fixed": "#d9e2ff",
+                      "error": "#ffb4ab",
+                      "on-background": "#e1e2eb",
+                      "error-container": "#93000a",
+                      "on-surface": "#e1e2eb",
+                      "on-error-container": "#ffdad6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "space-3": "12px",
+                      "space-1": "4px",
+                      "space-6": "24px",
+                      "space-5": "20px",
+                      "space-8": "32px",
+                      "space-2": "8px",
+                      "space-10": "40px",
+                      "space-4": "16px",
+                      "space-12": "48px"
+              },
+              "fontFamily": {
+                      "heading-lg": ["Inter"],
+                      "heading-md": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "display-xl": ["anybody"],
+                      "display-lg": ["anybody"],
+                      "display-md": ["anybody"],
+                      "caption": ["Inter"],
+                      "button-text": ["Inter"],
+                      "dorsal-id": ["jetbrainsMono"],
+                      "body-md": ["Inter"]
+              },
+              "fontSize": {
+                      "heading-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                      "heading-md": ["17px", {"lineHeight": "22px", "fontWeight": "600"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "22px", "fontWeight": "400"}],
+                      "display-xl": ["40px", {"lineHeight": "44px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "display-lg": ["32px", {"lineHeight": "36px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "display-md": ["24px", {"lineHeight": "28px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                      "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "dorsal-id": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            overflow-x: hidden;
+        }
+        .stadium-overlay {
+            background: radial-gradient(circle at top right, rgba(45, 111, 224, 0.1) 0%, transparent 60%);
+        }
+        .grain-texture {
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            opacity: 0.05;
+        }
+        .input-glow:focus-within {
+            box-shadow: 0 0 15px rgba(45, 111, 224, 0.15);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-body-md relative">
+<!-- Background Textures -->
+<div class="fixed inset-0 pointer-events-none stadium-overlay z-0"></div>
+<div class="fixed inset-0 pointer-events-none grain-texture z-0"></div>
+<main class="flex-1 flex flex-col items-center justify-center px-space-6 py-space-12 relative z-10 w-full max-w-md mx-auto">
+<!-- Logo Section -->
+<div class="mb-space-12 text-center">
+<div class="inline-block relative">
+<!-- Large Impactful Logo (Predicted TopAppBar Brand Text implementation) -->
+<h1 class="font-display-xl text-display-xl text-primary tracking-tighter italic select-none">
+                    EL PIBE
+                </h1>
+<div class="absolute -bottom-2 right-0 w-12 h-1 bg-accent-blue-bright"></div>
+</div>
+<p class="mt-space-4 font-body-md text-on-surface-variant max-w-[240px] mx-auto">
+                El potrero digital para los que sienten la 10.
+            </p>
+</div>
+<!-- Login Form -->
+<form action="#" class="w-full space-y-space-6" method="POST">
+<div class="space-y-space-4">
+<!-- Email Field -->
+<div class="relative group input-glow transition-all duration-300">
+<label class="block font-body-sm text-on-surface-variant mb-space-1 px-space-2" for="email">
+                        Tu email
+                    </label>
+<div class="flex items-center bg-bg-surface-overlay border border-border-subtle rounded-lg focus-within:border-primary-container transition-colors">
+<span class="material-symbols-outlined ml-space-4 text-outline" style="font-size: 20px;">mail</span>
+<input class="w-full bg-transparent border-none text-text-primary placeholder:text-outline/50 px-space-3 py-space-4 focus:ring-0 font-body-md" id="email" name="email" placeholder="pibe@potrero.com" required="" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="relative group input-glow transition-all duration-300">
+<label class="block font-body-sm text-on-surface-variant mb-space-1 px-space-2" for="password">
+                        Contraseña
+                    </label>
+<div class="flex items-center bg-bg-surface-overlay border border-border-subtle rounded-lg focus-within:border-primary-container transition-colors">
+<span class="material-symbols-outlined ml-space-4 text-outline" style="font-size: 20px;">lock</span>
+<input class="w-full bg-transparent border-none text-text-primary placeholder:text-outline/50 px-space-3 py-space-4 focus:ring-0 font-body-md" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="pr-space-4 text-outline hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined">visibility</span>
+</button>
+</div>
+<div class="flex justify-end mt-space-2">
+<a class="text-accent-blue-bright font-caption text-caption hover:underline transition-all" href="#">
+                            ¿Olvidaste tu contraseña?
+                        </a>
+</div>
+</div>
+</div>
+<!-- Primary CTA -->
+<button class="w-full h-[52px] bg-primary-container hover:bg-accent-blue-bright text-on-primary-container font-button-text text-button-text rounded-full shadow-[0_4px_20px_rgba(45,111,224,0.3)] hover:shadow-[0_4px_25px_rgba(45,111,224,0.5)] active:scale-95 transition-all duration-200 uppercase tracking-wider flex items-center justify-center gap-space-2" type="submit">
+                ENTRAR A LA CANCHA
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">sports_soccer</span>
+</button>
+</form>
+<!-- Social Login / Divider -->
+<div class="w-full mt-space-10 flex flex-col items-center gap-space-6">
+<div class="flex items-center w-full gap-space-4">
+<div class="h-[1px] flex-1 bg-border-subtle"></div>
+<span class="text-caption font-caption text-outline uppercase tracking-widest">O usá</span>
+<div class="h-[1px] flex-1 bg-border-subtle"></div>
+</div>
+<div class="grid grid-cols-2 gap-space-4 w-full">
+<button class="flex items-center justify-center gap-space-2 bg-bg-surface-raised border border-border-subtle hover:border-outline rounded-xl h-12 transition-all">
+<img alt="Google" class="w-5 h-5 grayscale opacity-70 group-hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAsMliOpO8stOFO79Kp8OOKygyrjmHN1cDP1MaL8QSCgLlFD9a4yxhbOaxPIhA4aidvmMUT02DIkdJ2HpDkyI4ArFQ3fYj8qTe2PJTRdxTb98TfSHk8B9Ksq8KULxjzn-69ewAwLGyeqabpU6pu8AtKdp5E58K7d5v1rJp5YnPSYW1ab4F1-MzHz6owgk_U3_Jfi8CQtcm469CMAqoM2dJOPCxOvZCdDr3AoWhjOseO9vhz3b36YzbWq6mlDvHu7znAHgwJqzXuGiQ"/>
+<span class="font-body-sm text-text-secondary">Google</span>
+</button>
+<button class="flex items-center justify-center gap-space-2 bg-bg-surface-raised border border-border-subtle hover:border-outline rounded-xl h-12 transition-all">
+<span class="material-symbols-outlined text-outline" style="font-size: 20px;">apps</span>
+<span class="font-body-sm text-text-secondary">Apple</span>
+</button>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto pt-space-12 text-center">
+<p class="font-body-md text-text-secondary">
+                ¿No tenés cuenta? 
+                <a class="text-accent-blue-bright font-heading-md hover:underline ml-1" href="#">
+                    Registrate
+                </a>
+</p>
+</div>
+</main>
+<!-- Decorative Corner Element -->
+<div class="fixed bottom-0 right-0 opacity-10 pointer-events-none select-none overflow-hidden h-64 w-64 translate-x-1/4 translate-y-1/4">
+<span class="material-symbols-outlined" style="font-size: 320px;">sports_soccer</span>
+</div>
+<script>
+        // Micro-interactions for inputs
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('border-primary-container');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('border-primary-container');
+            });
+        });
+
+        // Simple button ripple-like effect/active state logic
+        const primaryBtn = document.querySelector('button[type="submit"]');
+        primaryBtn.addEventListener('mousedown', () => {
+            primaryBtn.classList.add('scale-95');
+        });
+        primaryBtn.addEventListener('mouseup', () => {
+            primaryBtn.classList.remove('scale-95');
+        });
+        primaryBtn.addEventListener('mouseleave', () => {
+            primaryBtn.classList.remove('scale-95');
+        });
+    </script>
+</body></html>

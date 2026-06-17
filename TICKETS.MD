@@ -94,49 +94,49 @@
 
 ### Ticket 2.1: Servicio de Autenticación
 
-* [ ] Crear `src/services/auth.service.js`
-* [ ] Función `signUp(email, password, fullName)`
-* [ ] Función `signIn(email, password)`
-* [ ] Función `signOut()`
-* [ ] Función `resetPassword(email)`
-* [ ] Función `getCurrentSession()`
-* [ ] Función `getCurrentUser()`
-* [ ] Todas con try/catch y mensajes en español
+* [X] Crear `src/services/auth.service.js`
+* [X] Función `signUp(email, password, fullName)`
+* [X] Función `signIn(email, password)`
+* [X] Función `signOut()`
+* [X] Función `resetPassword(email)`
+* [X] Función `getCurrentSession()`
+* [X] Función `getCurrentUser()`
+* [X] Todas con try/catch y mensajes en español
 
 ### Ticket 2.2: Servicio de Perfiles
 
-* [ ] Crear `src/services/profile.service.js`
-* [ ] Función `getProfile(userId)`
-* [ ] Función `createProfile(profileData)`
-* [ ] Función `updateProfile(userId, profileData)`
-* [ ] Función `uploadAvatar(userId, imageFile)`
-* [ ] Función `isProfileComplete(profile)` (para onboarding)
+* [X] Crear `src/services/profile.service.js`
+* [X] Función `getProfile(userId)`
+* [X] Función `createProfile(profileData)`
+* [X] Función `updateProfile(userId, profileData)`
+* [X] Función `uploadAvatar(userId, imageFile)`
+* [X] Función `isProfileComplete(profile)` (para onboarding)
 
 ### Ticket 2.3: Servicio de Estadísticas
 
-* [ ] Crear `src/services/stats.service.js`
-* [ ] Función `getStats(profileId)`
-* [ ] Función `getStatsBySeason(profileId, season)`
-* [ ] Función `upsertStats(statsData)`
-* [ ] Función `deleteStats(statsId)`
+* [X] Crear `src/services/stats.service.js`
+* [X] Función `getStats(profileId)`
+* [X] Función `getStatsBySeason(profileId, season)`
+* [X] Función `upsertStats(statsData)`
+* [X] Función `deleteStats(statsId)`
 
 ### Ticket 2.4: Servicio de Atributos
 
-* [ ] Crear `src/services/attributes.service.js`
-* [ ] Función `getAttributes(profileId)`
-* [ ] Función `getAttributesByDimension(profileId, dimension)`
-* [ ] Función `upsertAttributes(attributesArray)`
-* [ ] Función `calculateRadarAverages(profileId)`
+* [X] Crear `src/services/attributes.service.js`
+* [X] Función `getAttributes(profileId)`
+* [X] Función `getAttributesByDimension(profileId, dimension)`
+* [X] Función `upsertAttributes(attributesArray)`
+* [X] Función `calculateRadarAverages(profileId)`
 
 ### Ticket 2.5: Servicio de Multimedia
 
-* [ ] Crear `src/services/media.service.js`
-* [ ] Función `uploadMedia(profileId, file, type, category, subcategory)`
-* [ ] Función `getMediaByProfile(profileId)`
-* [ ] Función `getMediaByCategory(profileId, category)`
-* [ ] Función `deleteMedia(mediaId, storagePath)`
-* [ ] Validación de tamaño (50MB video, 10MB foto)
-* [ ] Validación de duración (60s max video)
+* [X] Crear `src/services/media.service.js`
+* [X] Función `uploadMedia(profileId, file, type, category, subcategory)`
+* [X] Función `getMediaByProfile(profileId)`
+* [X] Función `getMediaByCategory(profileId, category)`
+* [X] Función `deleteMedia(mediaId, storagePath)`
+* [X] Validación de tamaño (50MB video, 10MB foto)
+* [X] Validación de duración (60s max video)
 
 ---
 

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Perfil del Jugador - ELPIBE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed": "#001d32",
+                    "inverse-on-surface": "#2e3037",
+                    "on-tertiary-fixed": "#241a00",
+                    "tertiary": "#eac349",
+                    "error": "#ffb4ab",
+                    "surface-container-highest": "#32353c",
+                    "on-secondary-container": "#88bdef",
+                    "tertiary-fixed": "#ffe088",
+                    "inverse-primary": "#0059c8",
+                    "surface-container-high": "#272a31",
+                    "on-error-container": "#ffdad6",
+                    "secondary": "#97ccfe",
+                    "surface-bright": "#363940",
+                    "on-background": "#e1e2eb",
+                    "background": "#10131a",
+                    "surface-dim": "#10131a",
+                    "primary-fixed-dim": "#afc6ff",
+                    "surface-variant": "#32353c",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "outline-variant": "#424753",
+                    "surface-container-lowest": "#0b0e14",
+                    "on-primary-fixed": "#001944",
+                    "tertiary-container": "#cca830",
+                    "outline": "#8c909f",
+                    "text-secondary": "#A8AFBD",
+                    "accent-blue-dim": "#1C3A66",
+                    "accent-green-success": "#3FB873",
+                    "on-tertiary": "#3c2f00",
+                    "on-tertiary-container": "#4f3e00",
+                    "bg-surface": "#12161F",
+                    "accent-red-card": "#E5484D",
+                    "secondary-container": "#034d79",
+                    "surface-container": "#1d2026",
+                    "surface-container-low": "#191c22",
+                    "on-error": "#690005",
+                    "on-primary": "#002d6d",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "secondary-fixed-dim": "#97ccfe",
+                    "primary": "#afc6ff",
+                    "on-secondary": "#003353",
+                    "error-container": "#93000a",
+                    "surface": "#10131a",
+                    "bg-surface-overlay": "#20262F",
+                    "on-primary-container": "#fcfaff",
+                    "text-primary": "#F4F5F7",
+                    "primary-container": "#2d6fe0",
+                    "accent-yellow-card": "#F2C94C",
+                    "border-default": "#343C4A",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "secondary-fixed": "#cee5ff",
+                    "surface-tint": "#afc6ff",
+                    "on-surface-variant": "#c2c6d6",
+                    "bg-surface-raised": "#1A1F2B",
+                    "border-subtle": "#272E3A",
+                    "accent-blue-metal": "#3A5A8C",
+                    "on-primary-fixed-variant": "#004299",
+                    "accent-blue-bright": "#4C8DFF",
+                    "text-tertiary": "#6B7280",
+                    "primary-fixed": "#d9e2ff",
+                    "inverse-surface": "#e1e2eb",
+                    "on-surface": "#e1e2eb"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "space-6": "24px",
+                    "space-1": "4px",
+                    "space-3": "12px",
+                    "space-2": "8px",
+                    "space-12": "48px",
+                    "space-5": "20px",
+                    "space-4": "16px",
+                    "space-10": "40px",
+                    "space-8": "32px"
+            },
+            "fontFamily": {
+                    "display-md": ["anybody"],
+                    "body-md": ["Inter"],
+                    "display-xl": ["anybody"],
+                    "dorsal-id": ["jetbrainsMono"],
+                    "heading-md": ["Inter"],
+                    "button-text": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["anybody"],
+                    "heading-lg": ["Inter"],
+                    "caption": ["Inter"]
+            },
+            "fontSize": {
+                    "display-md": ["24px", {"lineHeight": "28px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "display-xl": ["40px", {"lineHeight": "44px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                    "dorsal-id": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "heading-md": ["17px", {"lineHeight": "22px", "fontWeight": "600"}],
+                    "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "36px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                    "heading-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                    "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .potrero-gradient {
+            background: linear-gradient(180deg, rgba(11, 14, 20, 0) 0%, rgba(11, 14, 20, 0.9) 80%, #0b0e14 100%);
+        }
+        .metal-glow {
+            box-shadow: 0 0 20px rgba(76, 141, 255, 0.2);
+        }
+        .winner-condensed {
+            font-family: 'anybody', sans-serif;
+            font-stretch: condensed;
+            letter-spacing: -0.02em;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="dark overflow-x-hidden pb-32">
+<!-- Top App Bar (Shared Component Logic) -->
+<header class="fixed top-0 w-full z-50 bg-background border-b border-border-subtle flex justify-between items-center px-space-4 py-space-3 h-16">
+<div class="flex items-center gap-space-2">
+<span class="material-symbols-outlined text-primary cursor-pointer active:scale-95 transition-transform">menu</span>
+</div>
+<h1 class="font-display-md text-display-md text-primary tracking-tighter uppercase">ELPIBE</h1>
+<div class="w-8 h-8 rounded-full border border-accent-blue-bright overflow-hidden">
+<img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBu_Xqg4Z5DBd0GTD56N_IMT97T-OYPs_A3FrToqKCLNspigeIkNZBfDo5Tu2sjX30sI1P2EqZ1htidSWkDN-iNbwFBEERmGjHTnCxvpM-IYD2v1sXS8gFZRQgcwCRwTsRY2JzlSXTH4008tE5VBuHikRgnY3siGjS8QfzyC709FAb_gfDmYZiFAmQD3SMe5-yjnm937Fti7mlpGFh5PIu4PH6lmJ_g3YUQ_b0xOiZ0m31GTFRkYLL-AtoosXer8uIh-VUXJ5jkznI"/>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="pt-16">
+<!-- Hero Section: Profile Header -->
+<section class="relative w-full h-[397px] overflow-hidden">
+<!-- Background Image with "Potrero Nocturno" Aesthetic -->
+<div class="absolute inset-0">
+<img class="w-full h-full object-cover grayscale-[30%] opacity-60" data-alt="A gritty neighborhood football pitch at night in Buenos Aires, illuminated by harsh white floodlights against a dark navy sky. The ground shows signs of wear and asphalt texture, creating a raw and authentic street football atmosphere. Deep shadows and high contrast highlight the metallic fence and the goal posts." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnNzv3GrcFg446hxVNUO6y5j56ZVB_jiuxVV0YWxPrNE5UWkNPeUTIHg7d7QWpCpTqxd7dXzWFNbdYO-kVm_vwkFvfNBelFJyFjH_pEMPg7ZtE8Q5ZU0Qtk8jEvDmJORgVJfcM80sGAgJqSS23v7SrvsNfcQu2UKoQU1xsuuynbsP4UkdYOPqDqtmxlp5gGfHKedarpb51-h_8bv-BKgXjsYdMw5wlKJE9KGzgZDAmngsZ2MMOo6NrktKP0YcATQ8suN1JGQqwHkA"/>
+<div class="absolute inset-0 potrero-gradient"></div>
+</div>
+<!-- Avatar & Identity -->
+<div class="relative h-full flex flex-col items-center justify-end pb-space-6 px-space-4">
+<div class="relative group">
+<div class="w-[120px] h-[120px] rounded-full border-4 border-accent-blue-bright metal-glow overflow-hidden mb-space-3 bg-surface-container">
+<img alt="Player Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAV9utuveiOiQbFZ3RlPbBwgD4GIsS6cXJszuNXLoptGCHxZWR7dZQGrUzjO--sodjzTVoDJSLoxJtyDVatpxL8RmCY1jlho0oOfdBeFkrwueESd2_K7TAUR-81nYq9c3ZmrpKtHQOKXwzFP8xqT7lo9gWEhhjvga2KwgtvXxU_ReTggH5VjE5M72CEYtKhidr2_HaNa-5zPBBvIHty_iDUxxEdg0NYYD6fZ_2Uatpmh5oLzIO3uGPLC3AEPyP8c0Mqtk1DA7nvkTQ"/>
+</div>
+<div class="absolute bottom-4 right-0 bg-accent-blue-bright text-on-primary rounded-full p-1 border-2 border-background">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+</div>
+<h2 class="winner-condensed font-display-xl text-display-xl uppercase text-center text-text-primary leading-none">
+                    MATEO "EL 10" FERREYRA
+                </h2>
+<p class="font-body-md text-text-secondary mt-space-2 text-center max-w-[280px]">
+                    Si querés jugar, jugá en serio. No me vengas con vueltas, acá se deja todo en el asfalto.
+                </p>
+</div>
+</section>
+<!-- Profile Stats Grid (Bento Style) -->
+<section class="px-space-4 mt-space-4 grid grid-cols-2 gap-space-3">
+<!-- Mi Club Section -->
+<div class="col-span-1 bg-surface-container-low border border-border-subtle rounded-xl p-space-4 flex flex-col items-center justify-center aspect-square">
+<span class="text-caption text-text-secondary uppercase mb-space-2 tracking-widest">Mi Club</span>
+<span class="material-symbols-outlined text-accent-blue-bright text-[32px] mb-space-2">shield</span>
+<span class="font-heading-md text-text-primary text-center">Fuerte Apache FC</span>
+</div>
+<!-- Categoría Section -->
+<div class="col-span-1 bg-surface-container-low border border-border-subtle rounded-xl p-space-4 flex flex-col items-center justify-center aspect-square">
+<span class="text-caption text-text-secondary uppercase mb-space-2 tracking-widest">Categoría</span>
+<span class="font-display-lg text-display-lg text-accent-blue-bright">U-21</span>
+<span class="font-heading-md text-text-primary">Elite Local</span>
+</div>
+<!-- Primary Action -->
+<div class="col-span-2 bg-primary-container text-on-primary-container rounded-full h-[52px] flex items-center justify-center font-button-text uppercase tracking-widest active:scale-95 transition-transform cursor-pointer mt-space-2">
+                DESAFIAR AL JUGADOR
+            </div>
+</section>
+<!-- Attributes Radar (Decorative placeholder using Bento logic) -->
+<section class="px-space-4 mt-space-6">
+<div class="bg-surface-container-low border border-border-subtle rounded-xl p-space-4">
+<div class="flex justify-between items-center mb-space-4">
+<h3 class="font-heading-lg text-text-primary uppercase">Ficha Técnica</h3>
+<span class="text-accent-blue-bright font-dorsal-id">#10</span>
+</div>
+<div class="grid grid-cols-3 gap-space-2">
+<div class="flex flex-col">
+<span class="text-caption text-text-secondary">RITMO</span>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mt-1">
+<div class="h-full bg-accent-blue-bright rounded-full w-[85%]"></div>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-caption text-text-secondary">REGATE</span>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mt-1">
+<div class="h-full bg-accent-blue-bright rounded-full w-[92%]"></div>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-caption text-text-secondary">TIRO</span>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full mt-1">
+<div class="h-full bg-accent-blue-bright rounded-full w-[78%]"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Media Library (2-column Grid) -->
+<section class="px-space-4 mt-space-6 mb-space-8">
+<h3 class="font-heading-lg text-text-primary uppercase mb-space-3">Destacados</h3>
+<div class="grid grid-cols-2 gap-space-2">
+<div class="aspect-square bg-surface-container rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A close-up action shot of a soccer player's feet controlling a ball on a dark asphalt pitch at night. The lighting is cinematic, focusing on the metallic blue details of the soccer boots. The environment is dark and gritty, capturing the high-intensity energy of a street match in a professional sports aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD21Uo5n5xm1B2pL2X4aCcImurU7qLrRcHTCae8QQDQCLOvtyNqrv4_0jAN-McnkhH5ryyXxUHIsaMHeMg70Cv1iNnL_iJThVU6DhbTMBAKMTiaBf9VmOr66sxPcNzxI0Gbybj3SbKTgWDUbXWDVqX2vmqAmsbOQY31NFDPP-EOiSb6_mabFFRIrH8zRZfgLspnDgHyhbwo2AXvKuOda5nS6jTrMasg80xi9e9s_yWpPI9aEJpcEwzMuUQZyaUK_w-6PvibrLoHAys"/>
+<div class="absolute bottom-2 left-2">
+<span class="material-symbols-outlined text-white text-sm">play_circle</span>
+</div>
+</div>
+<div class="aspect-square bg-surface-container rounded-lg overflow-hidden relative group">
+<img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A low angle view of a football goal in a dark urban environment. The goal net is illuminated by a single overhead floodlight, creating a dramatic, high-contrast effect. The atmosphere is quiet and focused, representing the legendary 'potrero' of Buenos Aires at night. The color palette is dominated by deep blacks and cool grays." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX0unFwdQFCLTOcX-j1UBicz3t8ROLDuu1mTYoVrx00c_LV_oSl0CL6bgaIzMRDjQz16IQdNsF6dAi5aMl_smMtMsKS5ECwql8b9g_P8mR0TRNLIJJ8qyFgGyXAHuaK6UWY4ciJFIBJ7UTjVidn9so43Rz60Vi--41OkqxL6ucr_OPtUevt5qCLsf9o_wZbLOk3w_zx_CC6sO1pCQ030FukY4SiSE2hqOq_KIELmT5E3wNhnxHfgyMxICmGxrArk9BfU_Kr76Mtrc"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Shared Bottom Nav Bar Component -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface-container border-t border-border-subtle shadow-[0_-4px_12px_rgba(45,111,224,0.15)] flex justify-around items-center px-space-2 pb-safe">
+<!-- PERFIL (Active) -->
+<div class="flex flex-col items-center justify-center text-accent-blue-bright font-bold border-t-2 border-accent-blue-bright pt-1 cursor-pointer active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-button-text text-caption uppercase">PERFIL</span>
+</div>
+<!-- STATS -->
+<div class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors cursor-pointer active:scale-90 transition-transform">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-button-text text-caption uppercase">STATS</span>
+</div>
+<!-- MEDIA -->
+<div class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors cursor-pointer active:scale-90 transition-transform">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-button-text text-caption uppercase">MEDIA</span>
+</div>
+<!-- AJUSTES -->
+<div class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors cursor-pointer active:scale-90 transition-transform">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-button-text text-caption uppercase">AJUSTES</span>
+</div>
+</nav>
+<!-- Optional Floating Action Button (FAB) - Suppressed as per rule for Profile screens -->
+<script>
+        // Micro-interaction for feedback
+        document.querySelectorAll('.active\\:scale-95, .active\\:scale-90').forEach(el => {
+            el.addEventListener('click', () => {
+                if (window.navigator.vibrate) {
+                    window.navigator.vibrate(5);
+                }
+            });
+        });
+
+        // Atmospheric parallax-like effect on scroll for the hero image
+        window.addEventListener('scroll', () => {
+            const scroll = window.pageYOffset;
+            const heroImage = document.querySelector('.potrero-gradient').previousElementSibling;
+            if (heroImage) {
+                heroImage.style.transform = `translateY(${scroll * 0.4}px)`;
+            }
+        });
+    </script>
+</body></html>
