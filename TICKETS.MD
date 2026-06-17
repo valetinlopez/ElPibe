@@ -14,45 +14,45 @@
 
 ### Ticket 0.1: Inicializar proyecto Expo blank
 
-* [ ] Ejecutar `npx create-expo-app ElPibe --template blank`
-* [ ] Verificar que arranca en Expo Go
-* [ ] Configurar `app.json`: nombre "ElPibe", orientación portrait, splash background #0B0E14
+* [X] Ejecutar `npx create-expo-app ElPibe --template blank`
+* [X] Verificar que arranca en Expo Go
+* [X] Configurar `app.json`: nombre "ElPibe", orientación portrait, splash background #0B0E14
 
 ### Ticket 0.2: Instalar dependencias core
 
-* [ ] `npx expo install @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs`
-* [ ] `npx expo install react-native-screens react-native-safe-area-context`
-* [ ] `npx expo install @supabase/supabase-js`
-* [ ] `npx expo install nativewind tailwindcss`
-* [ ] `npx expo install expo-image-picker expo-media-library`
-* [ ] `npx expo install @react-native-async-storage/async-storage`
-* [ ] `npx expo install react-native-svg` (para radar chart)
-* [ ] `npx expo install lucide-react-native`
-* [ ] `npx expo install expo-secure-store` (para tokens)
+* [X] `npx expo install @react-navigation/native @react-navigation/stack @react-navigation/bottom-tabs`
+* [X] `npx expo install react-native-screens react-native-safe-area-context`
+* [X] `npx expo install @supabase/supabase-js`
+* [X] `npx expo install nativewind tailwindcss`
+* [X] `npx expo install expo-image-picker expo-media-library`
+* [X] `npx expo install @react-native-async-storage/async-storage`
+* [X] `npx expo install react-native-svg` (para radar chart)
+* [X] `npx expo install lucide-react-native`
+* [X] `npx expo install expo-secure-store` (para tokens)
 
 ### Ticket 0.3: Configurar NativeWind / Tailwind
 
-* [ ] Crear `tailwind.config.js` con la paleta de colores del DESIGN.md
-* [ ] Crear `global.css` con los tokens de color
-* [ ] Configurar babel para NativeWind
-* [ ] Verificar que una pantalla usa clases de Tailwind correctamente
+* [X] Crear `tailwind.config.js` con la paleta de colores del DESIGN.md
+* [X] Crear `global.css` con los tokens de color
+* [X] Configurar babel para NativeWind
+* [X] Verificar que una pantalla usa clases de Tailwind correctamente
 
 ### Ticket 0.4: Crear estructura de carpetas
 
-* [ ] Crear `/src/screens`
-* [ ] Crear `/src/components`
-* [ ] Crear `/src/navigation`
-* [ ] Crear `/src/services`
-* [ ] Crear `/src/context`
-* [ ] Crear `/src/utils`
-* [ ] Crear `/src/constants` (colores, tipografía, etc.)
+* [X] Crear `/src/screens`
+* [X] Crear `/src/components`
+* [X] Crear `/src/navigation`
+* [X] Crear `/src/services`
+* [X] Crear `/src/context`
+* [X] Crear `/src/utils`
+* [X] Crear `/src/constants` (colores, tipografía, etc.)
 
 ### Ticket 0.5: Crear theme constants
 
-* [ ] Crear `src/constants/colors.js` con todos los tokens del DESIGN.md
-* [ ] Crear `src/constants/typography.js` con escalas tipográficas
-* [ ] Crear `src/constants/spacing.js` con sistema de espaciado
-* [ ] Crear `src/constants/radii.js` con border radius
+* [X] Crear `src/constants/colors.js` con todos los tokens del DESIGN.md
+* [X] Crear `src/constants/typography.js` con escalas tipográficas
+* [X] Crear `src/constants/spacing.js` con sistema de espaciado
+* [X] Crear `src/constants/radii.js` con border radius
 
 ---
 
