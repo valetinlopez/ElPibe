@@ -60,33 +60,33 @@
 
 ### Ticket 1.1: Configurar cliente Supabase
 
-* [ ] Crear `src/services/supabaseClient.js`
-* [ ] Configurar URL y anon key desde variables de entorno
-* [ ] Exportar cliente inicializado
+* [X] Crear `src/services/supabaseClient.js`
+* [X] Configurar URL y anon key desde variables de entorno
+* [X] Exportar cliente inicializado
 
 ### Ticket 1.2: Crear tablas en Supabase (SQL)
 
-* [ ] Script SQL para tabla `profiles` con todos los campos del ERS
-* [ ] Script SQL para tabla `player_stats`
-* [ ] Script SQL para tabla `player_attributes`
-* [ ] Script SQL para tabla `media_items`
-* [ ] Ejecutar en Supabase Dashboard
+* [X] Script SQL para tabla `profiles` con todos los campos del ERS
+* [X] Script SQL para tabla `player_stats`
+* [X] Script SQL para tabla `player_attributes`
+* [X] Script SQL para tabla `media_items`
+* [ ] Ejecutar en Supabase Dashboard (pendiente manual)
 
 ### Ticket 1.3: Configurar RLS en todas las tablas
 
-* [ ] Habilitar RLS en `profiles`
-* [ ] Habilitar RLS en `player_stats`
-* [ ] Habilitar RLS en `player_attributes`
-* [ ] Habilitar RLS en `media_items`
-* [ ] Crear políticas SELECT/INSERT/UPDATE/DELETE por usuario
-* [ ] Probar con dos cuentas de que no cruzan datos
+* [X] Habilitar RLS en `profiles`
+* [X] Habilitar RLS en `player_stats`
+* [X] Habilitar RLS en `player_attributes`
+* [X] Habilitar RLS en `media_items`
+* [X] Crear políticas SELECT/INSERT/UPDATE/DELETE por usuario
+* [ ] Probar con dos cuentas de que no cruzan datos (pendiente manual)
 
 ### Ticket 1.4: Configurar Storage buckets
 
-* [ ] Crear bucket `avatars` (privado)
-* [ ] Crear bucket `media` (privado)
-* [ ] Configurar políticas de acceso por usuario
-* [ ] Probar upload y generación de signed URLs
+* [X] Crear bucket `avatars` (privado) — SQL listo
+* [X] Crear bucket `media` (privado) — SQL listo
+* [X] Configurar políticas de acceso por usuario
+* [ ] Probar upload y generación de signed URLs (pendiente manual)
 
 ---
 
