@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#e1e2eb",
+                        "secondary-container": "#034d79",
+                        "secondary": "#97ccfe",
+                        "surface-container-low": "#191c22",
+                        "tertiary-container": "#cca830",
+                        "surface-bright": "#363940",
+                        "accent-blue-dim": "#1C3A66",
+                        "primary-fixed-dim": "#afc6ff",
+                        "on-tertiary-container": "#4f3e00",
+                        "accent-yellow-card": "#F2C94C",
+                        "on-tertiary": "#3c2f00",
+                        "tertiary-fixed": "#ffe088",
+                        "primary": "#afc6ff",
+                        "accent-blue-bright": "#4C8DFF",
+                        "on-error": "#690005",
+                        "border-default": "#343C4A",
+                        "accent-blue-metal": "#3A5A8C",
+                        "bg-surface-overlay": "#20262F",
+                        "outline": "#8c909f",
+                        "inverse-on-surface": "#2e3037",
+                        "bg-surface": "#12161F",
+                        "primary-container": "#2d6fe0",
+                        "on-secondary-fixed-variant": "#004a75",
+                        "secondary-fixed-dim": "#97ccfe",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-primary-fixed-variant": "#004299",
+                        "outline-variant": "#424753",
+                        "surface-container": "#1d2026",
+                        "on-secondary-container": "#88bdef",
+                        "surface-container-high": "#272a31",
+                        "on-surface-variant": "#c2c6d6",
+                        "surface-tint": "#afc6ff",
+                        "on-secondary": "#003353",
+                        "text-tertiary": "#6B7280",
+                        "surface": "#10131a",
+                        "on-primary-fixed": "#001944",
+                        "on-tertiary-fixed": "#241a00",
+                        "on-primary": "#002d6d",
+                        "tertiary": "#eac349",
+                        "surface-variant": "#32353c",
+                        "background": "#10131a",
+                        "surface-dim": "#10131a",
+                        "accent-green-success": "#3FB873",
+                        "tertiary-fixed-dim": "#e9c349",
+                        "on-secondary-fixed": "#001d32",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "secondary-fixed": "#cee5ff",
+                        "border-subtle": "#272E3A",
+                        "accent-red-card": "#E5484D",
+                        "text-primary": "#F4F5F7",
+                        "text-secondary": "#A8AFBD",
+                        "inverse-primary": "#0059c8",
+                        "surface-container-highest": "#32353c",
+                        "on-primary-container": "#fcfaff",
+                        "bg-surface-raised": "#1A1F2B",
+                        "primary-fixed": "#d9e2ff",
+                        "error": "#ffb4ab",
+                        "on-background": "#e1e2eb",
+                        "error-container": "#93000a",
+                        "on-surface": "#e1e2eb",
+                        "on-error-container": "#ffdad6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "space-3": "12px",
+                        "space-1": "4px",
+                        "space-6": "24px",
+                        "space-5": "20px",
+                        "space-8": "32px",
+                        "space-2": "8px",
+                        "space-10": "40px",
+                        "space-4": "16px",
+                        "space-12": "48px"
+                    },
+                    "fontFamily": {
+                        "heading-lg": ["Inter"],
+                        "heading-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "display-xl": ["anybody"],
+                        "display-lg": ["anybody"],
+                        "display-md": ["anybody"],
+                        "caption": ["Inter"],
+                        "button-text": ["Inter"],
+                        "dorsal-id": ["jetbrainsMono"],
+                        "body-md": ["Inter"],
+                        "bebas": ["Bebas Neue", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "heading-lg": ["20px", { "lineHeight": "26px", "fontWeight": "600" }],
+                        "heading-md": ["17px", { "lineHeight": "22px", "fontWeight": "600" }],
+                        "body-sm": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-lg": ["16px", { "lineHeight": "22px", "fontWeight": "400" }],
+                        "display-xl": ["40px", { "lineHeight": "44px", "letterSpacing": "0.5px", "fontWeight": "700" }],
+                        "display-lg": ["32px", { "lineHeight": "36px", "letterSpacing": "0.5px", "fontWeight": "700" }],
+                        "display-md": ["24px", { "lineHeight": "28px", "letterSpacing": "0.5px", "fontWeight": "700" }],
+                        "caption": ["11px", { "lineHeight": "14px", "fontWeight": "500" }],
+                        "button-text": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "dorsal-id": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            overflow-x: hidden;
+        }
+        .potrero-texture {
+            background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.03) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+        .metallic-glow {
+            box-shadow: 0 0 20px rgba(45, 111, 224, 0.25);
+        }
+        .stadium-light {
+            background: radial-gradient(60% 40% at 50% 0%, rgba(45, 111, 224, 0.15) 0%, rgba(11, 14, 20, 0) 100%);
+        }
+        .form-input-focus:focus-within {
+            border-color: #afc6ff;
+            box-shadow: 0 0 0 1px #afc6ff;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md min-h-screen flex flex-col items-center justify-start potrero-texture">
+<!-- Top AppBar (Back Navigation) -->
+<header class="fixed top-0 w-full z-50 flex items-center justify-between px-space-4 h-16 bg-background/80 backdrop-blur-md">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-variant/20 transition-colors" onclick="window.history.back()">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<span class="text-display-md font-display-md text-primary tracking-tighter italic">EL PIBE</span>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<!-- Main Content Shell -->
+<main class="w-full max-w-md px-space-6 pt-space-12 pb-space-10 mt-16 flex flex-col items-center">
+<!-- Header Section -->
+<div class="w-full text-left mb-space-8 stadium-light pt-space-4">
+<h1 class="font-bebas text-6xl text-text-primary tracking-tight leading-none mb-space-2">
+                CREÁ TU FICHA
+            </h1>
+<p class="text-text-secondary text-body-lg">
+                Completá tus datos para saltar a la cancha.
+            </p>
+</div>
+<!-- Registration Form -->
+<form class="w-full space-y-space-6" id="registrationForm">
+<!-- Step Indicators (Visual Only) -->
+<div class="flex gap-space-2 mb-space-4">
+<div class="h-1.5 flex-1 rounded-full bg-primary-container"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-variant"></div>
+<div class="h-1.5 flex-1 rounded-full bg-surface-variant"></div>
+</div>
+<!-- Fields Grid -->
+<div class="space-y-space-4">
+<!-- Name Field -->
+<div class="group">
+<label class="block text-body-sm font-medium text-text-secondary mb-space-1 ml-space-1">Nombre Completo (como en el dorsal)</label>
+<div class="relative bg-bg-surface-overlay border border-border-subtle rounded-xl flex items-center transition-all duration-200 form-input-focus px-space-4 h-[56px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-space-3">person</span>
+<input class="bg-transparent border-none focus:ring-0 text-text-primary placeholder:text-outline/50 w-full text-body-lg" placeholder="Ej: Diego Armando" type="text"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="group">
+<label class="block text-body-sm font-medium text-text-secondary mb-space-1 ml-space-1">Tu Correo Electrónico</label>
+<div class="relative bg-bg-surface-overlay border border-border-subtle rounded-xl flex items-center transition-all duration-200 form-input-focus px-space-4 h-[56px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-space-3">mail</span>
+<input class="bg-transparent border-none focus:ring-0 text-text-primary placeholder:text-outline/50 w-full text-body-lg" placeholder="vos@elpibe.com" type="email"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="group">
+<label class="block text-body-sm font-medium text-text-secondary mb-space-1 ml-space-1">Contraseña Segura</label>
+<div class="relative bg-bg-surface-overlay border border-border-subtle rounded-xl flex items-center transition-all duration-200 form-input-focus px-space-4 h-[56px]">
+<span class="material-symbols-outlined text-on-surface-variant mr-space-3">lock</span>
+<input class="bg-transparent border-none focus:ring-0 text-text-primary placeholder:text-outline/50 w-full text-body-lg" placeholder="••••••••" type="password"/>
+</div>
+</div>
+</div>
+<!-- T&C Checkbox -->
+<div class="flex items-start gap-space-3 px-space-1 py-space-2">
+<div class="relative flex items-center h-5">
+<input class="w-5 h-5 rounded border-border-default bg-surface-container-high text-primary-container focus:ring-primary-container/50" id="terms" type="checkbox"/>
+</div>
+<label class="text-body-sm text-text-secondary leading-snug" for="terms">
+                    Acepto los <span class="text-primary underline cursor-pointer">términos de juego</span> y la política de privacidad del club.
+                </label>
+</div>
+<!-- Primary CTA Button -->
+<div class="pt-space-4">
+<button class="w-full h-[56px] rounded-full bg-primary-container metallic-glow flex items-center justify-center gap-space-2 hover:bg-accent-blue-bright transition-all duration-300 group active:scale-[0.98]" type="submit">
+<span class="text-button-text font-bold text-white uppercase tracking-wider">EMPEZAR MI CARRERA</span>
+<span class="material-symbols-outlined text-white group-hover:translate-x-1 transition-transform">bolt</span>
+</button>
+</div>
+</form>
+<!-- Visual Anchor / Footer Image -->
+<div class="mt-space-12 w-full aspect-video rounded-2xl overflow-hidden border border-border-subtle relative group">
+<img alt="Potrero background" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" data-alt="A cinematic, low-angle shot of a classic Buenos Aires asphalt football court at night, illuminated by harsh overhead stadium floodlights that create long dramatic shadows and high-contrast highlights. The ground shows gritty urban textures like worn concrete and painted white lines. The color palette is dominated by deep midnight blues and metallic electric blues, reflecting a raw street-football aesthetic that is both epic and authentic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_k_2N2IoIww6DY1HHx1O6o-kOEsi0h6qel8PYxa3uNo46RGiHi1gWy3vm4PF1uUCe6f-FC__X2XJeW29-HQjb_70jPEJ7shjsyg-RP28H-UWUJCQZU9hq917hZfwaxnTo8XAXwBVL1uOQMfpTir8g84qaVRdaUQ61rk0l56ml7ffVkRxoyTmf9XfkZ-zpnxc8dTIYoorQkzF151zmZJ4rZ-TXwCCly6ZIbrVDvZvfeKQV4pOmdRSuJmtcyN-B_Yofam2oTKaq1b4"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+<div class="absolute bottom-space-4 left-space-4">
+<p class="font-dorsal-id text-primary text-xs tracking-widest uppercase">Buenos Aires • Est. 2024</p>
+</div>
+</div>
+<!-- Secondary Navigation -->
+<div class="mt-space-8 text-center">
+<p class="text-text-secondary text-body-md">
+                ¿Ya sos parte del equipo? <a class="text-primary font-bold hover:underline" href="#">Iniciá sesión acá</a>
+</p>
+</div>
+</main>
+<!-- Decorative Corner Element -->
+<div class="fixed bottom-0 right-0 p-space-4 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-9xl">sports_soccer</span>
+</div>
+<script>
+        // Simple form interaction logic
+        document.getElementById('registrationForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin">refresh</span> <span class="uppercase font-bold tracking-wider">PREPARANDO FICHA...</span>`;
+            
+            setTimeout(() => {
+                btn.classList.replace('bg-primary-container', 'bg-accent-green-success');
+                btn.innerHTML = `<span class="material-symbols-outlined">check_circle</span> <span class="uppercase font-bold tracking-wider">¡LISTO PARA EL DEBUT!</span>`;
+                
+                // Add a little celebration glow
+                btn.style.boxShadow = '0 0 25px rgba(63, 184, 115, 0.4)';
+            }, 1500);
+        });
+
+        // Background subtle parallax or mouse follow could go here for "Premium" feel
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const stadiumLight = document.querySelector('.stadium-light');
+            if(stadiumLight) {
+                stadiumLight.style.background = `radial-gradient(60% 40% at ${50 + (x-0.5)*10}% ${0 + (y-0.5)*5}%, rgba(45, 111, 224, 0.15) 0%, rgba(11, 14, 20, 0) 100%)`;
+            }
+        });
+    </script>
+</body></html>

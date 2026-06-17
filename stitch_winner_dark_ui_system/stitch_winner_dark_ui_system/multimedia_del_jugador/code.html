@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@400;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            background-color: #0b0e14;
+            color: #e1e2eb;
+            -webkit-font-smoothing: antialiased;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .video-gradient {
+            background: linear-gradient(0deg, rgba(11, 14, 20, 0.8) 0%, rgba(11, 14, 20, 0) 50%);
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            background: rgba(16, 19, 26, 0.8);
+        }
+        .metallic-glow {
+            box-shadow: 0 0 20px rgba(45, 111, 224, 0.15);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-secondary-fixed": "#001d32",
+                      "inverse-on-surface": "#2e3037",
+                      "on-tertiary-fixed": "#241a00",
+                      "tertiary": "#eac349",
+                      "error": "#ffb4ab",
+                      "surface-container-highest": "#32353c",
+                      "on-secondary-container": "#88bdef",
+                      "tertiary-fixed": "#ffe088",
+                      "inverse-primary": "#0059c8",
+                      "surface-container-high": "#272a31",
+                      "on-error-container": "#ffdad6",
+                      "secondary": "#97ccfe",
+                      "surface-bright": "#363940",
+                      "on-background": "#e1e2eb",
+                      "background": "#10131a",
+                      "surface-dim": "#10131a",
+                      "primary-fixed-dim": "#afc6ff",
+                      "surface-variant": "#32353c",
+                      "tertiary-fixed-dim": "#e9c349",
+                      "outline-variant": "#424753",
+                      "surface-container-lowest": "#0b0e14",
+                      "on-primary-fixed": "#001944",
+                      "tertiary-container": "#cca830",
+                      "outline": "#8c909f",
+                      "text-secondary": "#A8AFBD",
+                      "accent-blue-dim": "#1C3A66",
+                      "accent-green-success": "#3FB873",
+                      "on-tertiary": "#3c2f00",
+                      "on-tertiary-container": "#4f3e00",
+                      "bg-surface": "#12161F",
+                      "accent-red-card": "#E5484D",
+                      "secondary-container": "#034d79",
+                      "surface-container": "#1d2026",
+                      "surface-container-low": "#191c22",
+                      "on-error": "#690005",
+                      "on-primary": "#002d6d",
+                      "on-secondary-fixed-variant": "#004a75",
+                      "secondary-fixed-dim": "#97ccfe",
+                      "primary": "#afc6ff",
+                      "on-secondary": "#003353",
+                      "error-container": "#93000a",
+                      "surface": "#10131a",
+                      "bg-surface-overlay": "#20262F",
+                      "on-primary-container": "#fcfaff",
+                      "text-primary": "#F4F5F7",
+                      "primary-container": "#2d6fe0",
+                      "accent-yellow-card": "#F2C94C",
+                      "border-default": "#343C4A",
+                      "on-tertiary-fixed-variant": "#574500",
+                      "secondary-fixed": "#cee5ff",
+                      "surface-tint": "#afc6ff",
+                      "on-surface-variant": "#c2c6d6",
+                      "bg-surface-raised": "#1A1F2B",
+                      "border-subtle": "#272E3A",
+                      "accent-blue-metal": "#3A5A8C",
+                      "on-primary-fixed-variant": "#004299",
+                      "accent-blue-bright": "#4C8DFF",
+                      "text-tertiary": "#6B7280",
+                      "primary-fixed": "#d9e2ff",
+                      "inverse-surface": "#e1e2eb",
+                      "on-surface": "#e1e2eb"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "space-6": "24px",
+                      "space-1": "4px",
+                      "space-3": "12px",
+                      "space-2": "8px",
+                      "space-12": "48px",
+                      "space-5": "20px",
+                      "space-4": "16px",
+                      "space-10": "40px",
+                      "space-8": "32px"
+              },
+              "fontFamily": {
+                      "display-md": ["anybody"],
+                      "body-md": ["Inter"],
+                      "display-xl": ["anybody"],
+                      "dorsal-id": ["jetbrainsMono"],
+                      "heading-md": ["Inter"],
+                      "button-text": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "display-lg": ["anybody"],
+                      "heading-lg": ["Inter"],
+                      "caption": ["Inter"]
+              },
+              "fontSize": {
+                      "display-md": ["24px", {"lineHeight": "28px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-xl": ["40px", {"lineHeight": "44px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "dorsal-id": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "heading-md": ["17px", {"lineHeight": "22px", "fontWeight": "600"}],
+                      "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                      "body-lg": ["16px", {"lineHeight": "22px", "fontWeight": "400"}],
+                      "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                      "display-lg": ["32px", {"lineHeight": "36px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                      "heading-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                      "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md bg-surface-container-lowest min-h-screen">
+<!-- Top AppBar (from JSON context) -->
+<header class="fixed top-0 w-full z-50 bg-background border-b border-border-subtle h-16 flex justify-between items-center px-space-4 py-space-3 glass-header">
+<div class="flex items-center gap-space-3">
+<span class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity cursor-pointer">menu</span>
+<h1 class="font-display-md text-display-md text-primary tracking-tighter uppercase">ELPIBE</h1>
+</div>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden hover:opacity-80 transition-opacity cursor-pointer">
+<img alt="Jugador de fútbol" data-alt="A close-up portrait of a determined young Argentine football player with intense eyes, sweat on his forehead, and a classic blue and white jersey. The lighting is dramatic and moody, simulating a stadium floodlight at night, with cool blue tones and deep shadows that highlight the athletic texture and gritty street-football aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqXL4101j2x6QGw7ZARVkf_iaEZ_jjUolfwHznIcPjZHEwLeg_U67ghlb-MCdeltHicSu4beAYjSHmSN4DmAm6-9Pjg7gfxKM9PZrOPnX7HVLto-jO_LctELJWXXdSK601KOo733bjK9Dnrn2iXJRpeHggubrYxNT4Riy8pdsFyMg-gGbe__oVVTr5TdosG9CxQ6iATECXj77ekqvd9oSowScjI_w96L8arodOn4xymrt5LV7vxnrDevxfd58H1EbujdzaVgGLazM"/>
+</div>
+</header>
+<main class="pt-20 pb-32 px-space-3 max-w-2xl mx-auto">
+<!-- Header Section -->
+<div class="mb-space-6 flex justify-between items-end">
+<div>
+<h2 class="font-display-md text-display-md text-primary uppercase">MEDIA</h2>
+<p class="font-body-sm text-text-secondary">Tus mejores jugadas en el potrero</p>
+</div>
+<div class="flex gap-space-2">
+<button class="bg-surface-container-high p-space-2 rounded-lg border border-border-subtle">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Media Grid -->
+<div class="grid grid-cols-2 gap-space-2">
+<!-- Video Thumbnail 1 -->
+<div class="aspect-[9/16] relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high group cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" data-alt="A vertical cinematic shot of a football match under powerful stadium lights at night. The focus is on a player mid-air attempting a bicycle kick, with vibrant green grass and blurred fans in the dark background. The scene is captured in high contrast with deep blacks and bright metallic blue highlights on the player's jersey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvo70SCnkFJ_kt1dp7oQ1NYK-lMHhQIdIlXBPzJE61zJlbP4JUFt5Xr-m3dn9tAuc88dQ3cBXcwntJDLAUdRJEk2Aq8TXwXrUvVWWeFL8hF7UA_YCUkp3fn3mCUt2S_2GXMdG9pYpVJToW1W4mexlFlj98COVPtYtA9HHAmmiLG14bSeK7qJF1peVCmc5ELd-bTYWE06wke6IgTiovfF1grAx_0LvrTlDJB_liFYMKza63Ce-LL_kSpksbBmUgpNPcyGcpPyxDiAo"/>
+<div class="absolute inset-0 video-gradient flex flex-col justify-end p-space-3">
+<div class="flex items-center gap-space-1 text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-caption">0:15</span>
+</div>
+</div>
+</div>
+<!-- Video Thumbnail 2 -->
+<div class="aspect-[9/16] relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high group cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" data-alt="A gritty urban football scene at dusk in Buenos Aires, featuring a concrete pitch with graffiti-covered walls. A young player is seen dribbling a ball with intense focus, illuminated by a nearby street lamp that casts a warm glow against the cool, dark blue evening sky. The style is raw and authentic, echoing a minimalist sports aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCA719AL7HYAbDw8EpdJxrUnSdIrmt4VRqyccUbUZwmAuGVEf9qLOg44ktn3qnw4Ln9EmE8-pofNrwuhTJWn0sjklW3Gou880m7mKBc9b_0_CT8nT2TUsroVVL-MhN1eEuCk2JPMuTOl_MhcLsNNlGRlkvnsH7jYVk5wzUMMUQEQO08Cu91UXJD_qGuyg_oycPKR_T9pISWbVIOkuBit3eYb_NhdObK6hoEc9Z1BK0wAio2OzA6afbyIdkLBSUtyDqD20_MY8z8WZ8"/>
+<div class="absolute inset-0 video-gradient flex flex-col justify-end p-space-3">
+<div class="flex items-center gap-space-1 text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-caption">0:08</span>
+</div>
+</div>
+</div>
+<!-- Photo Thumbnail 1 -->
+<div class="aspect-square relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[30%]" data-alt="A high-quality action shot of football boots kicking a ball on a wet, dark asphalt pitch. Water droplets are captured in mid-air, glistening under sharp stadium lighting. The color palette is dominated by deep navy, charcoal, and electric blue accents, creating a high-contrast, modern athletic atmosphere that feels intense and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQxkORC7HJz1HEe9m4Ra_TnoNqEZqIXDrxcQarAQq3ZRBI_l9NZ4YJfMN2tJCGMx5jSH2VhkfDjM_Qu1Eo9oU1JEXkw_LL6XosbMQkZWfHjuCTLMp8h7fxmItH34sgCwU8PDmCQ3YE7hk80ozX7E86PprU466fXkbDjxsG_GaPs2svScm_2EpjtmaB9SfV9aFuXQj6d1Xj-zVjwUDLUHfTgkmh7BMVwrJWbAHj0M8XzSYVw34c6onXu5LveqPEqjUI6IAcrfRYV0s"/>
+</div>
+<!-- Photo Thumbnail 2 -->
+<div class="aspect-square relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[30%]" data-alt="A minimalist architectural shot of a sports stadium's metallic structure against a dark, starry night sky. The geometry of the beams creates rhythmic patterns, highlighted by a subtle blue glow that mimics cold floodlighting. The mood is epic and legendary, fitting for a top-tier athletic brand focused on performance and street culture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4nuSymDjewoMvlKuxdxcwKsB_OKECb7rOBItFXtnZ_kdUD_nX7JbGwMi9BqArPT5dXB97Wzt4uj1afleQ5z3_y9tn7igZTDou9HfUAhLEcc0b3vz-6kwkgCYMjqwUbniG-hhv9Wo7Ydo8Um_At4hldLxQnsC_uo8lwYo_9aH-ztBkmQfRABRX3apJXRW2fiIxkv8DABr3KnQfSfDefEtE-9AEEiupFtMs1okBSePnTskSxMZFITNRwtWo8DcU4KpOgB9zIfoTQcs"/>
+</div>
+<!-- Video Thumbnail 3 -->
+<div class="aspect-[9/16] relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high group cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" data-alt="A dynamic vertical video frame of a player celebrating a goal in the rain. The player's arms are outstretched, and the rain is illuminated by neon blue lights from the background. The aesthetic is dark, moody, and powerful, using a metallic color palette and sharp contrast to emphasize the drama and raw emotion of the moment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5GdnU--56bLS-5bQZ8jqhhOLpS4-LJYs4TIIf8l3c49Jt8mxZJ6Sn6E_jZDYOGTyHv47vvHctbFIhqp0q472iFGV5SNH7zZ5vnCkZX6f5tgZCKBooSSvX6NsDzprDGxDFphLynHcZTNfndl3RtUMd1rXMWRnEhTdGp9QsDmehOlAPW2ZvhiuRDy5ep5YLDGndQYrcyfSADkKWhDVjV591jbutdFbU02Ea05f2-ainIVglUWxrWqt2Jfmu_N6skdyTF8KQu2KGY8w"/>
+<div class="absolute inset-0 video-gradient flex flex-col justify-end p-space-3">
+<div class="flex items-center gap-space-1 text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-caption">0:21</span>
+</div>
+</div>
+</div>
+<!-- Video Thumbnail 4 -->
+<div class="aspect-[9/16] relative rounded-xl overflow-hidden border border-border-subtle bg-surface-container-high group cursor-pointer active:scale-95 transition-transform">
+<img class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500" data-alt="A close-up vertical shot focusing on the intricate footwork of a football player on a dark, textured street surface. The lighting is low-key, highlighting the texture of the asphalt and the vibrant blue stripes of the player's trainers. The image conveys speed and technical skill in a minimalist, urban environment with a high-contrast dark mode finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVcxVHyt4Q5HWkLAfMjUHz_Ph09Y_yKOtkovH6hXtcnS84mvPhvwCXB1QAcnD1o5xBrPlfPPUJ8QnddJ_lOTwSvSlvRTZWA0KYYGWPZliHYBkRLoc2JxbWN4GZn1WRr-evnaZippqupTAIQ8XqR-hgIBQMVrkBqM1GfLVdgQI8--Ve66oKCM7al2fqljvGrl6fNuWF6LbCkGTEDMma_mFh8fWMONHO0dxvzEZHj5WK4ImZZ2b73SQznK641s8tjnsKBhNgHP7CY_U"/>
+<div class="absolute inset-0 video-gradient flex flex-col justify-end p-space-3">
+<div class="flex items-center gap-space-1 text-on-primary-container">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+<span class="font-caption">0:12</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button -->
+<button class="fixed right-space-4 bottom-24 w-14 h-14 bg-accent-blue-bright rounded-full flex items-center justify-center text-on-primary shadow-lg metallic-glow hover:scale-105 active:scale-90 transition-transform z-40">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+<span class="sr-only">SUBIR JUGADA</span>
+</button>
+<!-- Bottom Navigation Bar (from JSON context) -->
+<nav class="fixed bottom-0 w-full z-50 h-16 bg-surface-container border-t border-border-subtle shadow-[0_-4px_12px_rgba(45,111,224,0.15)] flex justify-around items-center px-space-2 pb-safe">
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-button-text text-caption uppercase">PERFIL</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-button-text text-caption uppercase">STATS</span>
+</a>
+<!-- ACTIVE TAB: MEDIA -->
+<a class="flex flex-col items-center justify-center text-accent-blue-bright font-bold border-t-2 border-accent-blue-bright pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">movie</span>
+<span class="font-button-text text-caption uppercase">MEDIA</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-button-text text-caption uppercase">AJUSTES</span>
+</a>
+</nav>
+<script>
+        // Micro-interactions for FAB
+        const fab = document.querySelector('button.bg-accent-blue-bright');
+        fab.addEventListener('click', () => {
+            // Future interaction: Open camera or gallery picker
+            console.log('Opening upload menu...');
+        });
+
+        // Simple scroll observer for header glass effect
+        const header = document.querySelector('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 10) {
+                header.classList.add('shadow-md');
+            } else {
+                header.classList.remove('shadow-md');
+            }
+        });
+    </script>
+</body></html>

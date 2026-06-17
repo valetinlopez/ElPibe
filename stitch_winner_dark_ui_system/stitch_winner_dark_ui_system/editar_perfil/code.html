@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Editar Perfil | ELPIBE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Anybody:wght@700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed": "#241a00",
+                    "inverse-surface": "#e1e2eb",
+                    "surface-bright": "#363940",
+                    "bg-surface-raised": "#1A1F2B",
+                    "text-primary": "#F4F5F7",
+                    "surface-container-high": "#272a31",
+                    "tertiary": "#eac349",
+                    "accent-yellow-card": "#F2C94C",
+                    "surface-dim": "#10131a",
+                    "on-primary-fixed-variant": "#004299",
+                    "error-container": "#93000a",
+                    "surface-container-lowest": "#0b0e14",
+                    "on-surface": "#e1e2eb",
+                    "on-secondary-fixed-variant": "#004a75",
+                    "on-tertiary-fixed-variant": "#574500",
+                    "on-tertiary": "#3c2f00",
+                    "on-error": "#690005",
+                    "bg-surface": "#12161F",
+                    "text-secondary": "#A8AFBD",
+                    "surface-container": "#1d2026",
+                    "on-tertiary-container": "#4f3e00",
+                    "on-background": "#e1e2eb",
+                    "tertiary-fixed-dim": "#e9c349",
+                    "primary": "#afc6ff",
+                    "on-primary-fixed": "#001944",
+                    "surface-variant": "#32353c",
+                    "primary-fixed": "#d9e2ff",
+                    "accent-blue-bright": "#4C8DFF",
+                    "bg-surface-overlay": "#20262F",
+                    "on-secondary-container": "#88bdef",
+                    "on-primary": "#002d6d",
+                    "on-secondary": "#003353",
+                    "tertiary-container": "#cca830",
+                    "on-primary-container": "#fcfaff",
+                    "surface-container-highest": "#32353c",
+                    "secondary-fixed": "#cee5ff",
+                    "outline": "#8c909f",
+                    "text-tertiary": "#6B7280",
+                    "surface": "#10131a",
+                    "secondary-container": "#034d79",
+                    "on-error-container": "#ffdad6",
+                    "outline-variant": "#424753",
+                    "border-default": "#343C4A",
+                    "accent-red-card": "#E5484D",
+                    "tertiary-fixed": "#ffe088",
+                    "secondary-fixed-dim": "#97ccfe",
+                    "inverse-on-surface": "#2e3037",
+                    "border-subtle": "#272E3A",
+                    "surface-tint": "#afc6ff",
+                    "error": "#ffb4ab",
+                    "accent-green-success": "#3FB873",
+                    "background": "#10131a",
+                    "accent-blue-dim": "#1C3A66",
+                    "secondary": "#97ccfe",
+                    "on-surface-variant": "#c2c6d6",
+                    "primary-fixed-dim": "#afc6ff",
+                    "accent-blue-metal": "#3A5A8C",
+                    "inverse-primary": "#0059c8",
+                    "surface-container-low": "#191c22",
+                    "on-secondary-fixed": "#001d32",
+                    "primary-container": "#2d6fe0"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "space-4": "16px",
+                    "space-5": "20px",
+                    "space-1": "4px",
+                    "space-2": "8px",
+                    "space-6": "24px",
+                    "space-3": "12px",
+                    "space-12": "48px",
+                    "space-8": "32px",
+                    "space-10": "40px"
+            },
+            "fontFamily": {
+                    "heading-md": ["Inter"],
+                    "dorsal-id": ["JetBrains Mono"],
+                    "body-sm": ["Inter"],
+                    "display-lg": ["Anybody"],
+                    "caption": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-xl": ["Anybody"],
+                    "heading-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "button-text": ["Inter"],
+                    "display-md": ["Anybody"]
+            },
+            "fontSize": {
+                    "heading-md": ["17px", {"lineHeight": "22px", "fontWeight": "600"}],
+                    "dorsal-id": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "36px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                    "caption": ["11px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "body-lg": ["16px", {"lineHeight": "22px", "fontWeight": "400"}],
+                    "display-xl": ["40px", {"lineHeight": "44px", "letterSpacing": "0.5px", "fontWeight": "700"}],
+                    "heading-lg": ["20px", {"lineHeight": "26px", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "button-text": ["15px", {"lineHeight": "20px", "fontWeight": "600"}],
+                    "display-md": ["24px", {"lineHeight": "28px", "letterSpacing": "0.5px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #10131a; /* Explicit dark background */
+            -webkit-font-smoothing: antialiased;
+        }
+        .metallic-glow {
+            box-shadow: 0 0 20px rgba(45, 111, 224, 0.2);
+        }
+        .glass-header {
+            background: rgba(16, 19, 26, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #4C8DFF !important;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface pb-32">
+<!-- Top AppBar (JSON Driven Design) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-space-4 py-space-3 h-16 glass-header border-b border-border-subtle">
+<button class="active:scale-95 transition-transform text-primary">
+<span class="material-symbols-outlined text-[28px]">arrow_back</span>
+</button>
+<h1 class="font-display-md text-display-md text-primary tracking-tighter uppercase">EDITAR PERFIL</h1>
+<div class="w-10"></div> <!-- Spacer for centering -->
+</header>
+<main class="mt-20 px-space-4 max-w-lg mx-auto">
+<!-- Hero Profile Section -->
+<div class="relative flex flex-col items-center mb-space-8 py-space-4">
+<div class="relative">
+<div class="w-32 h-32 rounded-full overflow-hidden border-2 border-accent-blue-bright metallic-glow">
+<img alt="Avatar de Mateo" class="w-full h-full object-cover" data-alt="A close-up portrait of a young Argentinian football player with intense eyes and a determined expression. He wears a professional athletic jersey in deep blue colors. The lighting is dramatic, high-contrast, mimicking a stadium floodlight at night, creating sharp highlights on his face and shoulders against a dark, moody background. The overall aesthetic is gritty, athletic, and high-end cinematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNiY_5zHbUOd0Pg-q_Zjyl2mOrwxE2uN_-Q67XQkQEntOmkU5DipAfkfV3Q_4DuSHavkhEC4gbhNElXq6Fvc6Oe3mQhlmBjZMjSEY8PKecAY6PXNrSDqygBndYaeXLisFB71ZiaJ2qxTKI5D-o24qDx5OXb4Z8KCFfC_H41hGnKCAnSKLUoWPV2Xg8ZX2gbbMXHtY845jLqtZruce3tpG7UQdylDd--9mLM-Ck2tFzy8L_5V6CwhmDALksFPnWV6W2Fu7K5b4TR2Y"/>
+</div>
+<!-- Edit Icon Overlay -->
+<button class="absolute bottom-0 right-0 w-10 h-10 bg-primary-container rounded-full flex items-center justify-center border-2 border-background shadow-lg active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-primary-container text-[20px]" data-weight="fill">camera_alt</span>
+</button>
+</div>
+<p class="mt-space-3 font-caption text-caption text-accent-blue-bright uppercase tracking-widest">Foto de Cancha</p>
+</div>
+<!-- Form Sections -->
+<form class="space-y-space-6">
+<!-- Full Name -->
+<div class="space-y-space-1">
+<label class="block font-body-sm text-body-sm text-text-secondary ml-1" for="name">Tu nombre de crack</label>
+<div class="relative">
+<input class="w-full h-[52px] bg-bg-surface-overlay border border-border-subtle rounded-lg px-4 text-text-primary font-heading-md transition-all" id="name" type="text" value="Mateo 'El 10' Ferreyra"/>
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-text-tertiary text-sm">edit</span>
+</div>
+</div>
+<!-- Bio -->
+<div class="space-y-space-1">
+<label class="block font-body-sm text-body-sm text-text-secondary ml-1" for="bio">Sobre vos (Bio)</label>
+<textarea class="w-full bg-bg-surface-overlay border border-border-subtle rounded-lg p-4 text-text-primary font-body-md transition-all resize-none" id="bio" rows="3">Si querés jugar, jugá en serio...</textarea>
+</div>
+<!-- Club & Category (2-Column Grid) -->
+<div class="grid grid-cols-2 gap-space-4">
+<div class="space-y-space-1">
+<label class="block font-body-sm text-body-sm text-text-secondary ml-1" for="club">Club actual</label>
+<input class="w-full h-[52px] bg-bg-surface-overlay border border-border-subtle rounded-lg px-4 text-text-primary font-body-md" id="club" type="text" value="Fuerte Apache FC"/>
+</div>
+<div class="space-y-space-1">
+<label class="block font-body-sm text-body-sm text-text-secondary ml-1" for="category">Categoría</label>
+<input class="w-full h-[52px] bg-bg-surface-overlay border border-border-subtle rounded-lg px-4 text-text-primary font-body-md" id="category" type="text" value="U-21 Elite Local"/>
+</div>
+</div>
+<!-- Preferred Position -->
+<div class="space-y-space-1">
+<label class="block font-body-sm text-body-sm text-text-secondary ml-1" for="position">Posición preferida</label>
+<div class="flex flex-wrap gap-space-2 pt-1">
+<button class="px-space-4 py-2 rounded-full border border-accent-blue-bright bg-accent-blue-dim text-accent-blue-bright font-button-text text-caption uppercase" type="button">Enganche</button>
+<button class="px-space-4 py-2 rounded-full border border-border-subtle bg-bg-surface text-text-secondary font-button-text text-caption uppercase" type="button">Delantero</button>
+<button class="px-space-4 py-2 rounded-full border border-border-subtle bg-bg-surface text-text-secondary font-button-text text-caption uppercase" type="button">Extremo</button>
+</div>
+</div>
+<!-- Account Details / Street Cred Section -->
+<div class="mt-12 p-space-4 bg-bg-surface-raised border border-border-subtle rounded-xl">
+<h3 class="font-heading-md text-text-primary mb-space-3 uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-yellow-card">verified</span>
+                    Identidad Potrera
+                </h3>
+<div class="flex justify-between items-center py-2 border-b border-border-subtle/50">
+<span class="text-text-secondary font-body-sm">ID de Jugador</span>
+<span class="font-dorsal-id text-accent-blue-bright">#10-FERREYRA-2024</span>
+</div>
+<div class="flex justify-between items-center py-2">
+<span class="text-text-secondary font-body-sm">Estatus</span>
+<span class="text-accent-green-success font-button-text text-[12px] uppercase bg-accent-green-success/10 px-2 py-0.5 rounded">Titular</span>
+</div>
+</div>
+</form>
+<!-- Primary CTA -->
+<div class="mt-space-12 pb-space-8">
+<button class="w-full h-[52px] bg-primary-container text-on-primary-container font-button-text uppercase rounded-full metallic-glow active:scale-95 transition-transform flex items-center justify-center gap-2">
+                GUARDAR CAMBIOS
+                <span class="material-symbols-outlined text-[20px]">check_circle</span>
+</button>
+</div>
+</main>
+<!-- Bottom Navigation Bar (JSON Execution) -->
+<!-- active: PERFIL (as this is the profile management screen) -->
+<nav class="fixed bottom-0 w-full z-50 h-16 flex justify-around items-center px-space-2 pb-safe bg-surface-container border-t border-border-subtle shadow-[0_-4px_12px_rgba(45,111,224,0.15)]">
+<a class="flex flex-col items-center justify-center text-accent-blue-bright font-bold border-t-2 border-accent-blue-bright pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" data-weight="fill">person</span>
+<span class="font-button-text text-caption uppercase">PERFIL</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">leaderboard</span>
+<span class="font-button-text text-caption uppercase">STATS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">movie</span>
+<span class="font-button-text text-caption uppercase">MEDIA</span>
+</a>
+<a class="flex flex-col items-center justify-center text-text-secondary pt-1 hover:bg-surface-bright transition-colors active:scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-button-text text-caption uppercase">AJUSTES</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for the position buttons
+        document.querySelectorAll('button[type="button"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const parent = btn.parentElement;
+                parent.querySelectorAll('button').forEach(b => {
+                    b.classList.remove('border-accent-blue-bright', 'bg-accent-blue-dim', 'text-accent-blue-bright');
+                    b.classList.add('border-border-subtle', 'bg-bg-surface', 'text-text-secondary');
+                });
+                btn.classList.add('border-accent-blue-bright', 'bg-accent-blue-dim', 'text-accent-blue-bright');
+                btn.classList.remove('border-border-subtle', 'bg-bg-surface', 'text-text-secondary');
+            });
+        });
+
+        // Form submission effect
+        const saveBtn = document.querySelector('button.bg-primary-container');
+        saveBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">refresh</span> Guardando...';
+            setTimeout(() => {
+                saveBtn.innerHTML = 'CAMBIOS GUARDADOS <span class="material-symbols-outlined">done_all</span>';
+                saveBtn.classList.replace('bg-primary-container', 'bg-accent-green-success');
+            }, 1200);
+        });
+    </script>
+</body></html>
