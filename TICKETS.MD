@@ -328,40 +328,40 @@
 
 ### Ticket 6.1: Onboarding Wizard — Paso 1 (Datos Personales)
 
-* [ ] Crear `src/screens/onboarding/OnboardingStep1.js`
-* [ ] Progress bar indicando paso 1 de 3
-* [ ] Input: nombre completo
-* [ ] Input: edad
-* [ ] Input: ciudad
-* [ ] Input: nacionalidad
-* [ ] Botón "SIGUIENTE" sticky abajo
+* [X] Crear `src/screens/onboarding/OnboardingStep1.js`
+* [X] Progress bar indicando paso 1 de 3
+* [X] Input: nombre completo
+* [X] Input: edad
+* [X] Input: ciudad
+* [X] Input: nacionalidad
+* [X] Botón "SIGUIENTE" sticky abajo
 
 ### Ticket 6.2: Onboarding Wizard — Paso 2 (Datos Físicos)
 
-* [ ] Crear `src/screens/onboarding/OnboardingStep2.js`
-* [ ] Progress bar paso 2 de 3
-* [ ] Input: altura (cm)
-* [ ] Input: peso (kg)
-* [ ] Selector: pierna hábil (izquierda / derecha / ambidiestro)
-* [ ] Botones "ATRÁS" y "SIGUIENTE"
+* [X] Crear `src/screens/onboarding/OnboardingStep2.js`
+* [X] Progress bar paso 2 de 3
+* [X] Input: altura (cm)
+* [X] Input: peso (kg)
+* [X] Selector: pierna hábil (izquierda / derecha / ambidiestro)
+* [X] Botones "ATRÁS" y "SIGUIENTE"
 
 ### Ticket 6.3: Onboarding Wizard — Paso 3 (Datos Deportivos)
 
-* [ ] Crear `src/screens/onboarding/OnboardingStep3.js`
-* [ ] Progress bar paso 3 de 3
-* [ ] Selector: posición principal
-* [ ] Selector: posición secundaria
-* [ ] Input: club
-* [ ] Input: categoría
-* [ ] Botones "ATRÁS" y "EMPEZAR MI CARRERA"
-* [ ] Guardar profile en Supabase y marcar onboarding completo
+* [X] Crear `src/screens/onboarding/OnboardingStep3.js`
+* [X] Progress bar paso 3 de 3
+* [X] Selector: posición principal
+* [X] Selector: posición secundaria
+* [X] Input: club
+* [X] Input: categoría
+* [X] Botones "ATRÁS" y "EMPEZAR MI CARRERA"
+* [X] Guardar profile en Supabase y marcar onboarding completo
 
 ### Ticket 6.4: Onboarding Container
 
-* [ ] Crear `src/screens/onboarding/OnboardingScreen.js`
-* [ ] Contenedor con transición slide horizontal
-* [ ] Manejar estado global del wizard
-* [ ] Al completar: crear perfil + redirigir a MainTabs
+* [X] Crear `src/screens/onboarding/OnboardingScreen.js`
+* [X] Contenedor con transición slide horizontal
+* [X] Manejar estado global del wizard
+* [X] Al completar: crear perfil + redirigir a MainTabs
 
 ---
 
