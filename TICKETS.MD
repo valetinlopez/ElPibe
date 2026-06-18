@@ -541,30 +541,30 @@
 
 ### Ticket 12.1: Atributos — Screen
 
-* [ ] Crear `src/screens/attributes/AttributesScreen.js`
-* [ ] Header "ATRIBUTOS" uppercase
-* [ ] Radar chart arriba (preview en tiempo real)
+* [X] Crear `src/screens/attributes/AttributesScreen.js`
+* [X] Header "ATRIBUTOS" uppercase
+* [X] Radar chart arriba (preview en tiempo real)
 
 ### Ticket 12.2: Sliders por Dimensión
 
-* [ ] Sección TÉCNICA: Regate, Control, Pase, Tiro, Visión
-* [ ] Sección FÍSICA: Velocidad, Resistencia, Fuerza, Salto
-* [ ] Sección TÁCTICA: Posicionamiento, Juego aéreo, Marcaje
-* [ ] Sección MENTAL: Liderazgo, Concentración, Creatividad
-* [ ] Cada atributo: slider 1-10 + número display
-* [ ] Valor >=8 en color azul bright
+* [X] Sección TÉCNICA: Regate, Control, Pase, Tiro, Visión
+* [X] Sección FÍSICA: Velocidad, Resistencia, Fuerza, Salto
+* [X] Sección TÁCTICA: Posicionamiento, Juego aéreo, Marcaje
+* [X] Sección MENTAL: Liderazgo, Concentración, Creatividad
+* [X] Cada atributo: slider 1-10 + número display
+* [X] Valor >=8 en color azul bright
 
 ### Ticket 12.3: Actualización en Tiempo Real
 
-* [ ] Al mover slider, recalcular promedios
-* [ ] Actualizar radar chart instantáneamente
-* [ ] Debounce antes de guardar
+* [X] Al mover slider, recalcular promedios
+* [X] Actualizar radar chart instantáneamente
+* [X] Debounce antes de guardar
 
 ### Ticket 12.4: Guardar Atributos
 
-* [ ] Botón "GUARDAR ATRIBUTOS"
-* [ ] Llamar attributes.service.upsertAttributes
-* [ ] Toast de confirmación
+* [X] Botón "GUARDAR ATRIBUTOS"
+* [X] Llamar attributes.service.upsertAttributes
+* [X] Toast de confirmación
 
 ---
 
