@@ -505,35 +505,35 @@
 
 ### Ticket 11.1: Estadísticas — Screen
 
-* [ ] Crear `src/screens/stats/StatsScreen.js`
-* [ ] Header "ESTADÍSTICAS" uppercase
-* [ ] Selector de temporada
+* [X] Crear `src/screens/stats/StatsScreen.js`
+* [X] Header "ESTADÍSTICAS" uppercase
+* [X] Selector de temporada
 
 ### Ticket 11.2: KPI Cards
 
-* [ ] Grid 2x2 de StatCards
-* [ ] Partidos jugados
-* [ ] Goles
-* [ ] Asistencias
-* [ ] Tarjetas (amarillas/rojas)
-* [ ] Números grandes display-md
+* [X] Grid 2x2 de StatCards
+* [X] Partidos jugados
+* [X] Goles
+* [X] Asistencias
+* [X] Tarjetas (amarillas/rojas)
+* [X] Números grandes display-md
 
 ### Ticket 11.3: Formulario de Stats
 
-* [ ] Inputs editables para cada stat
-* [ ] Botón "GUARDAR ESTADÍSTICAS"
-* [ ] Validar que sean números >= 0
+* [X] Inputs editables para cada stat
+* [X] Botón "GUARDAR ESTADÍSTICAS"
+* [X] Validar que sean números >= 0
 
 ### Ticket 11.4: Radar de Atributos (en Stats)
 
-* [ ] Sección "FICHA TÉCNICA"
-* [ ] Radar chart con promedio por dimensión
-* [ ] Componente RadarChart reutilizado
+* [X] Sección "FICHA TÉCNICA"
+* [X] Radar chart con promedio por dimensión
+* [X] Componente RadarChart reutilizado
 
 ### Ticket 11.5: Empty State Stats
 
-* [ ] "Todavía no cargaste estadísticas. ¡Armá tu ficha!"
-* [ ] Botón "CARGAR PRIMERAS STATS"
+* [X] "Todavía no cargaste estadísticas. ¡Armá tu ficha!"
+* [X] Botón "CARGAR PRIMERAS STATS"
 
 ---
 

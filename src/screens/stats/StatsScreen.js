@@ -1,15 +1,310 @@
-import { View, Text } from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Trophy, Target, AlertTriangle } from 'lucide-react-native';
+import { useAuth } from '../../context/AuthContext';
+import { getStatsBySeason, upsertStats } from '../../services/stats.service';
+import { calculateRadarAverages } from '../../services/attributes.service';
+import Header from '../../components/Header';
+import StatCard from '../../components/StatCard';
+import RadarChart from '../../components/RadarChart';
+import Button from '../../components/Button';
+import EmptyState from '../../components/EmptyState';
+import Toast from '../../components/Toast';
+import SkeletonLoader from '../../components/SkeletonLoader';
 import { colors } from '../../constants/colors';
+import { typography } from '../../constants/typography';
+import { spacing } from '../../constants/spacing';
+import { radii } from '../../constants/radii';
+
+const SEASONS = ['2026', '2025', '2024'];
 
 export default function StatsScreen() {
-  return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bgBase }}>
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ color: colors.textPrimary, fontSize: 24, fontWeight: 'bold' }}>
-          Estadísticas
-        </Text>
+  const { user } = useAuth();
+  const [season, setSeason] = useState('2026');
+  const [stats, setStats] = useState(null);
+  const [radarData, setRadarData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
+
+  const [matches, setMatches] = useState('');
+  const [goals, setGoals] = useState('');
+  const [assists, setAssists] = useState('');
+  const [yellowCards, setYellowCards] = useState('');
+  const [redCards, setRedCards] = useState('');
+
+  useEffect(() => {
+    loadStats();
+  }, [season]);
+
+  const loadStats = async () => {
+    setLoading(true);
+    const { data } = await getStatsBySeason(user?.id, season);
+    setStats(data);
+
+    if (data) {
+      setMatches(data.matches?.toString() || '');
+      setGoals(data.goals?.toString() || '');
+      setAssists(data.assists?.toString() || '');
+      setYellowCards(data.yellow_cards?.toString() || '');
+      setRedCards(data.red_cards?.toString() || '');
+    }
+
+    const { data: radar } = await calculateRadarAverages(user?.id);
+    setRadarData(radar);
+
+    setLoading(false);
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+
+    const statsData = {
+      profile_id: user?.id,
+      season,
+      matches: parseInt(matches) || 0,
+      goals: parseInt(goals) || 0,
+      assists: parseInt(assists) || 0,
+      yellow_cards: parseInt(yellowCards) || 0,
+      red_cards: parseInt(redCards) || 0,
+    };
+
+    const { error } = await upsertStats(statsData);
+
+    if (error) {
+      setToast({ visible: true, type: 'error', message: error });
+    } else {
+      setToast({ visible: true, type: 'success', message: '¡Estadísticas guardadas!' });
+    }
+
+    setSaving(false);
+  };
+
+  const renderLoading = () => (
+    <View style={styles.loadingContainer}>
+      <SkeletonLoader variant="rectangle" width="100%" height={100} />
+      <View style={styles.statsGrid}>
+        {[1, 2, 3, 4].map((i) => (
+          <SkeletonLoader key={i} variant="rectangle" width="48%" height={80} />
+        ))}
       </View>
+    </View>
+  );
+
+  const renderEmpty = () => (
+    <EmptyState
+      icon={Trophy}
+      title="Todavía no cargaste estadísticas."
+      description="¡Armá tu ficha!"
+      actionLabel="CARGAR PRIMERAS STATS"
+      onAction={() => {}}
+    />
+  );
+
+  return (
+    <SafeAreaView style={styles.container} edges={['top']}>
+      <Header title="ESTADÍSTICAS" />
+
+      <ScrollView contentContainerStyle={styles.scroll}>
+        <View style={styles.seasonSelector}>
+          {SEASONS.map((s) => (
+            <TouchableOpacity
+              key={s}
+              style={[styles.seasonChip, season === s && styles.seasonChipActive]}
+              onPress={() => setSeason(s)}
+            >
+              <Text style={[styles.seasonText, season === s && styles.seasonTextActive]}>
+                {s}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        {loading ? renderLoading() : (
+          <>
+            <View style={styles.statsGrid}>
+              <StatCard value={matches || '0'} label="PARTIDOS" icon={Trophy} />
+              <StatCard value={goals || '0'} label="GOLES" icon={Target} />
+              <StatCard value={assists || '0'} label="ASISTENCIAS" icon={Target} />
+              <StatCard
+                value={`${yellowCards || '0'} / ${redCards || '0'}`}
+                label="TARJETAS"
+                icon={AlertTriangle}
+              />
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionTitle}>EDITAR ESTADÍSTICAS</Text>
+              <View style={styles.formRow}>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Partidos</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={matches}
+                    onChangeText={setMatches}
+                    keyboardType="numeric"
+                    placeholder="0"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </View>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Goles</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={goals}
+                    onChangeText={setGoals}
+                    keyboardType="numeric"
+                    placeholder="0"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </View>
+              </View>
+              <View style={styles.formRow}>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Asistencias</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={assists}
+                    onChangeText={setAssists}
+                    keyboardType="numeric"
+                    placeholder="0"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </View>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Amarillas</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={yellowCards}
+                    onChangeText={setYellowCards}
+                    keyboardType="numeric"
+                    placeholder="0"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </View>
+              </View>
+              <View style={styles.formRow}>
+                <View style={styles.inputGroup}>
+                  <Text style={styles.label}>Rojas</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={redCards}
+                    onChangeText={setRedCards}
+                    keyboardType="numeric"
+                    placeholder="0"
+                    placeholderTextColor={colors.textTertiary}
+                  />
+                </View>
+                <View style={styles.inputGroup} />
+              </View>
+
+              <Button
+                variant="primary"
+                label="GUARDAR ESTADÍSTICAS"
+                onPress={handleSave}
+                loading={saving}
+                style={styles.saveButton}
+              />
+            </View>
+
+            {radarData && (
+              <View style={styles.section}>
+                <Text style={styles.sectionTitle}>FICHA TÉCNICA</Text>
+                <RadarChart data={radarData} />
+              </View>
+            )}
+          </>
+        )}
+      </ScrollView>
+
+      <Toast
+        visible={toast.visible}
+        type={toast.type}
+        message={toast.message}
+        onDismiss={() => setToast({ ...toast, visible: false })}
+      />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.bgBase,
+  },
+  scroll: {
+    flexGrow: 1,
+    paddingHorizontal: spacing[4],
+    paddingBottom: spacing[8],
+  },
+  seasonSelector: {
+    flexDirection: 'row',
+    gap: spacing[2],
+    marginVertical: spacing[4],
+  },
+  seasonChip: {
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[2],
+    borderRadius: radii.full,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+  },
+  seasonChipActive: {
+    backgroundColor: colors.accentBlueDim,
+    borderColor: colors.accentBlue,
+  },
+  seasonText: {
+    ...typography.bodySM,
+    color: colors.textSecondary,
+  },
+  seasonTextActive: {
+    color: colors.accentBlueBright,
+  },
+  loadingContainer: {
+    gap: spacing[4],
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: spacing[3],
+    marginBottom: spacing[4],
+  },
+  section: {
+    marginTop: spacing[4],
+  },
+  sectionTitle: {
+    ...typography.headingLG,
+    color: colors.textPrimary,
+    marginBottom: spacing[4],
+  },
+  formRow: {
+    flexDirection: 'row',
+    gap: spacing[3],
+    marginBottom: spacing[3],
+  },
+  inputGroup: {
+    flex: 1,
+  },
+  label: {
+    ...typography.bodySM,
+    color: colors.textSecondary,
+    marginBottom: spacing[2],
+  },
+  input: {
+    ...typography.bodyMD,
+    color: colors.textPrimary,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    borderRadius: radii.md,
+    paddingHorizontal: spacing[4],
+    height: 52,
+    textAlign: 'center',
+  },
+  saveButton: {
+    width: '100%',
+    marginTop: spacing[4],
+  },
+});
