@@ -443,30 +443,30 @@
 
 ### Ticket 9.1: Biblioteca Multimedia — Screen
 
-* [ ] Crear `src/screens/media/MediaLibraryScreen.js`
-* [ ] Header "MEDIA" + subtítulo "Tus mejores jugadas en el potrero"
-* [ ] Ícono de filtro arriba a la derecha
-* [ ] FAB flotante (ícono cámara) abajo a la derecha
+* [X] Crear `src/screens/media/MediaLibraryScreen.js`
+* [X] Header "MEDIA" + subtítulo "Tus mejores jugadas en el potrero"
+* [X] Ícono de filtro arriba a la derecha
+* [X] FAB flotante (ícono cámara) abajo a la derecha
 
 ### Ticket 9.2: Biblioteca — Grid de Media
 
-* [ ] Grilla 2 columnas, gap 8px
-* [ ] Componente MediaCard para cada item
-* [ ] Videos: aspect ratio 9:16, overlay con play + duración
-* [ ] Fotos: aspect ratio 1:1
-* [ ] Badge de categoría en cada card
+* [X] Grilla 2 columnas, gap 8px
+* [X] Componente MediaCard para cada item
+* [X] Videos: aspect ratio 9:16, overlay con play + duración
+* [X] Fotos: aspect ratio 1:1
+* [X] Badge de categoría en cada card
 
 ### Ticket 9.3: Biblioteca — Empty State
 
-* [ ] Ilustración outline de cámara
-* [ ] Texto: "Todavía no subiste ninguna jugada. ¡Mostrá lo que tenés!"
-* [ ] Botón CTA "SUBIR PRIMERA JUGADA"
+* [X] Ilustración outline de cámara
+* [X] Texto: "Todavía no subiste ninguna jugada. ¡Mostrá lo que tenés!"
+* [X] Botón CTA "SUBIR PRIMERA JUGADA"
 
 ### Ticket 9.4: Biblioteca — Filtrado
 
-* [ ] Bottom sheet con opciones de categoría
-* [ ] Filtros: Todas, Ofensiva, Defensiva, Jugadas con pelota, Sin pelota
-* [ ] Aplicar filtro y recargar grilla
+* [X] Bottom sheet con opciones de categoría
+* [X] Filtros: Todas, Ofensiva, Defensiva, Jugadas con pelota, Sin pelota
+* [X] Aplicar filtro y recargar grilla
 
 ---
 
