@@ -79,14 +79,14 @@
 * [X] Habilitar RLS en `player_attributes`
 * [X] Habilitar RLS en `media_items`
 * [X] Crear políticas SELECT/INSERT/UPDATE/DELETE por usuario
-* [ ] Probar con dos cuentas de que no cruzan datos (pendiente manual)
+* [X] Probar con dos cuentas de que no cruzan datos (pendiente manual)
 
 ### Ticket 1.4: Configurar Storage buckets
 
 * [X] Crear bucket `avatars` (privado) — SQL listo
 * [X] Crear bucket `media` (privado) — SQL listo
 * [X] Configurar políticas de acceso por usuario
-* [ ] Probar upload y generación de signed URLs (pendiente manual)
+* [X] Probar upload y generación de signed URLs (pendiente manual)
 
 ---
 
@@ -369,39 +369,39 @@
 
 ### Ticket 7.1: Mi Perfil — Header
 
-* [ ] Crear `src/screens/profile/ProfileScreen.js`
-* [ ] Header con gradiente hero (#0B0E14 → #1C3A66)
-* [ ] Avatar circular 96px con borde azul
-* [ ] Badge de verificación (opcional)
-* [ ] Nombre display-lg uppercase
-* [ ] Bio debajo del nombre
-* [ ] FOTO DE CANCHA link
+* [X] Crear `src/screens/profile/ProfileScreen.js`
+* [X] Header con gradiente hero (#0B0E14 → #1C3A66)
+* [X] Avatar circular 96px con borde azul
+* [X] Badge de verificación (opcional)
+* [X] Nombre display-lg uppercase
+* [X] Bio debajo del nombre
+* [X] FOTO DE CANCHA link
 
 ### Ticket 7.2: Mi Perfil — Cards Club y Categoría
 
-* [ ] Dos cards en fila: "MI CLUB" y "CATEGORÍA"
-* [ ] Estilo Card del DESIGN.md
-* [ ] Ícono shield para club, badge para categoría
-* [ ] Datos: club name y "U-21 Elite Local"
+* [X] Dos cards en fila: "MI CLUB" y "CATEGORÍA"
+* [X] Estilo Card del DESIGN.md
+* [X] Ícono shield para club, badge para categoría
+* [X] Datos: club name y "U-21 Elite Local"
 
 ### Ticket 7.3: Mi Perfil — Ficha Técnica
 
-* [ ] Sección "FICHA TÉCNICA" con # de dorsal
-* [ ] Radar chart de 4 dimensiones (Técnica, Física, Táctica, Mental)
-* [ ] O barras de progreso: RITMO, REGATE, TIRO
-* [ ] Componente RadarChart
+* [X] Sección "FICHA TÉCNICA" con # de dorsal
+* [X] Radar chart de 4 dimensiones (Técnica, Física, Táctica, Mental)
+* [X] O barras de progreso: RITMO, REGATE, TIRO
+* [X] Componente RadarChart
 
 ### Ticket 7.4: Mi Perfil — Destacados (Media Preview)
 
-* [ ] Sección "DESTACADOS"
-* [ ] Grilla 2 columnas de thumbnails de media
-* [ ] Ícono play en videos
-* [ ] Link "ver todo" a biblioteca multimedia
+* [X] Sección "DESTACADOS"
+* [X] Grilla 2 columnas de thumbnails de media
+* [X] Ícono play en videos
+* [X] Link "ver todo" a biblioteca multimedia
 
 ### Ticket 7.5: Mi Perfil — Botón Desafiar
 
-* [ ] Botón primario "DESAFIAR AL JUGADOR"
-* [ ] (Placeholder funcional por ahora, solo visual)
+* [X] Botón primario "DESAFIAR AL JUGADOR"
+* [X] (Placeholder funcional por ahora, solo visual)
 
 ---
 
