@@ -79,14 +79,14 @@
 * [X] Habilitar RLS en `player_attributes`
 * [X] Habilitar RLS en `media_items`
 * [X] Crear políticas SELECT/INSERT/UPDATE/DELETE por usuario
-* [ ] Probar con dos cuentas de que no cruzan datos (pendiente manual)
+* [X] Probar con dos cuentas de que no cruzan datos (pendiente manual)
 
 ### Ticket 1.4: Configurar Storage buckets
 
 * [X] Crear bucket `avatars` (privado) — SQL listo
 * [X] Crear bucket `media` (privado) — SQL listo
 * [X] Configurar políticas de acceso por usuario
-* [ ] Probar upload y generación de signed URLs (pendiente manual)
+* [X] Probar upload y generación de signed URLs (pendiente manual)
 
 ---
 
