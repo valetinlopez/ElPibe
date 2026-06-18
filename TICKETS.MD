@@ -409,33 +409,33 @@
 
 ### Ticket 8.1: Editar Perfil — Screen
 
-* [ ] Crear `src/screens/profile/EditProfileScreen.js`
-* [ ] Header "EDITAR PERFIL" con back arrow
-* [ ] Avatar con ícono cámara overlay
-* [ ] Link "FOTO DE CANCHA"
+* [X] Crear `src/screens/profile/EditProfileScreen.js`
+* [X] Header "EDITAR PERFIL" con back arrow
+* [X] Avatar con ícono cámara overlay
+* [X] Link "FOTO DE CANCHA"
 
 ### Ticket 8.2: Editar Perfil — Formulario
 
-* [ ] Input "Tu nombre de crack" con valor actual
-* [ ] Textarea "Sobre vos (Bio)" max 500 caracteres
-* [ ] Input "Club actual"
-* [ ] Input "Categoría"
-* [ ] Selector chips: "Posición preferida" (ENGANCHE, DELANTERO, EXTREMO, etc.)
-* [ ] Botón primario "GUARDAR CAMBIOS" + ícono check
+* [X] Input "Tu nombre de crack" con valor actual
+* [X] Textarea "Sobre vos (Bio)" max 500 caracteres
+* [X] Input "Club actual"
+* [X] Input "Categoría"
+* [X] Selector chips: "Posición preferida" (ENGANCHE, DELANTERO, EXTREMO, etc.)
+* [X] Botón primario "GUARDAR CAMBIOS" + ícono check
 
 ### Ticket 8.3: Editar Perfil — Identidad Potrera
 
-* [ ] Card "IDENTIDAD POTRERA" con ícono dorado
-* [ ] "ID de Jugador": #10-FERREYRA-2024
-* [ ] "Estatus": badge TITULAR (verde)
+* [X] Card "IDENTIDAD POTRERA" con ícono dorado
+* [X] "ID de Jugador": #10-FERREYRA-2024
+* [X] "Estatus": badge TITULAR (verde)
 
 ### Ticket 8.4: Editar Perfil — Funcionalidad
 
-* [ ] Cargar datos actuales del perfil al montar
-* [ ] Validar campos obligatorios
-* [ ] Llamar profile.service.updateProfile
-* [ ] Toast de éxito/error
-* [ ] Navegación de vuelta a perfil
+* [X] Cargar datos actuales del perfil al montar
+* [X] Validar campos obligatorios
+* [X] Llamar profile.service.updateProfile
+* [X] Toast de éxito/error
+* [X] Navegación de vuelta a perfil
 
 ---
 
