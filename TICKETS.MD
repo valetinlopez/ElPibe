@@ -572,23 +572,23 @@
 
 ### Ticket 13.1: Ajustes — Screen
 
-* [ ] Crear `src/screens/settings/SettingsScreen.js`
-* [ ] Header "AJUSTES" uppercase
+* [X] Crear `src/screens/settings/SettingsScreen.js`
+* [X] Header "AJUSTES" uppercase
 
 ### Ticket 13.2: Opciones de Ajustes
 
-* [ ] Sección cuenta: Editar perfil, Cambiar contraseña
-* [ ] Sección preferencias: Notificaciones (placeholder)
-* [ ] Sección legal: Términos, Privacidad
-* [ ] Sección soporte: Contacto, Reportar bug
-* [ ] Botón "CERRAR SESIÓN" (rojo)
+* [X] Sección cuenta: Editar perfil, Cambiar contraseña
+* [X] Sección preferencias: Notificaciones (placeholder)
+* [X] Sección legal: Términos, Privacidad
+* [X] Sección soporte: Contacto, Reportar bug
+* [X] Botón "CERRAR SESIÓN" (rojo)
 
 ### Ticket 13.3: Funcionalidad Logout
 
-* [ ] Confirmación antes de cerrar sesión
-* [ ] Llamar auth.service.signOut
-* [ ] Limpiar estado del AuthContext
-* [ ] Redirigir a AuthStack
+* [X] Confirmación antes de cerrar sesión
+* [X] Llamar auth.service.signOut
+* [X] Limpiar estado del AuthContext
+* [X] Redirigir a AuthStack
 
 ---
 
