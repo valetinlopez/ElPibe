@@ -278,49 +278,49 @@
 
 ### Ticket 5.1: Splash Screen
 
-* [ ] Crear `src/screens/SplashScreen.js`
-* [ ] Logo "EL PIBE" con tipografía condensada
-* [ ] Verificar sesión activa con Supabase
-* [ ] Si hay sesión → MainTabs, si no → AuthStack
-* [ ] Fondo #0B0E14
+* [X] Crear `src/screens/SplashScreen.js`
+* [X] Logo "EL PIBE" con tipografía condensada
+* [X] Verificar sesión activa con Supabase
+* [X] Si hay sesión → MainTabs, si no → AuthStack
+* [X] Fondo #0B0E14
 
 ### Ticket 5.2: Login Screen
 
-* [ ] Crear `src/screens/auth/LoginScreen.js`
-* [ ] Logo "EL PIBE" arriba
-* [ ] Tagline: "El potrero digital para los que sienten la 10."
-* [ ] Input email con ícono mail
-* [ ] Input contraseña con ícono ojo (toggle visibility)
-* [ ] Link "¿Olvidaste tu contraseña?"
-* [ ] Botón primario "ENTRAR A LA CANCHA" + ícono pelota
-* [ ] Separador "O USÁ"
-* [ ] Botones secundarios Google y Apple (placeholder por ahora)
-* [ ] Link inferior "¿No tenés cuenta? Registrate"
-* [ ] Funcional: llamar auth.service.signIn
+* [X] Crear `src/screens/auth/LoginScreen.js`
+* [X] Logo "EL PIBE" arriba
+* [X] Tagline: "El potrero digital para los que sienten la 10."
+* [X] Input email con ícono mail
+* [X] Input contraseña con ícono ojo (toggle visibility)
+* [X] Link "¿Olvidaste tu contraseña?"
+* [X] Botón primario "ENTRAR A LA CANCHA" + ícono pelota
+* [X] Separador "O USÁ"
+* [X] Botones secundarios Google y Apple (placeholder por ahora)
+* [X] Link inferior "¿No tenés cuenta? Registrate"
+* [X] Funcional: llamar auth.service.signIn
 
 ### Ticket 5.3: Registro Screen
 
-* [ ] Crear `src/screens/auth/RegisterScreen.js`
-* [ ] Header con flecha back + logo "EL PIBE"
-* [ ] Título "CREÁ TU FICHA" display-xl
-* [ ] Subtítulo "Completá tus datos para saltar a la cancha."
-* [ ] Progress bar (3 segmentos)
-* [ ] Input "Nombre Completo (como en el dorsal)"
-* [ ] Input "Tu Correo Electrónico"
-* [ ] Input "Contraseña Segura"
-* [ ] Checkbox "Acepto los términos de juego y la política de privacidad del club."
-* [ ] Botón primario "EMPEZAR MI CARRERA" + ícono rayo
-* [ ] Link inferior "¿Ya sos parte del equipo? Iniciá sesión acá"
-* [ ] Footer visual "BUENOS AIRES • EST. 2024"
-* [ ] Funcional: llamar auth.service.signUp
+* [X] Crear `src/screens/auth/RegisterScreen.js`
+* [X] Header con flecha back + logo "EL PIBE"
+* [X] Título "CREÁ TU FICHA" display-xl
+* [X] Subtítulo "Completá tus datos para saltar a la cancha."
+* [X] Progress bar (3 segmentos)
+* [X] Input "Nombre Completo (como en el dorsal)"
+* [X] Input "Tu Correo Electrónico"
+* [X] Input "Contraseña Segura"
+* [X] Checkbox "Acepto los términos de juego y la política de privacidad del club."
+* [X] Botón primario "EMPEZAR MI CARRERA" + ícono rayo
+* [X] Link inferior "¿Ya sos parte del equipo? Iniciá sesión acá"
+* [X] Footer visual "BUENOS AIRES • EST. 2024"
+* [X] Funcional: llamar auth.service.signUp
 
 ### Ticket 5.4: Forgot Password Screen
 
-* [ ] Crear `src/screens/auth/ForgotPasswordScreen.js`
-* [ ] Input email
-* [ ] Botón "ENVIAR LINK DE RECUPERACIÓN"
-* [ ] Mensaje de confirmación
-* [ ] Funcional: llamar auth.service.resetPassword
+* [X] Crear `src/screens/auth/ForgotPasswordScreen.js`
+* [X] Input email
+* [X] Botón "ENVIAR LINK DE RECUPERACIÓN"
+* [X] Mensaje de confirmación
+* [X] Funcional: llamar auth.service.resetPassword
 
 ---
 
