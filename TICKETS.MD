@@ -596,24 +596,24 @@
 
 ### Ticket 14.1: Validaciones
 
-* [ ] Crear `src/utils/validations.js`
-* [ ] Validar email
-* [ ] Validar contraseña (min 6 chars)
-* [ ] Validar campos obligatorios del perfil
-* [ ] Validar tamaño de archivo
+* [X] Crear `src/utils/validations.js`
+* [X] Validar email
+* [X] Validar contraseña (min 6 chars)
+* [X] Validar campos obligatorios del perfil
+* [X] Validar tamaño de archivo
 
 ### Ticket 14.2: Formateo
 
-* [ ] Crear `src/utils/formatters.js`
-* [ ] Formatear números de stats
-* [ ] Formatear duración de video (mm:ss)
-* [ ] Formatear fecha de creación
+* [X] Crear `src/utils/formatters.js`
+* [X] Formatear números de stats
+* [X] Formatear duración de video (mm:ss)
+* [X] Formatear fecha de creación
 
 ### Ticket 14.3: Constantes de UI
 
-* [ ] Crear `src/constants/positions.js` (posiciones de fútbol)
-* [ ] Crear `src/constants/categories.js` (categorías de media)
-* [ ] Crear `src/constants/dimensions.js` (dimensiones de atributos)
+* [X] Crear `src/constants/positions.js` (posiciones de fútbol)
+* [X] Crear `src/constants/categories.js` (categorías de media)
+* [X] Crear `src/constants/dimensions.js` (dimensiones de atributos)
 
 ---
 

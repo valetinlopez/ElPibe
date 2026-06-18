@@ -29,12 +29,13 @@ export default function LoginScreen() {
     setLoading(true);
     setError('');
 
-    const { error: authError } = await signIn(email, password);
+    const { data, error: authError } = await signIn(email, password);
 
     if (authError) {
       setError(authError);
       setLoading(false);
     }
+    // Si no hay error, el AuthContext actualiza la sesión y RootNavigator redirige
   };
 
   return (

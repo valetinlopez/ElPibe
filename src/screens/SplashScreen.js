@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useAuth } from '../../context/AuthContext';
-import { colors } from '../../constants/colors';
-import { typography } from '../../constants/typography';
+import { useAuth } from '../context/AuthContext';
+import { colors } from '../constants/colors';
+import { typography } from '../constants/typography';
 
 export default function SplashScreen({ navigation }) {
   const { session, loading } = useAuth();
