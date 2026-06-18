@@ -474,30 +474,30 @@
 
 ### Ticket 10.1: Subir Multimedia — Screen
 
-* [ ] Crear `src/screens/media/UploadMediaScreen.js`
-* [ ] Header "SUBIR JUGADA" con back
+* [X] Crear `src/screens/media/UploadMediaScreen.js`
+* [X] Header "SUBIR JUGADA" con back
 
 ### Ticket 10.2: Selector de Archivo
 
-* [ ] Botón "Elegir desde galería" + ícono image
-* [ ] Botón "Grabar ahora" + ícono camera
-* [ ] Usar expo-image-picker
-* [ ] Validar tamaño: max 50MB video, 10MB foto
-* [ ] Validar duración: max 60s video
-* [ ] Preview del archivo seleccionado
+* [X] Botón "Elegir desde galería" + ícono image
+* [X] Botón "Grabar ahora" + ícono camera
+* [X] Usar expo-image-picker
+* [X] Validar tamaño: max 50MB video, 10MB foto
+* [X] Validar duración: max 60s video
+* [X] Preview del archivo seleccionado
 
 ### Ticket 10.3: Clasificación
 
-* [ ] Selector de categoría: Ofensiva, Defensiva, Con pelota, Sin pelota
-* [ ] Selector de subcategoría (opcional)
-* [ ] Input de título/descripción (opcional)
+* [X] Selector de categoría: Ofensiva, Defensiva, Con pelota, Sin pelota
+* [X] Selector de subcategoría (opcional)
+* [X] Input de título/descripción (opcional)
 
 ### Ticket 10.4: Upload y Confirmación
 
-* [ ] Barra de progreso de upload
-* [ ] Llamar media.service.uploadMedia
-* [ ] Toast de éxito: "¡Jugada subida!"
-* [ ] Redirigir a biblioteca
+* [X] Barra de progreso de upload
+* [X] Llamar media.service.uploadMedia
+* [X] Toast de éxito: "¡Jugada subida!"
+* [X] Redirigir a biblioteca
 
 ---
 
