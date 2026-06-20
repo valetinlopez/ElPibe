@@ -33,18 +33,22 @@ export default function ProfileScreen() {
   }, []);
 
   const loadProfile = async () => {
-    const { data } = await getProfile(user?.id);
-    setProfile(data);
+    try {
+      const { data } = await getProfile(user?.id);
+      setProfile(data);
 
-    if (data) {
-      const { data: radar } = await calculateRadarAverages(data.id);
-      setRadarData(radar);
+      if (data) {
+        const { data: radar } = await calculateRadarAverages(data.id);
+        setRadarData(radar);
 
-      const { data: mediaData } = await getMediaByProfile(data.id);
-      setMedia(mediaData?.slice(0, 4) || []);
+        const { data: mediaData } = await getMediaByProfile(data.id);
+        setMedia(mediaData?.slice(0, 4) || []);
+      }
+    } catch (error) {
+      console.error('Error cargando perfil:', error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   if (loading) {

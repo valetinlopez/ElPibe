@@ -56,28 +56,32 @@ export default function OnboardingScreen({ navigation }) {
     const allData = { ...formData, ...stepData };
     setLoading(true);
 
-    const profileData = {
-      id: user.id,
-      full_name: allData.fullName,
-      age: allData.age,
-      city: allData.city,
-      nationality: allData.nationality,
-      height_cm: allData.heightCm,
-      weight_kg: allData.weightKg,
-      foot: allData.foot,
-      position_main: allData.positionMain,
-      position_secondary: allData.positionSecondary || null,
-      club: allData.club || null,
-      category: allData.category || null,
-    };
+    try {
+      const profileData = {
+        id: user.id,
+        full_name: allData.fullName,
+        age: allData.age,
+        city: allData.city,
+        nationality: allData.nationality,
+        height_cm: allData.heightCm,
+        weight_kg: allData.weightKg,
+        foot: allData.foot,
+        position_main: allData.positionMain,
+        position_secondary: allData.positionSecondary || null,
+        club: allData.club || null,
+        category: allData.category || null,
+      };
 
-    const { error } = await createProfile(profileData);
+      const { error } = await createProfile(profileData);
 
-    if (!error) {
-      navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] });
+      if (!error) {
+        navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] });
+      }
+    } catch (error) {
+      console.error('Error creando perfil:', error);
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const renderStep = () => {

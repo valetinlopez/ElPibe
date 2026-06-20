@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Trophy, Target, AlertTriangle } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
+import { Trophy, Target, AlertTriangle, Sliders } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getStatsBySeason, upsertStats } from '../../services/stats.service';
 import { calculateRadarAverages } from '../../services/attributes.service';
@@ -20,6 +21,7 @@ import { radii } from '../../constants/radii';
 const SEASONS = ['2026', '2025', '2024'];
 
 export default function StatsScreen() {
+  const navigation = useNavigation();
   const { user } = useAuth();
   const [season, setSeason] = useState('2026');
   const [stats, setStats] = useState(null);
@@ -40,21 +42,25 @@ export default function StatsScreen() {
 
   const loadStats = async () => {
     setLoading(true);
-    const { data } = await getStatsBySeason(user?.id, season);
-    setStats(data);
+    try {
+      const { data } = await getStatsBySeason(user?.id, season);
+      setStats(data);
 
-    if (data) {
-      setMatches(data.matches?.toString() || '');
-      setGoals(data.goals?.toString() || '');
-      setAssists(data.assists?.toString() || '');
-      setYellowCards(data.yellow_cards?.toString() || '');
-      setRedCards(data.red_cards?.toString() || '');
+      if (data) {
+        setMatches(data.matches?.toString() || '');
+        setGoals(data.goals?.toString() || '');
+        setAssists(data.assists?.toString() || '');
+        setYellowCards(data.yellow_cards?.toString() || '');
+        setRedCards(data.red_cards?.toString() || '');
+      }
+
+      const { data: radar } = await calculateRadarAverages(user?.id);
+      setRadarData(radar);
+    } catch (error) {
+      console.error('Error cargando estadísticas:', error);
+    } finally {
+      setLoading(false);
     }
-
-    const { data: radar } = await calculateRadarAverages(user?.id);
-    setRadarData(radar);
-
-    setLoading(false);
   };
 
   const handleSave = async () => {
@@ -214,6 +220,14 @@ export default function StatsScreen() {
                 <RadarChart data={radarData} />
               </View>
             )}
+
+            <Button
+              variant="secondary"
+              label="EDITAR ATRIBUTOS"
+              icon={Sliders}
+              onPress={() => navigation.navigate('Atributos')}
+              style={styles.attributesButton}
+            />
           </>
         )}
       </ScrollView>
@@ -306,5 +320,9 @@ const styles = StyleSheet.create({
   saveButton: {
     width: '100%',
     marginTop: spacing[4],
+  },
+  attributesButton: {
+    width: '100%',
+    marginTop: spacing[6],
   },
 });

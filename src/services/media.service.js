@@ -111,12 +111,12 @@ export const deleteMedia = async (mediaId, storagePath) => {
 };
 
 /**
- * Obtener la URL pública de un archivo en Storage.
+ * Obtener la URL firmada de un archivo en Storage.
  */
-export const getMediaUrl = (storagePath) => {
-  const { data } = supabase.storage
+export const getMediaUrl = async (storagePath) => {
+  const { data } = await supabase.storage
     .from('media')
-    .getPublicUrl(storagePath);
+    .createSignedUrl(storagePath, 3600);
 
-  return data?.publicUrl || null;
+  return data?.signedUrl || null;
 };

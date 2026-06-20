@@ -22,6 +22,10 @@ export const AuthProvider = ({ children }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
+    }).catch(() => {
+      setSession(null);
+      setUser(null);
+      setLoading(false);
     });
 
     // Escuchar cambios de autenticación

@@ -32,11 +32,16 @@ export default function MediaLibraryScreen() {
 
   const loadMedia = async () => {
     setLoading(true);
-    const { data } = filter
-      ? await getMediaByCategory(user?.id, filter)
-      : await getMediaByProfile(user?.id);
-    setMedia(data || []);
-    setLoading(false);
+    try {
+      const { data } = filter
+        ? await getMediaByCategory(user?.id, filter)
+        : await getMediaByProfile(user?.id);
+      setMedia(data || []);
+    } catch (error) {
+      console.error('Error cargando multimedia:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleFilterSelect = (categoryId) => {

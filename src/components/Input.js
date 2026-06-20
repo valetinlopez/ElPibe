@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
 import { radii } from '../constants/radii';
@@ -13,6 +13,7 @@ export default function Input({
   error,
   secureTextEntry = false,
   keyboardType = 'default',
+  onIconPress,
   style,
 }) {
   const [isFocused, setIsFocused] = useState(false);
@@ -27,7 +28,16 @@ export default function Input({
           error && styles.inputError,
         ]}
       >
-        {Icon && <Icon size={20} color={colors.textTertiary} style={styles.icon} />}
+        {Icon && (
+          <TouchableOpacity
+            onPress={onIconPress}
+            disabled={!onIconPress}
+            style={styles.iconButton}
+            activeOpacity={onIconPress ? 0.7 : 1}
+          >
+            <Icon size={20} color={colors.textTertiary} />
+          </TouchableOpacity>
+        )}
         <TextInput
           style={[styles.input, Icon && styles.inputWithIcon]}
           value={value}
@@ -75,6 +85,10 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
+  },
+  iconButton: {
+    marginRight: 10,
+    padding: 2,
   },
   input: {
     flex: 1,

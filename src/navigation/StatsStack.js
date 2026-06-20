@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import StatsScreen from '../screens/stats/StatsScreen';
+import AttributesScreen from '../screens/attributes/AttributesScreen';
 import { colors } from '../constants/colors';
 
 const Stack = createStackNavigator();
@@ -13,6 +14,7 @@ export default function StatsStack() {
       }}
     >
       <Stack.Screen name="Estadisticas" component={StatsScreen} />
+      <Stack.Screen name="Atributos" component={AttributesScreen} />
     </Stack.Navigator>
   );
 }

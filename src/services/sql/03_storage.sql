@@ -29,7 +29,7 @@ CREATE POLICY "Users can upload own avatar"
   ON storage.objects FOR INSERT
   WITH CHECK (
     bucket_id = 'avatars'
-    AND auth.uid()::text = (string_to_array(name, '-'))[2]
+    AND auth.uid()::text = (string_to_array(name, '/'))[2]
   );
 
 -- Un usuario puede VER su propio avatar
@@ -37,7 +37,7 @@ CREATE POLICY "Users can view own avatar"
   ON storage.objects FOR SELECT
   USING (
     bucket_id = 'avatars'
-    AND auth.uid()::text = (string_to_array(name, '-'))[2]
+    AND auth.uid()::text = (string_to_array(name, '/'))[2]
   );
 
 -- Un usuario puede ELIMINAR su propio avatar
@@ -45,7 +45,7 @@ CREATE POLICY "Users can delete own avatar"
   ON storage.objects FOR DELETE
   USING (
     bucket_id = 'avatars'
-    AND auth.uid()::text = (string_to_array(name, '-'))[2]
+    AND auth.uid()::text = (string_to_array(name, '/'))[2]
   );
 
 -- =============================================

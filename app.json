@@ -3,6 +3,7 @@
     "name": "ElPibe",
     "slug": "ElPibe",
     "version": "1.0.0",
+    "scheme": "elpibe",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Mail, Lock, Eye, EyeOff, Dribbble } from 'lucide-react-native';
+import { Mail, Lock, Eye, EyeOff, CircleDot } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -72,6 +72,7 @@ export default function LoginScreen() {
               placeholder="••••••••"
               icon={showPassword ? EyeOff : Lock}
               secureTextEntry={!showPassword}
+              onIconPress={() => setShowPassword(!showPassword)}
               error={error && !email ? error : null}
             />
 
@@ -87,7 +88,7 @@ export default function LoginScreen() {
             <Button
               variant="primary"
               label="ENTRAR A LA CANCHA"
-              icon={Dribbble}
+              icon={CircleDot}
               onPress={handleLogin}
               loading={loading}
               style={styles.loginButton}

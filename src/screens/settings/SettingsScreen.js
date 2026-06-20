@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { User, Lock, Bell, FileText, Shield, MessageCircle, Bug, LogOut, ChevronRight } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
-import { signOut } from '../../services/auth.service';
 import Header from '../../components/Header';
 import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
@@ -60,8 +59,7 @@ export default function SettingsScreen() {
 
   const performLogout = async () => {
     setLoading(true);
-    await signOut();
-    authSignOut();
+    await authSignOut();
     setLoading(false);
   };
 

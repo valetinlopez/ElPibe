@@ -71,7 +71,7 @@ export default function EditProfileScreen() {
     setLoading(false);
   };
 
-  const playerId = `#${user?.id?.slice(0, 4).toUpperCase() || '0000'}-${fullName.split(' ')[0]?.toUpperCase() || 'JUGADOR'}-2024`;
+  const playerId = `#${user?.id?.slice(0, 4).toUpperCase() || '0000'}-${fullName.split(' ')[0]?.toUpperCase() || 'JUGADOR'}-${new Date().getFullYear()}`;
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>

@@ -76,20 +76,22 @@ export const uploadAvatar = async (userId, imageFile) => {
 
     if (uploadError) throw uploadError;
 
-    const { data: urlData } = supabase.storage
+    const { data: signedData, error: signedError } = await supabase.storage
       .from('avatars')
-      .getPublicUrl(filePath);
+      .createSignedUrl(filePath, 3600);
 
-    const publicUrl = urlData.publicUrl;
+    if (signedError) throw signedError;
+
+    const signedUrl = signedData.signedUrl;
 
     const { error: updateError } = await supabase
       .from('profiles')
-      .update({ photo_url: publicUrl })
+      .update({ photo_url: signedUrl })
       .eq('id', userId);
 
     if (updateError) throw updateError;
 
-    return { data: { photo_url: publicUrl }, error: null };
+    return { data: { photo_url: signedUrl }, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudo subir la foto' };
   }

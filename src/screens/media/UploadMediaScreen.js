@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -30,8 +30,8 @@ export default function UploadMediaScreen() {
   const pickFromGallery = async (mediaType) => {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: mediaType === 'video'
-        ? ImagePicker.MediaTypeOptions.Videos
-        : ImagePicker.MediaTypeOptions.Images,
+        ? ['videos']
+        : ['images'],
       quality: 1,
       videoMaxDuration: 60,
     });
@@ -44,7 +44,7 @@ export default function UploadMediaScreen() {
 
   const takePhoto = async () => {
     const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ['images'],
       quality: 1,
     });
 
@@ -183,9 +183,16 @@ export default function UploadMediaScreen() {
 
           <View style={styles.textareaContainer}>
             <Text style={styles.label}>Descripción (opcional)</Text>
-            <Text style={styles.textarea} numberOfLines={3}>
-              {description || ''}
-            </Text>
+            <TextInput
+              style={styles.textarea}
+              multiline
+              numberOfLines={3}
+              value={description}
+              onChangeText={setDescription}
+              placeholder="Contá qué hiciste en esta jugada..."
+              placeholderTextColor={colors.textTertiary}
+              textAlignVertical="top"
+            />
           </View>
         </View>
 
