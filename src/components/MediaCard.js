@@ -1,51 +1,75 @@
+import { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Play, Video } from 'lucide-react-native';
+import { Play } from 'lucide-react-native';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
 import { radii } from '../constants/radii';
+
+function VideoThumbnail({ uri }) {
+  if (!uri) {
+    return (
+      <View style={styles.contentWrapper}>
+        <View style={styles.playOverlay}>
+          <View style={styles.playButton}>
+            <Play size={20} color={colors.textOnAccent} fill={colors.textOnAccent} />
+          </View>
+        </View>
+      </View>
+    );
+  }
+
+  const player = useVideoPlayer(uri, (p) => {
+    p.loop = false;
+    p.muted = true;
+  });
+
+  useEffect(() => {
+    return () => {
+      player.release();
+    };
+  }, [player]);
+
+  return (
+    <View style={styles.contentWrapper}>
+      <VideoView
+        player={player}
+        style={styles.media}
+        nativeControls={false}
+        contentFit="cover"
+      />
+      <View style={styles.playOverlay}>
+        <View style={styles.playButton}>
+          <Play size={20} color={colors.textOnAccent} fill={colors.textOnAccent} />
+        </View>
+      </View>
+    </View>
+  );
+}
 
 export default function MediaCard({ uri, type = 'photo', category, duration, onPress }) {
   const isVideo = type === 'video';
 
   return (
     <TouchableOpacity
-      style={[styles.container, isVideo && styles.containerVideo]}
+      style={styles.container}
       onPress={onPress}
       activeOpacity={0.8}
       accessibilityLabel={`${isVideo ? 'Video' : 'Foto'}: ${category || ''}`}
     >
       {isVideo ? (
-        <View style={styles.videoPlaceholder}>
-          <Video size={32} color={colors.textTertiary} />
-          <Text style={styles.videoLabel}>VIDEO</Text>
-        </View>
+        <VideoThumbnail uri={uri} />
       ) : (
         <Image
           source={{ uri }}
-          style={styles.image}
+          style={styles.media}
           resizeMode="cover"
         />
-      )}
-
-      <View style={styles.overlay} />
-
-      {isVideo && (
-        <View style={styles.playContainer}>
-          <View style={styles.playBg}>
-            <Play size={24} color={colors.textOnAccent} fill={colors.textOnAccent} />
-          </View>
-        </View>
       )}
 
       {category && (
         <View style={styles.categoryBadge}>
           <Text style={styles.categoryText}>{category.toUpperCase()}</Text>
-        </View>
-      )}
-
-      {duration && (
-        <View style={styles.durationBadge}>
-          <Text style={styles.durationText}>{duration}</Text>
         </View>
       )}
     </TouchableOpacity>
@@ -57,69 +81,41 @@ const styles = StyleSheet.create({
     borderRadius: radii.md,
     overflow: 'hidden',
     backgroundColor: colors.bgSurface,
-  },
-  containerVideo: {
-    aspectRatio: 9 / 16,
-  },
-  image: {
-    width: '100%',
     aspectRatio: 1,
   },
-  videoPlaceholder: {
+  contentWrapper: {
     width: '100%',
-    aspectRatio: 1,
+    height: '100%',
     backgroundColor: colors.bgSurfaceOverlay,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
   },
-  videoLabel: {
-    ...typography.caption,
-    color: colors.textTertiary,
-    letterSpacing: 1,
+  media: {
+    width: '100%',
+    height: '100%',
   },
-  overlay: {
+  playOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'transparent',
-    borderBottomLeftRadius: radii.md,
-    borderBottomRightRadius: radii.md,
-  },
-  playContainer: {
-    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.3)',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  playBg: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+  playButton: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(0,0,0,0.55)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   categoryBadge: {
     position: 'absolute',
-    top: 8,
-    left: 8,
-    backgroundColor: 'rgba(11,14,20,0.7)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    bottom: 6,
+    left: 6,
+    backgroundColor: 'rgba(11,14,20,0.75)',
+    paddingHorizontal: 6,
+    paddingVertical: 3,
     borderRadius: radii.sm,
   },
   categoryText: {
-    ...typography.caption,
-    color: colors.textOnAccent,
-  },
-  durationBadge: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-    backgroundColor: 'rgba(11,14,20,0.7)',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: radii.sm,
-  },
-  durationText: {
     ...typography.caption,
     color: colors.textOnAccent,
   },

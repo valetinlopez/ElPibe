@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera, Image as ImageIcon, X, Check, Video } from 'lucide-react-native';
+import { Camera, Image as ImageIcon, X, Check } from 'lucide-react-native';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import { useAuth } from '../../context/AuthContext';
 import { uploadMedia } from '../../services/media.service';
 import Header from '../../components/Header';
@@ -15,6 +16,25 @@ import { spacing } from '../../constants/spacing';
 import { radii } from '../../constants/radii';
 import { mediaCategories } from '../../constants/categories';
 
+function VideoPreview({ uri, duration }) {
+  const player = useVideoPlayer(uri);
+  return (
+    <View style={styles.videoPreview}>
+      <VideoView
+        player={player}
+        style={styles.videoPlayer}
+        nativeControls
+        contentFit="cover"
+      />
+      {duration && (
+        <Text style={styles.durationText}>
+          {Math.floor(duration / 60)}:{(duration % 60).toString().padStart(2, '0')}
+        </Text>
+      )}
+    </View>
+  );
+}
+
 export default function UploadMediaScreen() {
   const navigation = useNavigation();
   const { user } = useAuth();
@@ -22,7 +42,6 @@ export default function UploadMediaScreen() {
   const [file, setFile] = useState(null);
   const [fileType, setFileType] = useState(null);
   const [category, setCategory] = useState('');
-  const [subcategory, setSubcategory] = useState('');
   const [description, setDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
@@ -91,7 +110,7 @@ export default function UploadMediaScreen() {
       file,
       fileType,
       category,
-      subcategory || null,
+      null,
       description || null
     );
 
@@ -150,15 +169,7 @@ export default function UploadMediaScreen() {
               </TouchableOpacity>
             </View>
             {fileType === 'video' ? (
-              <View style={styles.videoPlaceholder}>
-                <Video size={40} color={colors.textTertiary} />
-                <Text style={styles.videoText}>Video seleccionado</Text>
-                {file.duration && (
-                  <Text style={styles.durationText}>
-                    {Math.floor(file.duration / 60)}:{(file.duration % 60).toString().padStart(2, '0')}
-                  </Text>
-                )}
-              </View>
+              <VideoPreview uri={file.uri} duration={file.duration} />
             ) : (
               <Image source={{ uri: file.uri }} style={styles.imagePreview} />
             )}
@@ -283,17 +294,16 @@ const styles = StyleSheet.create({
     height: 200,
     borderRadius: radii.md,
   },
-  videoPlaceholder: {
+  videoPreview: {
     width: '100%',
-    height: 200,
+    aspectRatio: 9 / 16,
     backgroundColor: colors.bgSurface,
     borderRadius: radii.md,
-    alignItems: 'center',
-    justifyContent: 'center',
+    overflow: 'hidden',
   },
-  videoText: {
-    ...typography.bodyMD,
-    color: colors.textTertiary,
+  videoPlayer: {
+    width: '100%',
+    height: '100%',
   },
   durationText: {
     ...typography.caption,

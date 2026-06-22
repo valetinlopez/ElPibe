@@ -21,7 +21,8 @@ export const uploadMedia = async (profileId, file, type, category, subcategory =
 
     await ensureDirectoryExists(MEDIA_DIR);
 
-    const fileExt = file.uri.split('.').pop();
+    const uriSegments = file.uri.split('/').pop().split('?')[0].split('.');
+    const fileExt = uriSegments.length > 1 ? uriSegments.pop() : (type === 'video' ? 'mp4' : 'jpg');
     const timestamp = Date.now();
     const fileName = `${profileId}/${type}_${timestamp}.${fileExt}`;
     const destPath = `${MEDIA_DIR}${fileName}`;

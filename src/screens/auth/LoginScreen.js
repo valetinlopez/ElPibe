@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react-native';
@@ -52,9 +52,11 @@ export default function LoginScreen() {
         >
           <View style={styles.header}>
             <View style={styles.logoContainer}>
-              <View style={styles.logoBadge}>
-                <View style={styles.logoAccent} />
-              </View>
+              <Image
+                source={require('../../../assets/icon.png')}
+                style={styles.appLogo}
+                resizeMode="contain"
+              />
               <Text style={styles.logo}>EL PIBE</Text>
             </View>
             <Text style={styles.tagline}>
@@ -142,22 +144,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing[4],
   },
-  logoBadge: {
-    width: 72,
-    height: 72,
-    borderRadius: 36,
-    backgroundColor: colors.accentBlueDim,
-    borderWidth: 2,
-    borderColor: colors.accentBlueMetal,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logoAccent: {
-    width: 36,
-    height: 36,
-    borderRadius: 6,
-    backgroundColor: colors.accentBlue,
-    transform: [{ rotate: '45deg' }],
+  appLogo: {
+    width: 80,
+    height: 80,
+    borderRadius: 20,
   },
   logo: {
     ...typography.displayXL,

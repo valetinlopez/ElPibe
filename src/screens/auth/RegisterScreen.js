@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { ChevronLeft, Mail, Lock, User, Zap } from 'lucide-react-native';
@@ -65,6 +65,11 @@ export default function RegisterScreen() {
           </TouchableOpacity>
 
           <View style={styles.header}>
+            <Image
+              source={require('../../../assets/icon.png')}
+              style={styles.appLogo}
+              resizeMode="contain"
+            />
             <Text style={styles.logo}>EL PIBE</Text>
           </View>
 
@@ -166,6 +171,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: spacing[4],
   },
+  logoContainer: { alignItems: 'center', marginBottom: spacing[4] },
+  appLogo: { width: 64, height: 64, borderRadius: 16 },
   logo: {
     ...typography.displayLG,
     color: colors.textPrimary,

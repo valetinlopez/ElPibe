@@ -10,6 +10,7 @@
     "babel-preset-expo": "~54.0.10",
     "expo": "~54.0.35",
     "expo-crypto": "~15.0.9",
+    "expo-video": "~3.0.16",
     "expo-file-system": "~19.0.23",
     "expo-image-picker": "~17.0.0",
     "expo-secure-store": "~15.0.0",
@@ -27,6 +28,7 @@
   },
   "scripts": {
     "start": "expo start",
+    "tunnel": "expo start --tunnel",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"

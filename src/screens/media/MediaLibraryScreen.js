@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 import { Camera, Filter, Plus } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getMediaByProfile, getMediaByCategory } from '../../services/media.service';
@@ -26,27 +27,43 @@ export default function MediaLibraryScreen() {
   const [filter, setFilter] = useState(null);
   const [showFilterSheet, setShowFilterSheet] = useState(false);
 
-  useEffect(() => {
-    loadMedia();
-  }, [filter]);
-
-  const loadMedia = async () => {
-    setLoading(true);
-    try {
-      const { data } = filter
-        ? await getMediaByCategory(user?.id, filter)
-        : await getMediaByProfile(user?.id);
-      setMedia(data || []);
-    } catch (error) {
-      console.error('Error cargando multimedia:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useFocusEffect(
+    useCallback(() => {
+      const profileId = user?.id;
+      if (!profileId) {
+        setMedia([]);
+        setLoading(false);
+        return;
+      }
+      const fetchMedia = async () => {
+        setLoading(true);
+        try {
+          const { data } = filter
+            ? await getMediaByCategory(profileId, filter)
+            : await getMediaByProfile(profileId);
+          setMedia(data || []);
+        } catch (error) {
+          console.error('Error cargando multimedia:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchMedia();
+    }, [filter, user?.id])
+  );
 
   const handleFilterSelect = (categoryId) => {
     setFilter(filter === categoryId ? null : categoryId);
     setShowFilterSheet(false);
+  };
+
+  const handleMediaPress = (item) => {
+    if (item.type === 'video') {
+      navigation.navigate('VideoPlayer', {
+        uri: item.storage_path,
+        category: item.category,
+      });
+    }
   };
 
   const renderMediaItem = ({ item }) => (
@@ -55,6 +72,7 @@ export default function MediaLibraryScreen() {
       type={item.type}
       category={item.category}
       style={styles.mediaItem}
+      onPress={() => handleMediaPress(item)}
     />
   );
 

@@ -34,11 +34,17 @@ export default function RadarChart({ data, size: propSize }) {
   });
 
   const polygonPoints = dataPoints.map((p) => `${p.x},${p.y}`).join(' ');
-  const labelPositions = DIMENSIONS.map((_, index) => getPoint(index, MAX_SCORE + 3));
+  const labelPositions = DIMENSIONS.map((_, index) => getPoint(index, MAX_SCORE + 3.5));
 
   const formatValue = (val) => {
     if (Number.isInteger(val)) return val.toString();
     return val.toFixed(1);
+  };
+
+  const getLabelAnchor = (index) => {
+    if (index === 1) return 'end';
+    if (index === 3) return 'start';
+    return 'middle';
   };
 
   return (
@@ -78,7 +84,7 @@ export default function RadarChart({ data, size: propSize }) {
 
           <Polygon
             points={polygonPoints}
-            fill={colors.accentBlue + '33'}
+            fill={colors.accentBlue + '40'}
             stroke={colors.accentBlueBright}
             strokeWidth={2}
           />
@@ -92,6 +98,18 @@ export default function RadarChart({ data, size: propSize }) {
               fill={colors.accentBlueBright}
             />
           ))}
+
+          <SvgText
+            x={getPoint(0, 10).x}
+            y={getPoint(0, 10).y - 16}
+            textAnchor="middle"
+            dominantBaseline="middle"
+            fill={colors.textTertiary}
+            fontSize={9}
+            fontFamily="Inter"
+          >
+            10
+          </SvgText>
 
           {dataPoints.map((point, index) => {
             if (point.value === 0) return null;
@@ -119,7 +137,7 @@ export default function RadarChart({ data, size: propSize }) {
                 key={`label-${index}`}
                 x={labelPoint.x}
                 y={labelPoint.y}
-                textAnchor="middle"
+                textAnchor={getLabelAnchor(index)}
                 dominantBaseline="middle"
                 fill={colors.textSecondary}
                 fontSize={typography.bodySM.fontSize}
