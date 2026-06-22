@@ -1,5 +1,5 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../context/AuthContext';
 import SplashScreen from '../screens/SplashScreen';
 import AuthStack from './AuthStack';
@@ -7,7 +7,7 @@ import MainTabs from './MainTabs';
 import { View, ActivityIndicator } from 'react-native';
 import { colors } from '../constants/colors';
 
-const Root = createStackNavigator();
+const Root = createNativeStackNavigator();
 
 export default function RootNavigator() {
   const { session, loading } = useAuth();

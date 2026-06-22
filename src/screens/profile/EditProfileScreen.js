@@ -3,8 +3,9 @@ import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, Keyboa
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Check, ChevronLeft, Shield } from 'lucide-react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../../context/AuthContext';
-import { getProfile, updateProfile } from '../../services/profile.service';
+import { getProfile, updateProfile, uploadAvatar } from '../../services/profile.service';
 import Header from '../../components/Header';
 import Avatar from '../../components/Avatar';
 import Input from '../../components/Input';
@@ -22,12 +23,14 @@ export default function EditProfileScreen() {
   const navigation = useNavigation();
   const { user } = useAuth();
 
+  const [profile, setProfile] = useState(null);
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
   const [club, setClub] = useState('');
   const [category, setCategory] = useState('');
   const [positionMain, setPositionMain] = useState('');
   const [loading, setLoading] = useState(false);
+  const [photoLoading, setPhotoLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
 
   useEffect(() => {
@@ -37,11 +40,44 @@ export default function EditProfileScreen() {
   const loadProfile = async () => {
     const { data } = await getProfile(user?.id);
     if (data) {
+      setProfile(data);
       setFullName(data.full_name || '');
       setBio(data.bio || '');
       setClub(data.club || '');
       setCategory(data.category || '');
       setPositionMain(data.position_main || '');
+    }
+  };
+
+  const handlePickPhoto = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      setToast({ visible: true, type: 'error', message: 'Necesitás dar permiso para acceder a tus fotos' });
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ['images'],
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 0.8,
+    });
+
+    if (result.canceled || !result.assets?.[0]) return;
+
+    setPhotoLoading(true);
+    try {
+      const { error } = await uploadAvatar(user?.id, result.assets[0]);
+      if (error) {
+        setToast({ visible: true, type: 'error', message: error });
+      } else {
+        await loadProfile();
+        setToast({ visible: true, type: 'success', message: '¡Foto actualizada!' });
+      }
+    } catch (e) {
+      setToast({ visible: true, type: 'error', message: 'Algo salió mal, probá de nuevo' });
+    } finally {
+      setPhotoLoading(false);
     }
   };
 
@@ -53,22 +89,26 @@ export default function EditProfileScreen() {
 
     setLoading(true);
 
-    const { error } = await updateProfile(user?.id, {
-      full_name: fullName.trim(),
-      bio: bio.trim() || null,
-      club: club.trim() || null,
-      category: category.trim() || null,
-      position_main: positionMain || null,
-    });
+    try {
+      const { error } = await updateProfile(user?.id, {
+        full_name: fullName.trim(),
+        bio: bio.trim() || null,
+        club: club.trim() || null,
+        category: category.trim() || null,
+        position_main: positionMain || null,
+      });
 
-    if (error) {
-      setToast({ visible: true, type: 'error', message: error });
-    } else {
-      setToast({ visible: true, type: 'success', message: '¡Perfil actualizado!' });
-      setTimeout(() => navigation.goBack(), 1500);
+      if (error) {
+        setToast({ visible: true, type: 'error', message: error });
+      } else {
+        setToast({ visible: true, type: 'success', message: '¡Perfil actualizado!' });
+        setTimeout(() => navigation.goBack(), 1500);
+      }
+    } catch (error) {
+      setToast({ visible: true, type: 'error', message: 'Algo salió mal, probá de nuevo' });
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   const playerId = `#${user?.id?.slice(0, 4).toUpperCase() || '0000'}-${fullName.split(' ')[0]?.toUpperCase() || 'JUGADOR'}-${new Date().getFullYear()}`;
@@ -90,12 +130,13 @@ export default function EditProfileScreen() {
         >
           <View style={styles.avatarSection}>
             <Avatar
-              uri={null}
+              uri={profile?.photo_url}
               size={96}
-              profileComplete={false}
-              onPressEdit={() => {}}
+              profileComplete={true}
+              loading={photoLoading}
+              onPressEdit={handlePickPhoto}
             />
-            <TouchableOpacity style={styles.photoLink}>
+            <TouchableOpacity style={styles.photoLink} onPress={handlePickPhoto}>
               <Text style={styles.photoLinkText}>FOTO DE CANCHA</Text>
             </TouchableOpacity>
           </View>

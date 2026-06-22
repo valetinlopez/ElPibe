@@ -1,8 +1,8 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 import { colors } from '../constants/colors';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function SettingsStack() {
   return (

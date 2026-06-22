@@ -1,108 +1,86 @@
-import { supabase } from './supabaseClient';
+import { getDatabase } from './database';
+import * as Crypto from 'expo-crypto';
+import * as FileSystem from 'expo-file-system/legacy';
 import { validateFileSize } from '../utils/validations';
 
-/**
- * Subir un archivo multimedia (video o foto) a Supabase Storage
- * y registrar su metadata en la tabla media_items.
- */
-export const uploadMedia = async (profileId, file, type, category, subcategory = null) => {
+const MEDIA_DIR = `${FileSystem.documentDirectory}media/`;
+
+const ensureDirectoryExists = async (dir) => {
+  const dirInfo = await FileSystem.getInfoAsync(dir);
+  if (!dirInfo.exists) {
+    await FileSystem.makeDirectoryAsync(dir, { intermediates: true });
+  }
+};
+
+export const uploadMedia = async (profileId, file, type, category, subcategory = null, description = null) => {
   try {
     const validacionTamano = validateFileSize(file.fileSize || 0, type);
     if (validacionTamano) {
       return { data: null, error: validacionTamano };
     }
 
+    await ensureDirectoryExists(MEDIA_DIR);
+
     const fileExt = file.uri.split('.').pop();
     const timestamp = Date.now();
     const fileName = `${profileId}/${type}_${timestamp}.${fileExt}`;
-    const filePath = `media/${fileName}`;
+    const destPath = `${MEDIA_DIR}${fileName}`;
 
-    const arrayBuffer = await fetch(file.uri).then((res) => res.arrayBuffer());
+    const destDir = `${MEDIA_DIR}${profileId}/`;
+    await ensureDirectoryExists(destDir);
 
-    const contentType = type === 'video' ? `video/${fileExt}` : `image/${fileExt}`;
+    await FileSystem.copyAsync({ from: file.uri, to: destPath });
 
-    const { error: uploadError } = await supabase.storage
-      .from('media')
-      .upload(filePath, arrayBuffer, { contentType });
+    const db = getDatabase();
+    const id = Crypto.randomUUID();
+    db.runSync(
+      `INSERT INTO media_items (id, profile_id, type, category, subcategory, description, storage_path)
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [id, profileId, type, category || '', subcategory || '', description || '', destPath]
+    );
 
-    if (uploadError) throw uploadError;
-
-    const mediaData = {
-      profile_id: profileId,
-      type,
-      category,
-      subcategory,
-      storage_path: filePath,
-    };
-
-    const { data: dbData, error: dbError } = await supabase
-      .from('media_items')
-      .insert(mediaData)
-      .select()
-      .single();
-
-    if (dbError) throw dbError;
-
-    return { data: dbData, error: null };
+    const created = db.getFirstSync('SELECT * FROM media_items WHERE id = ?', [id]);
+    return { data: created, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudo subir el archivo multimedia' };
   }
 };
 
-/**
- * Obtener todos los archivos multimedia de un jugador.
- */
 export const getMediaByProfile = async (profileId) => {
   try {
-    const { data, error } = await supabase
-      .from('media_items')
-      .select('*')
-      .eq('profile_id', profileId)
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return { data, error: null };
+    const db = getDatabase();
+    const results = db.getAllSync(
+      'SELECT * FROM media_items WHERE profile_id = ? ORDER BY created_at DESC',
+      [profileId]
+    );
+    return { data: results, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudo cargar la biblioteca multimedia' };
   }
 };
 
-/**
- * Obtener archivos multimedia filtrados por categoría.
- */
 export const getMediaByCategory = async (profileId, category) => {
   try {
-    const { data, error } = await supabase
-      .from('media_items')
-      .select('*')
-      .eq('profile_id', profileId)
-      .eq('category', category)
-      .order('created_at', { ascending: false });
-
-    if (error) throw error;
-    return { data, error: null };
+    const db = getDatabase();
+    const results = db.getAllSync(
+      'SELECT * FROM media_items WHERE profile_id = ? AND category = ? ORDER BY created_at DESC',
+      [profileId, category]
+    );
+    return { data: results, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudieron cargar los archivos de esa categoría' };
   }
 };
 
-/**
- * Eliminar un archivo multimedia: primero de Storage, luego de la tabla.
- */
 export const deleteMedia = async (mediaId, storagePath) => {
   try {
-    const { error: storageError } = await supabase.storage
-      .from('media')
-      .remove([storagePath]);
+    const fileInfo = await FileSystem.getInfoAsync(storagePath);
+    if (fileInfo.exists) {
+      await FileSystem.deleteAsync(storagePath);
+    }
 
-    if (storageError) throw storageError;
-
-    const { error: dbError } = await supabase
-      .from('media_items')
-      .delete()
-      .eq('id', mediaId);
-
-    if (dbError) throw dbError;
+    const db = getDatabase();
+    db.runSync('DELETE FROM media_items WHERE id = ?', [mediaId]);
 
     return { error: null };
   } catch (error) {
@@ -110,13 +88,6 @@ export const deleteMedia = async (mediaId, storagePath) => {
   }
 };
 
-/**
- * Obtener la URL firmada de un archivo en Storage.
- */
-export const getMediaUrl = async (storagePath) => {
-  const { data } = await supabase.storage
-    .from('media')
-    .createSignedUrl(storagePath, 3600);
-
-  return data?.signedUrl || null;
+export const getMediaUrl = (storagePath) => {
+  return storagePath || null;
 };

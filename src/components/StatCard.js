@@ -18,7 +18,6 @@ export default function StatCard({ value, label, isRecord = false, icon: Icon })
 const styles = StyleSheet.create({
   card: {
     flex: 1,
-    marginHorizontal: 4,
   },
   content: {
     alignItems: 'center',

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
+import { spacing } from '../constants/spacing';
 import Button from './Button';
 
 export default function EmptyState({ icon: Icon, title, description, actionLabel, onAction }) {
@@ -27,27 +28,27 @@ export default function EmptyState({ icon: Icon, title, description, actionLabel
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 32,
-    paddingVertical: 48,
+    paddingHorizontal: spacing[8],
+    paddingVertical: spacing[12],
   },
   iconContainer: {
-    marginBottom: 24,
+    marginBottom: spacing[6],
     opacity: 0.8,
   },
   title: {
     ...typography.headingMD,
     color: colors.textPrimary,
     textAlign: 'center',
-    marginBottom: 8,
+    marginBottom: spacing[2],
   },
   description: {
     ...typography.bodyMD,
     color: colors.textSecondary,
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: spacing[6],
   },
   button: {
     minWidth: 200,

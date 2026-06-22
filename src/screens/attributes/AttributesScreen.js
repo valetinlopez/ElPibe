@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Minus, Plus } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getAttributes, upsertAttributes, calculateRadarAverages } from '../../services/attributes.service';
 import Header from '../../components/Header';
@@ -16,39 +17,60 @@ import { attributesByDimension, dimensionLabels } from '../../constants/dimensio
 const { width } = Dimensions.get('window');
 
 function AttributeSlider({ label, value, onChange }) {
+  const handleMinus = () => {
+    if (value > 1) onChange(value - 1);
+  };
+
+  const handlePlus = () => {
+    if (value < 10) onChange(value + 1);
+  };
+
   return (
     <View style={sliderStyles.container}>
-      <Text style={sliderStyles.label}>{label}</Text>
-      <View style={sliderStyles.sliderRow}>
-        <View style={sliderStyles.track}>
-          <View
-            style={[
-              sliderStyles.fill,
-              { width: `${(value / 10) * 100}%` },
-              value >= 8 && sliderStyles.fillHighlight,
-            ]}
-          />
-        </View>
+      <View style={sliderStyles.header}>
+        <Text style={sliderStyles.label}>{label}</Text>
         <Text
           style={[
             sliderStyles.value,
             value >= 8 && sliderStyles.valueHighlight,
           ]}
         >
-          {value}
+          {value}/10
         </Text>
       </View>
-      <View style={sliderStyles.slider}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
-          <View
-            key={num}
-            style={[
-              sliderStyles.dot,
-              num <= value && sliderStyles.dotActive,
-              num >= 8 && sliderStyles.dotHighlight,
-            ]}
-          />
-        ))}
+      <View style={sliderStyles.counterRow}>
+        <TouchableOpacity
+          onPress={handleMinus}
+          disabled={value <= 1}
+          activeOpacity={0.6}
+          style={[sliderStyles.counterBtn, value <= 1 && sliderStyles.counterBtnDisabled]}
+        >
+          <Minus size={20} color={value <= 1 ? colors.textTertiary : colors.textPrimary} />
+        </TouchableOpacity>
+        <View style={sliderStyles.trackContainer}>
+          <View style={sliderStyles.track}>
+            <View
+              style={[
+                sliderStyles.fill,
+                { width: `${(value / 10) * 100}%` },
+                value >= 8 && sliderStyles.fillHighlight,
+              ]}
+            />
+          </View>
+          <View style={sliderStyles.ticksRow}>
+            {[2, 4, 6, 8].map((num) => (
+              <View key={`tick-${num}`} style={sliderStyles.tick} />
+            ))}
+          </View>
+        </View>
+        <TouchableOpacity
+          onPress={handlePlus}
+          disabled={value >= 10}
+          activeOpacity={0.6}
+          style={[sliderStyles.counterBtn, value >= 10 && sliderStyles.counterBtnDisabled]}
+        >
+          <Plus size={20} color={value >= 10 ? colors.textTertiary : colors.textPrimary} />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -67,7 +89,12 @@ export default function AttributesScreen() {
   }, []);
 
   const loadAttributes = async () => {
-    const { data } = await getAttributes(user?.id);
+    if (!user?.id) {
+      setLoading(false);
+      return;
+    }
+
+    const { data } = await getAttributes(user.id);
 
     if (data && data.length > 0) {
       const attrs = {};
@@ -76,6 +103,13 @@ export default function AttributesScreen() {
       });
       setAttributes(attrs);
       updateRadar(attrs);
+    } else {
+      const defaultAttrs = {};
+      Object.values(attributesByDimension).flat().forEach((a) => {
+        defaultAttrs[a.id] = 5;
+      });
+      setAttributes(defaultAttrs);
+      updateRadar(defaultAttrs);
     }
 
     setLoading(false);
@@ -102,13 +136,15 @@ export default function AttributesScreen() {
   };
 
   const handleSave = async () => {
+    if (!user?.id) return;
+
     setSaving(true);
 
     const attrsArray = [];
     Object.keys(attributesByDimension).forEach((dim) => {
       attributesByDimension[dim].forEach((attr) => {
         attrsArray.push({
-          profile_id: user?.id,
+          profile_id: user.id,
           dimension: dim,
           attribute_name: attr.id,
           score: attributes[attr.id] || 5,
@@ -121,6 +157,7 @@ export default function AttributesScreen() {
     if (error) {
       setToast({ visible: true, type: 'error', message: error });
     } else {
+      updateRadar(attributes);
       setToast({ visible: true, type: 'success', message: '¡Atributos guardados!' });
     }
 
@@ -204,18 +241,46 @@ const sliderStyles = StyleSheet.create({
   container: {
     marginBottom: spacing[4],
   },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing[2],
+  },
   label: {
     ...typography.bodySM,
     color: colors.textSecondary,
-    marginBottom: spacing[2],
   },
-  sliderRow: {
+  value: {
+    ...typography.headingMD,
+    color: colors.textPrimary,
+  },
+  valueHighlight: {
+    color: colors.accentBlueBright,
+  },
+  counterRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing[3],
   },
-  track: {
+  counterBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  counterBtnDisabled: {
+    opacity: 0.4,
+    borderColor: colors.borderSubtle,
+  },
+  trackContainer: {
     flex: 1,
+  },
+  track: {
     height: 6,
     backgroundColor: colors.bgSurfaceOverlay,
     borderRadius: 3,
@@ -229,30 +294,15 @@ const sliderStyles = StyleSheet.create({
   fillHighlight: {
     backgroundColor: colors.accentBlueBright,
   },
-  value: {
-    ...typography.headingMD,
-    color: colors.textPrimary,
-    width: 28,
-    textAlign: 'center',
-  },
-  valueHighlight: {
-    color: colors.accentBlueBright,
-  },
-  slider: {
+  ticksRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: spacing[2],
+    marginTop: spacing[1],
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+  tick: {
+    width: 2,
+    height: 4,
+    borderRadius: 1,
     backgroundColor: colors.borderSubtle,
-  },
-  dotActive: {
-    backgroundColor: colors.accentBlueMetal,
-  },
-  dotHighlight: {
-    backgroundColor: colors.accentBlueBright,
   },
 });

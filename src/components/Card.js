@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { colors } from '../constants/colors';
 import { radii } from '../constants/radii';
+import { spacing } from '../constants/spacing';
 
 export default function Card({ variant = 'default', children, style }) {
   return (
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
   base: {
     backgroundColor: colors.bgSurface,
     borderRadius: radii.lg,
-    padding: 16,
+    padding: spacing[4],
     borderWidth: 1,
     borderColor: colors.borderSubtle,
     shadowColor: '#000',

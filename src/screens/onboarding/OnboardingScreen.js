@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, StyleSheet, Dimensions, Animated } from 'react-native';
+import { View, StyleSheet, Dimensions, Animated, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../../context/AuthContext';
 import { createProfile } from '../../services/profile.service';
@@ -53,6 +53,8 @@ export default function OnboardingScreen({ navigation }) {
   };
 
   const handleComplete = async (stepData) => {
+    if (!user?.id) return;
+
     const allData = { ...formData, ...stepData };
     setLoading(true);
 
@@ -76,6 +78,8 @@ export default function OnboardingScreen({ navigation }) {
 
       if (!error) {
         navigation.reset({ index: 0, routes: [{ name: 'MainTabs' }] });
+      } else {
+        Alert.alert('Error', 'No se pudo crear el perfil. Probá de nuevo.');
       }
     } catch (error) {
       console.error('Error creando perfil:', error);

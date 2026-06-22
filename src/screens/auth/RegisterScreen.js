@@ -41,6 +41,8 @@ export default function RegisterScreen() {
     if (authError) {
       setError(authError);
       setLoading(false);
+    } else {
+      navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] });
     }
   };
 

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { View, Text, ScrollView, TouchableOpacity, Alert, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, CommonActions } from '@react-navigation/native';
 import { User, Lock, Bell, FileText, Shield, MessageCircle, Bug, LogOut, ChevronRight } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import Header from '../../components/Header';
@@ -60,6 +60,12 @@ export default function SettingsScreen() {
   const performLogout = async () => {
     setLoading(true);
     await authSignOut();
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Auth' }],
+      })
+    );
     setLoading(false);
   };
 

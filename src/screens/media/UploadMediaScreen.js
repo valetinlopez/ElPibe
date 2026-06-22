@@ -3,7 +3,7 @@ import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, StyleSheet,
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera, Image as ImageIcon, X, Check } from 'lucide-react-native';
+import { Camera, Image as ImageIcon, X, Check, Video } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { uploadMedia } from '../../services/media.service';
 import Header from '../../components/Header';
@@ -31,7 +31,9 @@ export default function UploadMediaScreen() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: mediaType === 'video'
         ? ['videos']
-        : ['images'],
+        : mediaType === 'photo'
+        ? ['images']
+        : ['images', 'videos'],
       quality: 1,
       videoMaxDuration: 60,
     });
@@ -77,14 +79,20 @@ export default function UploadMediaScreen() {
       return;
     }
 
+    if (!user?.id) {
+      setToast({ visible: true, type: 'error', message: 'No hay usuario activo' });
+      return;
+    }
+
     setLoading(true);
 
     const { error } = await uploadMedia(
-      user?.id,
+      user.id,
       file,
       fileType,
       category,
-      subcategory || null
+      subcategory || null,
+      description || null
     );
 
     if (error) {
@@ -113,7 +121,7 @@ export default function UploadMediaScreen() {
           <View style={styles.selectorContainer}>
             <TouchableOpacity
               style={styles.selectorButton}
-              onPress={() => pickFromGallery('video')}
+              onPress={() => pickFromGallery('mixed')}
               activeOpacity={0.7}
             >
               <ImageIcon size={32} color={colors.accentBlueBright} />
@@ -143,7 +151,8 @@ export default function UploadMediaScreen() {
             </View>
             {fileType === 'video' ? (
               <View style={styles.videoPlaceholder}>
-                <Text style={styles.videoText}>Video Preview</Text>
+                <Video size={40} color={colors.textTertiary} />
+                <Text style={styles.videoText}>Video seleccionado</Text>
                 {file.duration && (
                   <Text style={styles.durationText}>
                     {Math.floor(file.duration / 60)}:{(file.duration % 60).toString().padStart(2, '0')}
@@ -159,7 +168,7 @@ export default function UploadMediaScreen() {
         <View style={styles.form}>
           <Text style={styles.label}>Categoría *</Text>
           <View style={styles.chipContainer}>
-            {mediaCategories.slice(0, 4).map((cat) => (
+            {mediaCategories.map((cat) => (
               <TouchableOpacity
                 key={cat.id}
                 style={[

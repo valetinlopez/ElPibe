@@ -43,7 +43,7 @@ export default function MainTabs() {
         name="TabStats"
         component={StatsStack}
         options={{
-          tabBarLabel: 'STATS',
+          tabBarLabel: 'ESTADÍSTICAS',
           tabBarIcon: ({ color, size }) => (
             <BarChart2 size={24} color={color} />
           ),

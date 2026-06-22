@@ -1,11 +1,24 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import { supabase } from '../services/supabaseClient';
+import * as Crypto from 'expo-crypto';
+import { initDatabase } from '../services/database';
+import { storageGetItem, storageSetItem, storageDeleteItem } from '../utils/storage';
 
 const AuthContext = createContext({});
 
+const sanitizeKey = (key) => {
+  return key.replace(/[^a-zA-Z0-9._-]/g, '_');
+};
+
+const hashPassword = async (password) => {
+  return await Crypto.digestStringAsync(
+    Crypto.CryptoDigestAlgorithm.SHA256,
+    password
+  );
+};
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) {
+  if (!context || !context.signIn) {
     throw new Error('useAuth debe ser usado dentro de un AuthProvider');
   }
   return context;
@@ -17,76 +30,121 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Verificar sesión activa
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      setLoading(false);
-    }).catch(() => {
-      setSession(null);
-      setUser(null);
-      setLoading(false);
-    });
+    const checkSession = async () => {
+      try {
+        initDatabase();
 
-    // Escuchar cambios de autenticación
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
+        const userJson = await storageGetItem('auth_user');
+        const sessionJson = await storageGetItem('auth_session');
+
+        if (userJson && sessionJson) {
+          const parsedUser = JSON.parse(userJson);
+          const parsedSession = JSON.parse(sessionJson);
+          setUser(parsedUser);
+          setSession(parsedSession);
+        }
+      } catch (error) {
+        console.error('Error al verificar sesión:', error);
+      } finally {
+        setLoading(false);
       }
-    );
+    };
 
-    return () => subscription.unsubscribe();
+    checkSession();
   }, []);
 
   const signIn = async (email, password) => {
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const key = sanitizeKey(email);
+      const storedHash = await storageGetItem(`auth_hash_${key}`);
+      const storedUser = await storageGetItem(`auth_user_${key}`);
 
-      if (error) throw error;
-      return { data, error: null };
+      if (!storedHash || !storedUser) {
+        return { data: null, error: 'No existe una cuenta con este email' };
+      }
+
+      const inputHash = await hashPassword(password);
+      if (inputHash !== storedHash) {
+        return { data: null, error: 'Email o contraseña incorrectos' };
+      }
+
+      const parsedUser = JSON.parse(storedUser);
+      const userData = { id: parsedUser.id, email: parsedUser.email, user_metadata: parsedUser.user_metadata };
+      const sessionData = { user: userData, access_token: 'local_session' };
+
+      setUser(userData);
+      setSession(sessionData);
+
+      await storageSetItem('auth_user', JSON.stringify(userData));
+      await storageSetItem('auth_session', JSON.stringify(sessionData));
+
+      return { data: { user: userData }, error: null };
     } catch (error) {
-      return { data: null, error: error.message };
+      console.error('Error en signIn:', error);
+      return { data: null, error: 'Algo salió mal, probá de nuevo' };
     }
   };
 
   const signUp = async (email, password, fullName) => {
     try {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { full_name: fullName },
-        },
-      });
+      const key = sanitizeKey(email);
+      const existingHash = await storageGetItem(`auth_hash_${key}`);
+      if (existingHash) {
+        return { data: null, error: 'Este email ya está registrado' };
+      }
 
-      if (error) throw error;
-      return { data, error: null };
+      const userId = Crypto.randomUUID();
+      const passwordHash = await hashPassword(password);
+
+      const userData = {
+        id: userId,
+        email,
+        user_metadata: { full_name: fullName },
+      };
+
+      await storageSetItem(`auth_hash_${key}`, passwordHash);
+      await storageSetItem(`auth_user_${key}`, JSON.stringify(userData));
+
+      setUser(userData);
+      const sessionData = { user: userData, access_token: 'local_session' };
+      setSession(sessionData);
+
+      await storageSetItem('auth_user', JSON.stringify(userData));
+      await storageSetItem('auth_session', JSON.stringify(sessionData));
+
+      return { data: { user: userData }, error: null };
     } catch (error) {
-      return { data: null, error: error.message };
+      console.error('Error en signUp:', error);
+      return { data: null, error: 'Algo salió mal, probá de nuevo' };
     }
   };
 
   const signOut = async () => {
     try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      await storageDeleteItem('auth_user');
+      await storageDeleteItem('auth_session');
+
+      setUser(null);
+      setSession(null);
+
       return { error: null };
     } catch (error) {
-      return { error: error.message };
+      console.error('Error en signOut:', error);
+      return { error: 'No se pudo cerrar sesión' };
     }
   };
 
   const resetPassword = async (email) => {
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(email);
-      if (error) throw error;
+      const key = sanitizeKey(email);
+      const existingUser = await storageGetItem(`auth_user_${key}`);
+      if (!existingUser) {
+        return { error: 'No existe una cuenta con este email' };
+      }
       return { error: null };
     } catch (error) {
-      return { error: error.message };
+      console.error('Error en resetPassword:', error);
+      return { error: 'Algo salió mal, probá de nuevo' };
     }
   };
 

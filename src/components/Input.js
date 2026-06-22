@@ -3,6 +3,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-nativ
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
 import { radii } from '../constants/radii';
+import { spacing } from '../constants/spacing';
 
 export default function Input({
   label,
@@ -58,12 +59,12 @@ export default function Input({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 16,
+    marginBottom: spacing[4],
   },
   label: {
     ...typography.bodySM,
     color: colors.textSecondary,
-    marginBottom: 6,
+    marginBottom: spacing[2],
   },
   inputWrapper: {
     flexDirection: 'row',
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     borderColor: colors.borderDefault,
     borderRadius: radii.md,
     height: 52,
-    paddingHorizontal: 16,
+    paddingHorizontal: spacing[4],
   },
   inputFocused: {
     borderWidth: 1.5,

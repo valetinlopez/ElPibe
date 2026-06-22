@@ -1,9 +1,9 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MediaLibraryScreen from '../screens/media/MediaLibraryScreen';
 import UploadMediaScreen from '../screens/media/UploadMediaScreen';
 import { colors } from '../constants/colors';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function MediaStack() {
   return (
@@ -17,7 +17,7 @@ export default function MediaStack() {
       <Stack.Screen
         name="SubirMultimedia"
         component={UploadMediaScreen}
-        options={{ presentation: 'modal', animationEnabled: true }}
+        options={{ presentation: 'modal', animation: 'slide_from_bottom' }}
       />
     </Stack.Navigator>
   );

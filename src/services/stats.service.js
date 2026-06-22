@@ -1,74 +1,86 @@
-import { supabase } from './supabaseClient';
+import { getDatabase } from './database';
+import * as Crypto from 'expo-crypto';
 
-/**
- * Obtener todas las estadísticas de un jugador.
- */
 export const getStats = async (profileId) => {
   try {
-    const { data, error } = await supabase
-      .from('player_stats')
-      .select('*')
-      .eq('profile_id', profileId)
-      .order('season', { ascending: false });
-
-    if (error) throw error;
-    return { data, error: null };
+    const db = getDatabase();
+    const results = db.getAllSync(
+      'SELECT * FROM player_stats WHERE profile_id = ? ORDER BY season DESC',
+      [profileId]
+    );
+    return { data: results, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudieron cargar las estadísticas' };
   }
 };
 
-/**
- * Obtener estadísticas de una temporada específica.
- */
 export const getStatsBySeason = async (profileId, season) => {
   try {
-    const { data, error } = await supabase
-      .from('player_stats')
-      .select('*')
-      .eq('profile_id', profileId)
-      .eq('season', season)
-      .single();
-
-    if (error) throw error;
-    return { data, error: null };
+    const db = getDatabase();
+    const result = db.getFirstSync(
+      'SELECT * FROM player_stats WHERE profile_id = ? AND season = ?',
+      [profileId, season]
+    );
+    return { data: result || null, error: null };
   } catch (error) {
-    return { data: null, error: 'No se encontraron estadísticas para esa temporada' };
+    return { data: null, error: 'No se pudieron cargar las estadísticas' };
   }
 };
 
-/**
- * Crear o actualizar estadísticas (upsert).
- * Si ya existe una stats para esa temporada, la actualiza.
- */
 export const upsertStats = async (statsData) => {
   try {
-    const { data, error } = await supabase
-      .from('player_stats')
-      .upsert(statsData, {
-        onConflict: 'profile_id,season',
-      })
-      .select()
-      .single();
+    const db = getDatabase();
+    const existing = db.getFirstSync(
+      'SELECT id FROM player_stats WHERE profile_id = ? AND season = ?',
+      [statsData.profile_id, statsData.season]
+    );
 
-    if (error) throw error;
-    return { data, error: null };
+    if (existing) {
+      db.runSync(
+        `UPDATE player_stats
+         SET matches = ?, minutes = ?, goals = ?, assists = ?, yellow_cards = ?, red_cards = ?
+         WHERE id = ?`,
+        [
+          statsData.matches || 0,
+          statsData.minutes || 0,
+          statsData.goals || 0,
+          statsData.assists || 0,
+          statsData.yellow_cards || 0,
+          statsData.red_cards || 0,
+          existing.id,
+        ]
+      );
+      const updated = db.getFirstSync('SELECT * FROM player_stats WHERE id = ?', [existing.id]);
+      return { data: updated, error: null };
+    } else {
+      const id = Crypto.randomUUID();
+      db.runSync(
+        `INSERT INTO player_stats (id, profile_id, season, matches, minutes, goals, assists, yellow_cards, red_cards)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        [
+          id,
+          statsData.profile_id,
+          statsData.season,
+          statsData.matches || 0,
+          statsData.minutes || 0,
+          statsData.goals || 0,
+          statsData.assists || 0,
+          statsData.yellow_cards || 0,
+          statsData.red_cards || 0,
+        ]
+      );
+      const created = db.getFirstSync('SELECT * FROM player_stats WHERE id = ?', [id]);
+      return { data: created, error: null };
+    }
   } catch (error) {
     return { data: null, error: 'No se pudieron guardar las estadísticas' };
   }
 };
 
-/**
- * Eliminar un registro de estadísticas por su ID.
- */
 export const deleteStats = async (statsId) => {
   try {
-    const { error } = await supabase
-      .from('player_stats')
-      .delete()
-      .eq('id', statsId);
-
-    if (error) throw error;
+    const db = getDatabase();
+    db.runSync('DELETE FROM player_stats WHERE id = ?', [statsId]);
     return { error: null };
   } catch (error) {
     return { error: 'No se pudieron eliminar las estadísticas' };

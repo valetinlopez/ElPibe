@@ -3,6 +3,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ChevronLeft } from 'lucide-react-native';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
+import { spacing } from '../constants/spacing';
 
 export default function Header({ title, onBack, rightAction, rightLabel }) {
   const insets = useSafeAreaInsets();
@@ -34,7 +35,11 @@ export default function Header({ title, onBack, rightAction, rightLabel }) {
             hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
           >
             {rightLabel ? (
-              <Text style={styles.rightLabel}>{rightLabel}</Text>
+              typeof rightLabel === 'string' ? (
+                <Text style={styles.rightLabel}>{rightLabel}</Text>
+              ) : (
+                rightLabel
+              )
             ) : null}
           </TouchableOpacity>
         ) : (
@@ -48,8 +53,8 @@ export default function Header({ title, onBack, rightAction, rightLabel }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.bgBase,
-    paddingHorizontal: 16,
-    paddingBottom: 12,
+    paddingHorizontal: spacing[4],
+    paddingBottom: spacing[3],
   },
   row: {
     flexDirection: 'row',

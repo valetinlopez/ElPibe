@@ -1,5 +1,5 @@
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Play } from 'lucide-react-native';
+import { Play, Video } from 'lucide-react-native';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
 import { radii } from '../constants/radii';
@@ -9,16 +9,23 @@ export default function MediaCard({ uri, type = 'photo', category, duration, onP
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={[styles.container, isVideo && styles.containerVideo]}
       onPress={onPress}
       activeOpacity={0.8}
       accessibilityLabel={`${isVideo ? 'Video' : 'Foto'}: ${category || ''}`}
     >
-      <Image
-        source={{ uri }}
-        style={[styles.image, isVideo && styles.imageVideo]}
-        resizeMode="cover"
-      />
+      {isVideo ? (
+        <View style={styles.videoPlaceholder}>
+          <Video size={32} color={colors.textTertiary} />
+          <Text style={styles.videoLabel}>VIDEO</Text>
+        </View>
+      ) : (
+        <Image
+          source={{ uri }}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      )}
 
       <View style={styles.overlay} />
 
@@ -51,12 +58,25 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     backgroundColor: colors.bgSurface,
   },
+  containerVideo: {
+    aspectRatio: 9 / 16,
+  },
   image: {
     width: '100%',
     aspectRatio: 1,
   },
-  imageVideo: {
-    aspectRatio: 9 / 16,
+  videoPlaceholder: {
+    width: '100%',
+    aspectRatio: 1,
+    backgroundColor: colors.bgSurfaceOverlay,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  videoLabel: {
+    ...typography.caption,
+    color: colors.textTertiary,
+    letterSpacing: 1,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

@@ -1,9 +1,9 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import StatsScreen from '../screens/stats/StatsScreen';
 import AttributesScreen from '../screens/attributes/AttributesScreen';
 import { colors } from '../constants/colors';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function StatsStack() {
   return (

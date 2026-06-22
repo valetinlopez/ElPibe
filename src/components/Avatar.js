@@ -1,8 +1,8 @@
-import { View, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { Camera } from 'lucide-react-native';
 import { colors } from '../constants/colors';
 
-export default function Avatar({ uri, size = 96, profileComplete = false, onPressEdit }) {
+export default function Avatar({ uri, size = 96, profileComplete = false, loading, onPressEdit }) {
   const borderWidth = profileComplete ? 2 : 2;
   const borderColor = profileComplete ? colors.accentBlueMetal : colors.borderDefault;
 
@@ -20,7 +20,11 @@ export default function Avatar({ uri, size = 96, profileComplete = false, onPres
           },
         ]}
       >
-        {uri ? (
+        {loading ? (
+          <View style={[styles.placeholder, { borderRadius: size / 2 }]}>
+            <ActivityIndicator size={size * 0.3} color={colors.accentBlueBright} />
+          </View>
+        ) : uri ? (
           <Image source={{ uri }} style={[styles.image, { borderRadius: size / 2 }]} />
         ) : (
           <View style={[styles.placeholder, { borderRadius: size / 2 }]}>
@@ -29,7 +33,7 @@ export default function Avatar({ uri, size = 96, profileComplete = false, onPres
         )}
       </View>
 
-      {onPressEdit && (
+      {onPressEdit && !loading && (
         <TouchableOpacity
           style={[styles.editButton, { bottom: size * 0.02, right: size * 0.02 }]}
           onPress={onPressEdit}

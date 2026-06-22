@@ -1,9 +1,9 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ProfileScreen from '../screens/profile/ProfileScreen';
 import EditProfileScreen from '../screens/profile/EditProfileScreen';
 import { colors } from '../constants/colors';
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 export default function ProfileStack() {
   return (
@@ -17,7 +17,7 @@ export default function ProfileStack() {
       <Stack.Screen
         name="EditarPerfil"
         component={EditProfileScreen}
-        options={{ animationEnabled: true }}
+        options={{ animation: 'slide_from_right' }}
       />
     </Stack.Navigator>
   );
