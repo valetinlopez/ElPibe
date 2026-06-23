@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, Alert, StyleSheet, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, CommonActions } from '@react-navigation/native';
 import { User, Lock, Bell, FileText, Shield, MessageCircle, Bug, LogOut, ChevronRight } from 'lucide-react-native';
@@ -69,6 +69,30 @@ export default function SettingsScreen() {
     setLoading(false);
   };
 
+  const handleCambiarContrasena = () => {
+    Alert.alert('Cambiar contraseña', 'Próximamente vas a poder cambiar tu contraseña desde aquí.', [{ text: 'OK' }]);
+  };
+
+  const handleNotificaciones = () => {
+    Alert.alert('Notificaciones', 'Próximamente vas a poder configurar tus notificaciones.', [{ text: 'OK' }]);
+  };
+
+  const handleTerminos = () => {
+    Alert.alert('Términos y condiciones', 'Al usar ElPibe aceptás nuestros términos y condiciones disponibles en elpel.be/tos', [{ text: 'OK' }]);
+  };
+
+  const handlePrivacidad = () => {
+    Alert.alert('Política de privacidad', 'Tu privacidad es importante. Consultá nuestra política en elpel.be/privacy', [{ text: 'OK' }]);
+  };
+
+  const handleContacto = () => {
+    Linking.openURL('mailto:soporte@elpibe.app?subject=Contacto - ElPibe');
+  };
+
+  const handleReportarBug = () => {
+    Linking.openURL('mailto:bugs@elpibe.app?subject=Reportar bug - ElPibe');
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Header title="AJUSTES" />
@@ -78,12 +102,12 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={User}
             label="Editar perfil"
-            onPress={() => navigation.navigate('TabPerfil', { screen: 'EditarPerfil' })}
+            onPress={() => navigation.navigate('TabPerfil', { screen: 'EditarPerfil', params: { backTo: 'Settings' } })}
           />
           <SettingsItem
             icon={Lock}
             label="Cambiar contraseña"
-            onPress={() => {}}
+            onPress={handleCambiarContrasena}
           />
         </SettingsSection>
 
@@ -91,7 +115,7 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={Bell}
             label="Notificaciones"
-            onPress={() => {}}
+            onPress={handleNotificaciones}
           />
         </SettingsSection>
 
@@ -99,12 +123,12 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={FileText}
             label="Términos y condiciones"
-            onPress={() => {}}
+            onPress={handleTerminos}
           />
           <SettingsItem
             icon={Shield}
             label="Política de privacidad"
-            onPress={() => {}}
+            onPress={handlePrivacidad}
           />
         </SettingsSection>
 
@@ -112,12 +136,12 @@ export default function SettingsScreen() {
           <SettingsItem
             icon={MessageCircle}
             label="Contacto"
-            onPress={() => {}}
+            onPress={handleContacto}
           />
           <SettingsItem
             icon={Bug}
             label="Reportar bug"
-            onPress={() => {}}
+            onPress={handleReportarBug}
           />
         </SettingsSection>
 
@@ -147,7 +171,7 @@ const styles = StyleSheet.create({
   scroll: {
     flexGrow: 1,
     paddingHorizontal: spacing[4],
-    paddingBottom: spacing[8],
+    paddingBottom: 64 + spacing[8],
   },
   section: {
     marginBottom: spacing[6],

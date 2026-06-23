@@ -33,7 +33,7 @@ class WebDB {
   }
 
   runSync(sql, params = []) {
-    const insertMatch = sql.match(/INSERT INTO (\w+) \(([^)]+)\) VALUES \(([^)]+)\)/i);
+    const insertMatch = sql.match(/INSERT INTO (\w+) \(([^)]+)\)\s*VALUES \(([^)]+)\)/i);
     if (insertMatch) {
       const tableName = insertMatch[1];
       const columns = insertMatch[2].split(',').map(c => c.trim());
@@ -100,9 +100,9 @@ class WebDB {
   }
 
   getAllSync(sql, params = []) {
-    const selectMatch = sql.match(/SELECT\s+(.+?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.+?))?(?:\s+GROUP BY\s+(.+?))?(?:\s+ORDER BY\s+(.+))?$/i);
+    const selectMatch = sql.match(/SELECT\s+(.+?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.+?))?(?:\s+GROUP BY\s+(.+?))?(?:\s+ORDER BY\s+(.+?))?(?:\s+LIMIT\s+(\d+))?(?:\s+OFFSET\s+(\d+))?$/i);
     if (!selectMatch) return [];
-    const [, selectClause, tableName, whereClause, groupClause, orderClause] = selectMatch;
+    const [, selectClause, tableName, whereClause, groupClause, orderClause, limitClause, offsetClause] = selectMatch;
     if (!this.data[tableName]) return [];
 
     let results = [...this.data[tableName]];
@@ -146,6 +146,12 @@ class WebDB {
         if (isDesc) return (b[orderField] || '') > (a[orderField] || '') ? 1 : -1;
         return (a[orderField] || '') > (b[orderField] || '') ? 1 : -1;
       });
+    }
+
+    if (limitClause) {
+      const limit = parseInt(limitClause, 10);
+      const offset = offsetClause ? parseInt(offsetClause, 10) : 0;
+      results = results.slice(offset, offset + limit);
     }
 
     return results;

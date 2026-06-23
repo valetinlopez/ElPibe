@@ -21,7 +21,17 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#0B0E14"
       },
-      "package": "com.elpibe.app"
+      "package": "com.elpibe.app",
+      "permissions": [
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO",
+        "RECORD_AUDIO"
+      ],
+      "androidStatusBar": {
+        "barStyle": "light-content",
+        "backgroundColor": "#0B0E14"
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,7 +39,8 @@
     "plugins": [
       "expo-secure-store",
       "expo-image-picker",
-      "expo-sqlite"
+      "expo-sqlite",
+      "expo-video"
     ]
   }
 }

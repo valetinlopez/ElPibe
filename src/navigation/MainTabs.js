@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { User, BarChart2, Camera, Settings } from 'lucide-react-native';
 import ProfileStack from './ProfileStack';
 import StatsStack from './StatsStack';
@@ -9,6 +10,8 @@ import { colors } from '../constants/colors';
 const Tab = createBottomTabNavigator();
 
 export default function MainTabs() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tab.Navigator
       screenOptions={{
@@ -19,8 +22,8 @@ export default function MainTabs() {
           backgroundColor: colors.bgSurfaceRaised,
           borderTopColor: colors.borderSubtle,
           borderTopWidth: 1,
-          height: 64,
-          paddingBottom: 8,
+          height: 64 + insets.bottom,
+          paddingBottom: 8 + insets.bottom,
           paddingTop: 8,
         },
         tabBarLabelStyle: {

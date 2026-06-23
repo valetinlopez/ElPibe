@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Check, ChevronLeft, Shield } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { useAuth } from '../../context/AuthContext';
@@ -17,18 +17,26 @@ import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
 import { radii } from '../../constants/radii';
-import { positions } from '../../constants/positions';
+import { positions, footOptions } from '../../constants/positions';
 
 export default function EditProfileScreen() {
   const navigation = useNavigation();
+  const route = useRoute();
   const { user } = useAuth();
 
   const [profile, setProfile] = useState(null);
   const [fullName, setFullName] = useState('');
   const [bio, setBio] = useState('');
+  const [age, setAge] = useState('');
+  const [city, setCity] = useState('');
+  const [nationality, setNationality] = useState('');
+  const [heightCm, setHeightCm] = useState('');
+  const [weightKg, setWeightKg] = useState('');
+  const [foot, setFoot] = useState('derecha');
   const [club, setClub] = useState('');
   const [category, setCategory] = useState('');
   const [positionMain, setPositionMain] = useState('');
+  const [positionSecondary, setPositionSecondary] = useState('');
   const [loading, setLoading] = useState(false);
   const [photoLoading, setPhotoLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
@@ -43,9 +51,16 @@ export default function EditProfileScreen() {
       setProfile(data);
       setFullName(data.full_name || '');
       setBio(data.bio || '');
+      setAge(data.age?.toString() || '');
+      setCity(data.city || '');
+      setNationality(data.nationality || '');
+      setHeightCm(data.height_cm?.toString() || '');
+      setWeightKg(data.weight_kg?.toString() || '');
+      setFoot(data.foot || 'derecha');
       setClub(data.club || '');
       setCategory(data.category || '');
       setPositionMain(data.position_main || '');
+      setPositionSecondary(data.position_secondary || '');
     }
   };
 
@@ -93,16 +108,29 @@ export default function EditProfileScreen() {
       const { error } = await updateProfile(user?.id, {
         full_name: fullName.trim(),
         bio: bio.trim() || null,
+        age: age ? parseInt(age) : null,
+        city: city.trim() || null,
+        nationality: nationality.trim() || null,
+        height_cm: heightCm ? parseInt(heightCm) : null,
+        weight_kg: weightKg ? parseInt(weightKg) : null,
+        foot: foot,
         club: club.trim() || null,
         category: category.trim() || null,
-        position_main: positionMain || null,
+        position_main: positionMain.trim() || null,
+        position_secondary: positionSecondary.trim() || null,
       });
 
       if (error) {
         setToast({ visible: true, type: 'error', message: error });
       } else {
         setToast({ visible: true, type: 'success', message: '¡Perfil actualizado!' });
-        setTimeout(() => navigation.goBack(), 1500);
+        setTimeout(() => {
+          if (route.params?.backTo === 'Settings') {
+            navigation.navigate('TabAjustes');
+          } else {
+            navigation.goBack();
+          }
+        }, 1500);
       }
     } catch (error) {
       setToast({ visible: true, type: 'error', message: 'Algo salió mal, probá de nuevo' });
@@ -178,6 +206,88 @@ export default function EditProfileScreen() {
               placeholder="U-21 Elite Local"
             />
 
+            <View style={styles.rowFields}>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Edad</Text>
+                <TextInput
+                  style={styles.numberInput}
+                  value={age}
+                  onChangeText={setAge}
+                  keyboardType="number-pad"
+                  placeholder="--"
+                  placeholderTextColor={colors.textTertiary}
+                  maxLength={2}
+                />
+              </View>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Ciudad</Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={city}
+                  onChangeText={setCity}
+                  placeholder="Tu ciudad"
+                  placeholderTextColor={colors.textTertiary}
+                />
+              </View>
+            </View>
+
+            <View style={styles.rowFields}>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Nacionalidad</Text>
+                <TextInput
+                  style={styles.textInput}
+                  value={nationality}
+                  onChangeText={setNationality}
+                  placeholder="Argentina"
+                  placeholderTextColor={colors.textTertiary}
+                />
+              </View>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Pie</Text>
+                <View style={styles.footToggle}>
+                  {footOptions.slice(0, 2).map((option) => (
+                    <TouchableOpacity
+                      key={option.id}
+                      style={[styles.footBtn, foot === option.id && styles.footBtnActive]}
+                      onPress={() => setFoot(option.id)}
+                      activeOpacity={0.7}
+                    >
+                      <Text style={[styles.footBtnText, foot === option.id && styles.footBtnTextActive]}>
+                        {option.label}
+                      </Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.rowFields}>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Altura (cm)</Text>
+                <TextInput
+                  style={styles.numberInput}
+                  value={heightCm}
+                  onChangeText={setHeightCm}
+                  keyboardType="number-pad"
+                  placeholder="--"
+                  placeholderTextColor={colors.textTertiary}
+                  maxLength={3}
+                />
+              </View>
+              <View style={styles.halfField}>
+                <Text style={styles.label}>Peso (kg)</Text>
+                <TextInput
+                  style={styles.numberInput}
+                  value={weightKg}
+                  onChangeText={setWeightKg}
+                  keyboardType="number-pad"
+                  placeholder="--"
+                  placeholderTextColor={colors.textTertiary}
+                  maxLength={3}
+                />
+              </View>
+            </View>
+
             <View style={styles.chipSection}>
               <Text style={styles.label}>Posición preferida</Text>
               <View style={styles.chipContainer}>
@@ -204,6 +314,17 @@ export default function EditProfileScreen() {
               </View>
             </View>
 
+            <View style={styles.chipSection}>
+              <Text style={styles.label}>Posición alternativa</Text>
+              <TextInput
+                style={styles.textInput}
+                value={positionSecondary}
+                onChangeText={setPositionSecondary}
+                placeholder="Mediocampista creativo, segundo delantero..."
+                placeholderTextColor={colors.textTertiary}
+              />
+            </View>
+
             <Card style={styles.identityCard}>
               <View style={styles.identityHeader}>
                 <Shield size={20} color={colors.accentGold} />
@@ -214,8 +335,8 @@ export default function EditProfileScreen() {
                 <Text style={styles.identityValue}>{playerId}</Text>
               </View>
               <View style={styles.identityRow}>
-                <Text style={styles.identityLabel}>Estatus</Text>
-                <Badge variant="highlight" label="TITULAR" />
+                <Text style={styles.identityLabel}>Posición</Text>
+                <Badge variant="highlight" label={positionMain?.toUpperCase() || 'SIN POSICIÓN'} />
               </View>
             </Card>
 
@@ -269,6 +390,59 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: spacing[4],
+  },
+  rowFields: {
+    flexDirection: 'row',
+    gap: spacing[3],
+  },
+  halfField: {
+    flex: 1,
+  },
+  textInput: {
+    ...typography.bodyMD,
+    color: colors.textPrimary,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    borderRadius: radii.md,
+    paddingHorizontal: spacing[4],
+    height: 52,
+  },
+  numberInput: {
+    ...typography.bodyMD,
+    color: colors.textPrimary,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    borderRadius: radii.md,
+    paddingHorizontal: spacing[4],
+    height: 52,
+    textAlign: 'center',
+  },
+  footToggle: {
+    flexDirection: 'row',
+    gap: spacing[2],
+    height: 52,
+  },
+  footBtn: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    borderRadius: radii.md,
+  },
+  footBtnActive: {
+    backgroundColor: colors.accentBlueDim,
+    borderColor: colors.accentBlue,
+  },
+  footBtnText: {
+    ...typography.bodySM,
+    color: colors.textSecondary,
+  },
+  footBtnTextActive: {
+    color: colors.accentBlueBright,
   },
   textareaContainer: {
     marginBottom: spacing[4],

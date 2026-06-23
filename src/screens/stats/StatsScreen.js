@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   scroll: {
     flexGrow: 1,
     paddingHorizontal: spacing[4],
-    paddingBottom: spacing[8],
+    paddingBottom: 64 + spacing[8],
   },
   seasonSelector: {
     flexDirection: 'row',

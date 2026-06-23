@@ -47,12 +47,12 @@ function VideoThumbnail({ uri }) {
   );
 }
 
-export default function MediaCard({ uri, type = 'photo', category, duration, onPress }) {
+export default function MediaCard({ uri, type = 'photo', category, duration, onPress, style }) {
   const isVideo = type === 'video';
 
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={[styles.container, style]}
       onPress={onPress}
       activeOpacity={0.8}
       accessibilityLabel={`${isVideo ? 'Video' : 'Foto'}: ${category || ''}`}

@@ -105,7 +105,7 @@ export default function UploadMediaScreen() {
 
     setLoading(true);
 
-    const { error } = await uploadMedia(
+    const { data, error } = await uploadMedia(
       user.id,
       file,
       fileType,
@@ -117,7 +117,11 @@ export default function UploadMediaScreen() {
     if (error) {
       setToast({ visible: true, type: 'error', message: error });
       setLoading(false);
+    } else if (!data) {
+      setToast({ visible: true, type: 'error', message: 'No se pudo guardar la jugada. Probá de nuevo.' });
+      setLoading(false);
     } else {
+      setLoading(false);
       setToast({ visible: true, type: 'success', message: '¡Jugada subida!' });
       setTimeout(() => navigation.goBack(), 1500);
     }

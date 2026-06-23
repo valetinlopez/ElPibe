@@ -1,8 +1,7 @@
 import { useState, useCallback } from 'react';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
 import { Shield, BadgeCheck, Pencil, Clipboard } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getProfile } from '../../services/profile.service';
@@ -73,7 +72,10 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.hero}>
           <View style={styles.heroContent}>
             <Avatar
@@ -173,6 +175,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.bgBase,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 64 + spacing[6],
   },
   loadingContainer: {
     flex: 1,

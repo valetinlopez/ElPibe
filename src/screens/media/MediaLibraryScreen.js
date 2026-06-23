@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Camera, Filter, Plus } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getMediaByProfile, getMediaByCategory } from '../../services/media.service';
@@ -189,7 +188,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: spacing[4],
-    paddingBottom: spacing[12],
+    paddingBottom: 64 + spacing[12],
   },
   gridRow: {
     justifyContent: 'space-between',
@@ -206,7 +205,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    bottom: spacing[6],
+    bottom: 64 + spacing[4],
     right: spacing[4],
     width: 56,
     height: 56,
