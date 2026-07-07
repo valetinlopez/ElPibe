@@ -27,11 +27,7 @@
         "READ_MEDIA_IMAGES",
         "READ_MEDIA_VIDEO",
         "RECORD_AUDIO"
-      ],
-      "androidStatusBar": {
-        "barStyle": "light-content",
-        "backgroundColor": "#0B0E14"
-      }
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"

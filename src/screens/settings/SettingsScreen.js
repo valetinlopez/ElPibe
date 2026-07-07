@@ -95,7 +95,7 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <Header title="AJUSTES" />
+      <Header />
 
       <ScrollView contentContainerStyle={styles.scroll}>
         <SettingsSection title="CUENTA">

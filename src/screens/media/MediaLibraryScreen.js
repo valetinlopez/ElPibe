@@ -1,10 +1,10 @@
-import { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
+import { useState, useCallback } from 'react';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Dimensions, Modal, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { Camera, Filter, Plus } from 'lucide-react-native';
+import { Camera, Filter, Plus, Play, Pencil, Trash2, X } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
-import { getMediaByProfile, getMediaByCategory } from '../../services/media.service';
+import { getMediaByProfile, getMediaByCategory, deleteMedia, updateMediaDescription } from '../../services/media.service';
 import Header from '../../components/Header';
 import MediaCard from '../../components/MediaCard';
 import EmptyState from '../../components/EmptyState';
@@ -25,6 +25,11 @@ export default function MediaLibraryScreen() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState(null);
   const [showFilterSheet, setShowFilterSheet] = useState(false);
+
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [showActionSheet, setShowActionSheet] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editDescription, setEditDescription] = useState('');
 
   useFocusEffect(
     useCallback(() => {
@@ -65,6 +70,73 @@ export default function MediaLibraryScreen() {
     }
   };
 
+  const handleLongPress = (item) => {
+    setSelectedItem(item);
+    setShowActionSheet(true);
+  };
+
+  const handleEditPress = (item) => {
+    setSelectedItem(item);
+    setEditDescription(item.description || '');
+    setShowEditModal(true);
+  };
+
+  const handleSaveEdit = async () => {
+    if (!selectedItem) return;
+    const { error } = await updateMediaDescription(selectedItem.id, editDescription);
+    if (error) {
+      Alert.alert('Error', error);
+    } else {
+      setShowEditModal(false);
+      setSelectedItem(null);
+      const profileId = user?.id;
+      if (profileId) {
+        const { data } = filter
+          ? await getMediaByCategory(profileId, filter)
+          : await getMediaByProfile(profileId);
+        setMedia(data || []);
+      }
+    }
+  };
+
+  const handleDelete = () => {
+    if (!selectedItem) return;
+    Alert.alert(
+      'Eliminar jugada',
+      '¿Estás seguro que querés eliminar esta jugada?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        {
+          text: 'Eliminar',
+          style: 'destructive',
+          onPress: async () => {
+            await deleteMedia(selectedItem.id, selectedItem.storage_path);
+            setShowActionSheet(false);
+            setSelectedItem(null);
+            const profileId = user?.id;
+            if (profileId) {
+              const { data } = filter
+                ? await getMediaByCategory(profileId, filter)
+                : await getMediaByProfile(profileId);
+              setMedia(data || []);
+            }
+          },
+        },
+      ]
+    );
+  };
+
+  const handleWatch = () => {
+    if (!selectedItem) return;
+    setShowActionSheet(false);
+    if (selectedItem.type === 'video') {
+      navigation.navigate('VideoPlayer', {
+        uri: selectedItem.storage_path,
+        category: selectedItem.category,
+      });
+    }
+  };
+
   const renderMediaItem = ({ item }) => (
     <MediaCard
       uri={item.storage_path}
@@ -72,6 +144,8 @@ export default function MediaLibraryScreen() {
       category={item.category}
       style={styles.mediaItem}
       onPress={() => handleMediaPress(item)}
+      onLongPress={() => handleLongPress(item)}
+      onEditPress={() => handleEditPress(item)}
     />
   );
 
@@ -96,19 +170,20 @@ export default function MediaLibraryScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <Header
-        title="MEDIA"
         rightAction={() => setShowFilterSheet(true)}
         rightLabel={<Filter size={20} color={colors.textLink} />}
       />
 
-      <View style={styles.subtitleContainer}>
-        <Text style={styles.subtitle}>Tus mejores jugadas en el potrero</Text>
+      <View style={styles.titleRow}>
+        <Text style={styles.title}>JUGADAS</Text>
         {filter && (
           <TouchableOpacity onPress={() => setFilter(null)}>
             <Text style={styles.clearFilter}>Limpiar filtro</Text>
           </TouchableOpacity>
         )}
       </View>
+
+      <Text style={styles.subtitle}>Tus mejores jugadas en el potrero</Text>
 
       {loading ? renderLoading() : (
         <FlatList
@@ -162,6 +237,92 @@ export default function MediaLibraryScreen() {
           </View>
         </View>
       )}
+
+      {showActionSheet && (
+        <View style={styles.overlay}>
+          <TouchableOpacity
+            style={styles.overlayBg}
+            onPress={() => setShowActionSheet(false)}
+          />
+          <View style={styles.actionSheet}>
+            <View style={styles.handle} />
+            <Text style={styles.sheetTitle}>
+              {selectedItem?.category?.toUpperCase() || 'JUGADA'}
+            </Text>
+
+            {selectedItem?.type === 'video' && (
+              <TouchableOpacity style={styles.actionOption} onPress={handleWatch}>
+                <Play size={20} color={colors.accentBlueBright} />
+                <Text style={styles.actionText}>Ver video</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              style={styles.actionOption}
+              onPress={() => {
+                setShowActionSheet(false);
+                handleEditPress(selectedItem);
+              }}
+            >
+              <Pencil size={20} color={colors.accentBlueBright} />
+              <Text style={styles.actionText}>Editar descripción</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.actionOption} onPress={handleDelete}>
+              <Trash2 size={20} color={colors.accentRedCard} />
+              <Text style={[styles.actionText, styles.deleteText]}>Eliminar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.cancelButton}
+              onPress={() => setShowActionSheet(false)}
+            >
+              <Text style={styles.cancelText}>Cancelar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      <Modal
+        visible={showEditModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowEditModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>EDITAR DESCRIPCIÓN</Text>
+              <TouchableOpacity onPress={() => setShowEditModal(false)}>
+                <X size={20} color={colors.textSecondary} />
+              </TouchableOpacity>
+            </View>
+            <TextInput
+              style={styles.editInput}
+              value={editDescription}
+              onChangeText={setEditDescription}
+              placeholder="Agregá una descripción..."
+              placeholderTextColor={colors.textTertiary}
+              multiline
+              maxLength={500}
+            />
+            <View style={styles.modalFooter}>
+              <TouchableOpacity
+                style={styles.cancelModalButton}
+                onPress={() => setShowEditModal(false)}
+              >
+                <Text style={styles.cancelModalText}>Cancelar</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.saveModalButton}
+                onPress={handleSaveEdit}
+              >
+                <Text style={styles.saveModalText}>GUARDAR</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -171,16 +332,22 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.bgBase,
   },
-  subtitleContainer: {
+  titleRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: spacing[4],
-    marginBottom: spacing[4],
+    marginTop: spacing[2],
+  },
+  title: {
+    ...typography.displayMD,
+    color: colors.textPrimary,
   },
   subtitle: {
     ...typography.bodyMD,
     color: colors.textSecondary,
+    paddingHorizontal: spacing[4],
+    marginBottom: spacing[4],
   },
   clearFilter: {
     ...typography.bodySM,
@@ -235,6 +402,14 @@ const styles = StyleSheet.create({
     paddingBottom: spacing[8],
     paddingTop: spacing[4],
   },
+  actionSheet: {
+    backgroundColor: colors.bgSurfaceRaised,
+    borderTopLeftRadius: radii.xl,
+    borderTopRightRadius: radii.xl,
+    paddingHorizontal: spacing[5],
+    paddingBottom: spacing[8],
+    paddingTop: spacing[4],
+  },
   handle: {
     width: 40,
     height: 4,
@@ -266,5 +441,91 @@ const styles = StyleSheet.create({
   filterTextActive: {
     color: colors.accentBlueBright,
     fontWeight: '600',
+  },
+  actionOption: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[3],
+    paddingVertical: spacing[4],
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderSubtle,
+  },
+  actionText: {
+    ...typography.bodyMD,
+    color: colors.textPrimary,
+  },
+  deleteText: {
+    color: colors.accentRedCard,
+  },
+  cancelButton: {
+    marginTop: spacing[4],
+    alignItems: 'center',
+    paddingVertical: spacing[3],
+  },
+  cancelText: {
+    ...typography.bodyMD,
+    color: colors.textLink,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(11,14,20,0.85)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: spacing[4],
+  },
+  modalContent: {
+    backgroundColor: colors.bgSurfaceRaised,
+    borderRadius: radii.lg,
+    padding: spacing[5],
+    width: '100%',
+    maxWidth: 400,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: spacing[4],
+  },
+  modalTitle: {
+    ...typography.headingMD,
+    color: colors.textPrimary,
+  },
+  editInput: {
+    ...typography.bodyMD,
+    color: colors.textPrimary,
+    backgroundColor: colors.bgSurfaceOverlay,
+    borderWidth: 1,
+    borderColor: colors.borderDefault,
+    borderRadius: radii.md,
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[3],
+    minHeight: 100,
+    textAlignVertical: 'top',
+    marginBottom: spacing[4],
+  },
+  modalFooter: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: spacing[3],
+  },
+  cancelModalButton: {
+    paddingVertical: spacing[3],
+    paddingHorizontal: spacing[4],
+  },
+  cancelModalText: {
+    ...typography.bodyMD,
+    color: colors.textSecondary,
+  },
+  saveModalButton: {
+    backgroundColor: colors.accentBlue,
+    paddingVertical: spacing[3],
+    paddingHorizontal: spacing[5],
+    borderRadius: radii.full,
+  },
+  saveModalText: {
+    ...typography.bodySM,
+    color: colors.textOnAccent,
+    fontWeight: '600',
+    textTransform: 'uppercase',
   },
 });

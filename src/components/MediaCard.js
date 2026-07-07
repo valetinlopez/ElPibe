@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { Play } from 'lucide-react-native';
+import { Play, Pencil } from 'lucide-react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { colors } from '../constants/colors';
 import { typography } from '../constants/typography';
@@ -47,13 +47,14 @@ function VideoThumbnail({ uri }) {
   );
 }
 
-export default function MediaCard({ uri, type = 'photo', category, duration, onPress, style }) {
+export default function MediaCard({ uri, type = 'photo', category, duration, onPress, onLongPress, onEditPress, style }) {
   const isVideo = type === 'video';
 
   return (
     <TouchableOpacity
       style={[styles.container, style]}
       onPress={onPress}
+      onLongPress={onLongPress}
       activeOpacity={0.8}
       accessibilityLabel={`${isVideo ? 'Video' : 'Foto'}: ${category || ''}`}
     >
@@ -71,6 +72,19 @@ export default function MediaCard({ uri, type = 'photo', category, duration, onP
         <View style={styles.categoryBadge}>
           <Text style={styles.categoryText}>{category.toUpperCase()}</Text>
         </View>
+      )}
+      {onEditPress && (
+        <TouchableOpacity
+          style={styles.editButton}
+          onPress={(e) => {
+            e.stopPropagation && e.stopPropagation();
+            onEditPress();
+          }}
+          activeOpacity={0.7}
+          hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+        >
+          <Pencil size={14} color={colors.textOnAccent} />
+        </TouchableOpacity>
       )}
     </TouchableOpacity>
   );
@@ -114,6 +128,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 3,
     borderRadius: radii.sm,
+  },
+  editButton: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   categoryText: {
     ...typography.caption,

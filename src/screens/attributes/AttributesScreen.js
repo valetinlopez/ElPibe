@@ -166,7 +166,7 @@ export default function AttributesScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <Header title="ATRIBUTOS" />
+      <Header />
 
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.radarContainer}>

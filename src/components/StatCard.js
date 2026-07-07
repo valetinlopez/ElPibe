@@ -7,9 +7,15 @@ export default function StatCard({ value, label, isRecord = false, icon: Icon })
   return (
     <Card style={styles.card}>
       <View style={styles.content}>
-        {Icon && <Icon size={24} color={isRecord ? colors.accentGold : colors.textSecondary} style={styles.icon} />}
+        {Icon && (
+          <Icon
+            size={18}
+            color={isRecord ? colors.accentGold : colors.accentBlueBright}
+            style={styles.icon}
+          />
+        )}
         <Text style={[styles.value, isRecord && styles.valueRecord]}>{value}</Text>
-        <Text style={styles.label}>{label}</Text>
+        <Text style={styles.label} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>{label}</Text>
       </View>
     </Card>
   );
@@ -21,23 +27,23 @@ const styles = StyleSheet.create({
   },
   content: {
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 6,
   },
   icon: {
-    marginBottom: 8,
+    marginBottom: 4,
   },
   value: {
-    ...typography.displayMD,
+    ...typography.headingLG,
     color: colors.textPrimary,
   },
   valueRecord: {
     color: colors.accentGold,
   },
   label: {
-    ...typography.bodySM,
+    ...typography.caption,
     color: colors.textSecondary,
     textTransform: 'uppercase',
-    marginTop: 4,
+    marginTop: 2,
     letterSpacing: 0.5,
   },
 });

@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Shield, BadgeCheck, Pencil, Clipboard } from 'lucide-react-native';
+import { Shield, BadgeCheck, Pencil, User } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import { getProfile } from '../../services/profile.service';
 import { calculateRadarAverages } from '../../services/attributes.service';
@@ -13,6 +13,7 @@ import Badge from '../../components/Badge';
 import RadarChart from '../../components/RadarChart';
 import MediaCard from '../../components/MediaCard';
 import SkeletonLoader from '../../components/SkeletonLoader';
+import Header from '../../components/Header';
 import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
@@ -72,6 +73,10 @@ export default function ProfileScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
+      <Header
+        rightAction={() => navigation.navigate('EditarPerfil')}
+        rightLabel={<Pencil size={20} color={colors.textLink} />}
+      />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
@@ -89,14 +94,6 @@ export default function ProfileScreen() {
               <Badge variant="highlight" label={profile?.position_main?.toUpperCase() || '--'} />
             </View>
             {profile?.bio && <Text style={styles.bio}>{profile.bio}</Text>}
-            <TouchableOpacity
-              style={styles.editButton}
-              onPress={() => navigation.navigate('EditarPerfil')}
-              activeOpacity={0.7}
-            >
-              <Pencil size={16} color={colors.textSecondary} />
-              <Text style={styles.editButtonText}>EDITAR PERFIL</Text>
-            </TouchableOpacity>
           </View>
         </View>
 
@@ -117,7 +114,7 @@ export default function ProfileScreen() {
 
         <View style={styles.section}>
           <View style={styles.sectionTitleRow}>
-            <Clipboard size={18} color={colors.accentBlueBright} />
+            <User size={18} color={colors.accentBlueBright} />
             <Text style={styles.sectionTitle}>FICHA TÉCNICA</Text>
           </View>
           {radarData && <RadarChart data={radarData} size={width - 64} />}

@@ -106,3 +106,14 @@ export const deleteMedia = async (mediaId, storagePath) => {
 export const getMediaUrl = (storagePath) => {
   return storagePath || null;
 };
+
+export const updateMediaDescription = async (mediaId, description) => {
+  try {
+    const db = getDatabase();
+    db.runSync('UPDATE media_items SET description = ? WHERE id = ?', [description || '', mediaId]);
+    const updated = db.getFirstSync('SELECT * FROM media_items WHERE id = ?', [mediaId]);
+    return { data: updated, error: null };
+  } catch (error) {
+    return { data: null, error: 'No se pudo actualizar la descripción' };
+  }
+};

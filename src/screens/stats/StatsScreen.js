@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { View, Text, ScrollView, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { Trophy, Target, AlertTriangle, Sliders } from 'lucide-react-native';
+import { Trophy, AlertTriangle, Sliders, MapPin, Clock, User } from 'lucide-react-native';
+import FootballIcon from '../../components/FootballIcon';
+import BootIcon from '../../components/BootIcon';
 import { useAuth } from '../../context/AuthContext';
 import { getStatsBySeason, upsertStats } from '../../services/stats.service';
 import { calculateRadarAverages } from '../../services/attributes.service';
@@ -136,7 +138,7 @@ export default function StatsScreen() {
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
-      <Header title="ESTADÍSTICAS" />
+      <Header />
 
       <ScrollView contentContainerStyle={styles.scroll}>
         <View style={styles.seasonSelector}>
@@ -156,10 +158,10 @@ export default function StatsScreen() {
         {loading ? renderLoading() : (
           <>
             <View style={styles.statsGrid}>
-              <StatCard value={matches || '0'} label="PARTIDOS" icon={Trophy} />
-              <StatCard value={goals || '0'} label="GOLES" icon={Target} />
-              <StatCard value={assists || '0'} label="ASISTENCIAS" icon={Target} />
-              <StatCard value={minutes || '0'} label="MINUTOS" icon={Trophy} />
+              <StatCard value={matches || '0'} label="PARTIDOS" icon={MapPin} />
+              <StatCard value={goals || '0'} label="GOLES" icon={FootballIcon} />
+              <StatCard value={assists || '0'} label="ASISTENCIAS" icon={BootIcon} />
+              <StatCard value={minutes || '0'} label="MINUTOS" icon={Clock} />
             </View>
 
             <View style={styles.statsRow}>
@@ -279,7 +281,10 @@ export default function StatsScreen() {
 
             {radarData && (
               <View style={styles.section}>
-                <Text style={styles.sectionTitle}>FICHA TÉCNICA</Text>
+                <View style={styles.sectionTitleRow}>
+                  <User size={18} color={colors.accentBlueBright} />
+                  <Text style={styles.sectionTitle}>FICHA TÉCNICA</Text>
+                </View>
                 <RadarChart data={radarData} />
               </View>
             )}
@@ -421,6 +426,12 @@ const styles = StyleSheet.create({
   sectionTitle: {
     ...typography.headingLG,
     color: colors.textPrimary,
+    marginBottom: spacing[4],
+  },
+  sectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[2],
     marginBottom: spacing[4],
   },
   formRow: {

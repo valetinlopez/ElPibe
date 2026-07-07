@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { View, Text, TextInput, ScrollView, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { Camera, Image as ImageIcon, X, Check } from 'lucide-react-native';
+import { Video, X, Check } from 'lucide-react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { useAuth } from '../../context/AuthContext';
 import { uploadMedia } from '../../services/media.service';
@@ -46,44 +46,40 @@ export default function UploadMediaScreen() {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
 
-  const pickFromGallery = async (mediaType) => {
+  const pickFromGallery = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: mediaType === 'video'
-        ? ['videos']
-        : mediaType === 'photo'
-        ? ['images']
-        : ['images', 'videos'],
+      mediaTypes: ['videos'],
       quality: 1,
       videoMaxDuration: 60,
     });
 
     if (!result.canceled) {
       const asset = result.assets[0];
-      validateAndSetFile(asset, asset.type === 'video' ? 'video' : 'photo');
+      validateAndSetFile(asset, 'video');
     }
   };
 
-  const takePhoto = async () => {
+  const recordVideo = async () => {
     const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ['images'],
+      mediaTypes: ['videos'],
       quality: 1,
+      videoMaxDuration: 60,
     });
 
     if (!result.canceled) {
       const asset = result.assets[0];
-      validateAndSetFile(asset, 'photo');
+      validateAndSetFile(asset, 'video');
     }
   };
 
   const validateAndSetFile = (asset, type) => {
     const MAX_VIDEO_SIZE = 50 * 1024 * 1024;
-    const MAX_PHOTO_SIZE = 10 * 1024 * 1024;
 
-    if (asset.fileSize > (type === 'video' ? MAX_VIDEO_SIZE : MAX_PHOTO_SIZE)) {
+    if (asset.fileSize > MAX_VIDEO_SIZE) {
       setToast({
         visible: true,
         type: 'error',
-        message: type === 'video' ? 'El video supera los 50MB' : 'La foto supera los 10MB',
+        message: 'El video supera los 50MB',
       });
       return;
     }
@@ -144,39 +140,33 @@ export default function UploadMediaScreen() {
           <View style={styles.selectorContainer}>
             <TouchableOpacity
               style={styles.selectorButton}
-              onPress={() => pickFromGallery('mixed')}
+              onPress={pickFromGallery}
               activeOpacity={0.7}
             >
-              <ImageIcon size={32} color={colors.accentBlueBright} />
+              <Video size={32} color={colors.accentBlueBright} />
               <Text style={styles.selectorTitle}>Elegir desde galería</Text>
-              <Text style={styles.selectorSubtitle}>Videos o fotos</Text>
+              <Text style={styles.selectorSubtitle}>Videos de tu galería</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.selectorButton}
-              onPress={takePhoto}
+              onPress={recordVideo}
               activeOpacity={0.7}
             >
-              <Camera size={32} color={colors.accentBlueBright} />
-              <Text style={styles.selectorTitle}>Grabar ahora</Text>
-              <Text style={styles.selectorSubtitle}>Tomar una foto</Text>
+              <Video size={32} color={colors.accentBlueBright} />
+              <Text style={styles.selectorTitle}>Grabar video</Text>
+              <Text style={styles.selectorSubtitle}>Ahora con la cámara</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View style={styles.previewContainer}>
             <View style={styles.previewHeader}>
-              <Text style={styles.previewTitle}>
-                {fileType === 'video' ? 'Video seleccionado' : 'Foto seleccionada'}
-              </Text>
+              <Text style={styles.previewTitle}>Video seleccionado</Text>
               <TouchableOpacity onPress={removeFile} style={styles.removeButton}>
                 <X size={20} color={colors.accentRedCard} />
               </TouchableOpacity>
             </View>
-            {fileType === 'video' ? (
-              <VideoPreview uri={file.uri} duration={file.duration} />
-            ) : (
-              <Image source={{ uri: file.uri }} style={styles.imagePreview} />
-            )}
+            <VideoPreview uri={file.uri} duration={file.duration} />
           </View>
         )}
 
@@ -292,11 +282,6 @@ const styles = StyleSheet.create({
   },
   removeButton: {
     padding: spacing[2],
-  },
-  imagePreview: {
-    width: '100%',
-    height: 200,
-    borderRadius: radii.md,
   },
   videoPreview: {
     width: '100%',

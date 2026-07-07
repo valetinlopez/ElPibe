@@ -56,7 +56,7 @@ export default function MainTabs() {
         name="TabMedia"
         component={MediaStack}
         options={{
-          tabBarLabel: 'MEDIA',
+          tabBarLabel: 'JUGADAS',
           tabBarIcon: ({ color, size }) => (
             <Camera size={24} color={color} />
           ),

@@ -1,15 +1,15 @@
 # AGENTS.md — ElPibe
 
-> Guía completa para que cualquier IA trabaje correctamente sobre el proyecto ElPibe.
-> LEER ANTES DE ESCRIBIR CÓDIGO. Actualizado: 16 de junio de 2026.
+> Guía para que cualquier IA trabaje correctamente sobre el proyecto ElPibe.
+> LEER ANTES DE ESCRIBIR CÓDIGO. Actualizado: 6 julio 2026.
 
 ---
 
 ## 0. Qué es ElPibe
 
-App móvil para futbolistas amateurs donde se registran, crean un perfil deportivo, suben contenido multimedia (videos/fotos) y registran estadísticas y atributos básicos. **No hay backend propio**: todo usa Supabase (Auth + Postgres + Storage).
+App móvil para futbolistas amateurs. Los jugadores se registran, crean un perfil deportivo, suben contenido multimedia (videos/fotos), y registran estadísticas y atributos básicos.
 
-**Rol único**: PLAYER. No hay scouts, entrenadores ni busqueda de talento en esta version.
+**100% Local — Sin backend**: toda la persistencia es local usando `expo-sqlite` (iOS/Android) y `localStorage` (web). No hay Supabase, no hay servidor propio.
 
 ---
 
@@ -17,16 +17,19 @@ App móvil para futbolistas amateurs donde se registran, crean un perfil deporti
 
 | Capa | Tecnologia | Version |
 |------|------------|---------|
-| Frontend | React Native + Expo | SDK 56 |
+| Frontend | React Native + Expo | SDK **54** |
 | Lenguaje | **JavaScript** (NO TypeScript) | — |
-| Estilos | NativeWind (Tailwind para RN) | — |
-| Navegacion | React Navigation (Stack + Bottom Tabs) | — |
-| Backend | Supabase (Postgres + Auth + Storage) | — |
-| Cliente de datos | @supabase/supabase-js | — |
-| Iconografia | lucide-react-native | — |
-| SVG / Charts | react-native-svg | — |
+| Estilos | StyleSheet con design system propio | — |
+| Navegacion | React Navigation (Stack + Bottom Tabs) | v7 |
+| Base de datos | expo-sqlite (native) / WebDB (web) | — |
+| Cliente de datos | NO usa Supabase | — |
+| Auth | Custom local (SHA-256 via expo-crypto) | — |
+| Iconografia | lucide-react-native | v1.20 |
+| SVG / Charts | react-native-svg | v15 |
 | Storage local | @react-native-async-storage/async-storage | — |
-| Tokens seguros | expo-secure-store | — |
+| Tokens seguros | expo-secure-store | v15 |
+| Video | expo-video | v3 |
+| UUIDs | expo-crypto | v15 |
 
 ---
 
@@ -35,27 +38,28 @@ App móvil para futbolistas amateurs donde se registran, crean un perfil deporti
 ### 2.1 Lenguaje
 - **JavaScript puro**. NUNCA usar TypeScript.
 - Archivos `.js` o `.jsx`. NUNCA `.ts` o `.tsx`.
-- Comentarios en **espanol** cuando sea relevante.
+- Comentarios en **español** cuando sea relevante.
 
 ### 2.2 Backend
 - **NUNCA** crear Express, FastAPI, o cualquier servidor propio.
-- Toda persistencia de datos es a traves de `@supabase/supabase-js`.
-- Todas las llamadas a Supabase van en la capa `/src/services/`, **NUNCA** inline en componentes de pantalla.
+- **NO HAY SUPABASE** en este proyecto. No instalar `@supabase/supabase-js`.
+- Toda persistencia es local: `expo-sqlite` (iOS/Android) o `localStorage` (web).
+- Todas las llamadas a DB van en la capa `/src/services/`, **NUNCA** inline en componentes de pantalla.
 
 ### 2.3 Estilos
-- Usar **NativeWind** (clases de Tailwind) para todos los estilos.
+- Usar **StyleSheet** (no NativeWind/Tailwind — no están instalados).
 - Colores SIEMPRE desde `src/constants/colors.js`.
 - NUNCA hardcodear colores hex en componentes.
-- Seguir el DESIGN.md al pie de la letra.
+- Seguir el `DESIGN.md` al pie de la letra.
 
-### 2.4 Seguridad
-- Todas las tablas deben tener **RLS habilitado** antes de ir a produccion.
-- Un usuario solo puede CRUD sobre sus propias filas (`profile_id = auth.uid()`).
-- Storage buckets son **privados**. Acceso solo via signed URLs.
+### 2.4 Seguridad (local)
+- Los datos son locales al dispositivo. No hay RLS porque no hay backend compartido.
+- Storage buckets son locales al dispositivo. En web se usa `localStorage`.
+- La auth es SHA-256 con `expo-crypto`, no es autentificación real — es solo verificación local de contraseña.
 
 ### 2.5 Navegacion
 - Usar React Navigation con estructura: Root → AuthStack | MainTabs.
-- MainTabs tiene 4 tabs: Perfil, Estadistics, Multimedia, Ajustes.
+- MainTabs tiene 4 tabs: Perfil, Estadísticas, Multimedia, Ajustes.
 - Cada tab puede tener su propio Stack anidado.
 
 ---
@@ -68,112 +72,98 @@ App móvil para futbolistas amateurs donde se registran, crean un perfil deporti
     /auth            -> Login, Register, ForgotPassword
     /onboarding      -> Wizard de 3 pasos
     /profile         -> MiPerfil, EditarPerfil
-    /media           -> BibliotecaMultimedia, SubirMultimedia
+    /media           -> BibliotecaMultimedia, SubirMultimedia, VideoPlayer
     /stats           -> Estadisticas
     /attributes      -> Atributos
     /settings        -> Ajustes
   /components        -> Componentes reutilizables (Button, Input, Card, etc.)
-  /navigation        -> RootNavigator, AuthStack, MainTabs
-  /services          -> Capa de Supabase
-    supabaseClient.js
-    auth.service.js
-    profile.service.js
-    stats.service.js
-    attributes.service.js
-    media.service.js
+  /navigation        -> RootNavigator, AuthStack, MainTabs, 4 stacks anidados
+  /services          -> Capa de persistencia (database, profile, stats, attributes, media)
   /context           -> AuthContext (sesion global)
-  /constants         -> colors.js, typography.js, spacing.js, radii.js, positions.js
-  /utils             -> validaciones.js, formatters.js
+  /constants         -> colors.js, typography.js, spacing.js, radii.js, positions.js, dimensions.js, categories.js
+  /utils             -> validations.js, formatters.js, storage.js
 App.js               -> Entry point
+index.js             -> registerRootComponent
 ```
 
 ---
 
-## 4. Modelo de Datos (Supabase / Postgres)
+## 4. Modelo de Datos (SQLite local)
 
 ### profiles
 | Campo | Tipo | Detalle |
 |-------|------|---------|
-| id | uuid | PK, fk a auth.users |
-| full_name | text | |
-| age | int2 | |
-| city | text | |
-| nationality | text | |
-| height_cm | int2 | |
-| weight_kg | int2 | |
-| foot | text | 'izquierda' / 'derecha' / 'ambidiestro' |
-| position_main | text | |
-| position_secondary | text | |
-| club | text | |
-| category | text | |
-| bio | text | max 500 chars |
-| photo_url | text | path en Storage |
-| created_at | timestamptz | default now() |
+| id | TEXT | PK (uuid del auth local) |
+| full_name | TEXT | |
+| age | INTEGER | |
+| city | TEXT | |
+| nationality | TEXT | |
+| height_cm | INTEGER | |
+| weight_kg | INTEGER | |
+| foot | TEXT | 'izquierda' / 'derecha' / 'ambidiestro' |
+| position_main | TEXT | |
+| position_secondary | TEXT | |
+| club | TEXT | |
+| category | TEXT | |
+| bio | TEXT | max 500 chars |
+| photo_url | TEXT | path local en FileSystem |
+| created_at | TEXT | ISO timestamp |
 
 ### player_stats
 | Campo | Tipo | Detalle |
 |-------|------|---------|
-| id | uuid | PK, default gen_random_uuid() |
-| profile_id | uuid | FK a profiles(id) |
-| season | text | ej. '2026' |
-| matches | int2 | default 0 |
-| minutes | int4 | default 0 |
-| goals | int2 | default 0 |
-| assists | int2 | default 0 |
-| yellow_cards | int2 | default 0 |
-| red_cards | int2 | default 0 |
+| id | TEXT | PK (uuid) |
+| profile_id | TEXT | FK a profiles(id) |
+| season | TEXT | ej. '2026' |
+| matches | INTEGER | default 0 |
+| minutes | INTEGER | default 0 |
+| goals | INTEGER | default 0 |
+| assists | INTEGER | default 0 |
+| yellow_cards | INTEGER | default 0 |
+| red_cards | INTEGER | default 0 |
 
 ### player_attributes
 | Campo | Tipo | Detalle |
 |-------|------|---------|
-| id | uuid | PK |
-| profile_id | uuid | FK a profiles(id) |
-| dimension | text | 'technical' / 'physical' / 'tactical' / 'mental' |
-| attribute_name | text | |
-| score | int2 | rango 1 a 10 |
+| id | TEXT | PK (uuid) |
+| profile_id | TEXT | FK a profiles(id) |
+| dimension | TEXT | 'technical' / 'physical' / 'tactical' / 'mental' |
+| attribute_name | TEXT | |
+| score | INTEGER | rango 1 a 10 |
 
 ### media_items
 | Campo | Tipo | Detalle |
 |-------|------|---------|
-| id | uuid | PK |
-| profile_id | uuid | FK a profiles(id) |
-| type | text | 'video' / 'photo' |
-| category | text | ofensiva/defensiva/etc |
-| subcategory | text | |
-| storage_path | text | ruta en Supabase Storage |
-| created_at | timestamptz | default now() |
+| id | TEXT | PK (uuid) |
+| profile_id | TEXT | FK a profiles(id) |
+| type | TEXT | 'video' / 'photo' |
+| category | TEXT | |
+| subcategory | TEXT | |
+| description | TEXT | |
+| storage_path | TEXT | path local o data URI (web) |
+| created_at | TEXT | ISO timestamp |
 
 ---
 
-## 5. Politicas RLS (SQL)
+## 5. Estrategia de Persistencia Dual
 
-```sql
--- profiles
-ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own profile" ON profiles FOR SELECT USING (auth.uid() = id);
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = id);
-CREATE POLICY "Users can insert own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = id);
-
--- player_stats
-ALTER TABLE player_stats ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own stats" ON player_stats FOR SELECT USING (auth.uid() = profile_id);
-CREATE POLICY "Users can insert own stats" ON player_stats FOR INSERT WITH CHECK (auth.uid() = profile_id);
-CREATE POLICY "Users can update own stats" ON player_stats FOR UPDATE USING (auth.uid() = profile_id);
-CREATE POLICY "Users can delete own stats" ON player_stats FOR DELETE USING (auth.uid() = profile_id);
-
--- player_attributes
-ALTER TABLE player_attributes ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own attributes" ON player_attributes FOR SELECT USING (auth.uid() = profile_id);
-CREATE POLICY "Users can upsert own attributes" ON player_attributes FOR INSERT WITH CHECK (auth.uid() = profile_id);
-CREATE POLICY "Users can update own attributes" ON player_attributes FOR UPDATE USING (auth.uid() = profile_id);
-CREATE POLICY "Users can delete own attributes" ON player_attributes FOR DELETE USING (auth.uid() = profile_id);
-
--- media_items
-ALTER TABLE media_items ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users can view own media" ON media_items FOR SELECT USING (auth.uid() = profile_id);
-CREATE POLICY "Users can insert own media" ON media_items FOR INSERT WITH CHECK (auth.uid() = profile_id);
-CREATE POLICY "Users can delete own media" ON media_items FOR DELETE USING (auth.uid() = profile_id);
 ```
+Screens → Services → Database (expo-sqlite / WebDB)
+                        ↓
+           ┌─ expo-sqlite openDatabaseSync (iOS/Android)
+           └─ WebDB → localStorage (web)
+```
+
+### database.js
+- `initDatabase()` crea las 4 tablas si no existen
+- En iOS/Android usa `expo-sqlite` (`openDatabaseSync`)
+- En web usa la clase `WebDB` que emula SQL sobre arrays en memoria + `localStorage`
+- Los archivos multimedia se guardan en `FileSystem.documentDirectory` (`avatars/`, `media/`)
+
+### AuthContext.js
+- Auth local con SHA-256 via `expo-crypto`
+- Credenciales guardadas en `expo-secure-store` (native) o `localStorage` (web)
+- Sesión: `auth_user` y `auth_session` en SecureStore/localStorage
 
 ---
 
@@ -207,9 +197,11 @@ CREATE POLICY "Users can delete own media" ON media_items FOR DELETE USING (auth
 | text-link | #4C8DFF | Enlaces |
 
 ### Tipografia
-- **Display/Headings**: Winner Condensed Medium (condensada, tipo dorsal)
-- **Body/UI**: Inter
-- **Mono (decorativo)**: JetBrains Mono (solo dorsal/ID)
+- **Display/Headings**: Bebas Neue (o fallback sistema sans-serif bold) — requiere cargar con expo-font si se quiere custom
+- **Body/UI**: Inter (fallback sistema)
+- **Mono (decorativo)**: JetBrains Mono (solo dorsal/ID) — requiere cargar con expo-font si se quiere custom
+
+**Nota**: Las custom fonts (Bebas Neue, Inter, JetBrains Mono) NO están cargadas actualmente. El app usa fallbacks del sistema. Si necesitás fonts custom, instalá `expo-font` y configurá.
 
 ### Escala
 | Token | Size | Peso | Uso |
@@ -262,79 +254,129 @@ CREATE POLICY "Users can delete own media" ON media_items FOR DELETE USING (auth
 | Pantalla | Descripcion |
 |----------|-------------|
 | Splash | Verifica sesion, redirige |
-| Login | Email + password, social login (placeholder) |
+| Login | Email + password, auth local SHA-256 |
 | Registro | "CREA TU FICHA", wizard 3 pasos |
-| Onboarding | Completar perfil deportivo |
+| Onboarding | Completar perfil deportivo (3 pasos) |
 | Mi Perfil | Avatar, datos, ficha tecnica, destacados |
 | Editar Perfil | Formulario con todos los campos |
 | Biblioteca Media | Grilla 2 columnas, FAB upload |
 | Subir Multimedia | Seleccionar + clasificar + subir |
-| Estadisticas | KPI cards + radar chart |
-| Atributos | Sliders por dimension + radar |
-| Ajustes | Cuenta, preferencias, logout |
+| VideoPlayer | Reproductor fullscreen |
+| Estadisticas | KPI cards + metricas por temporada |
+| Atributos | Sliders por dimension + radar chart SVG |
+| Ajustes | Cuenta, editar perfil, logout |
 
 ---
 
 ## 9. Funciones de Servicio (API surface)
 
-### auth.service.js
-- signUp(email, password, fullName)
-- signIn(email, password)
-- signOut()
-- resetPassword(email)
-- getCurrentSession()
-- getCurrentUser()
+### database.js
+- `initDatabase()` — inicializa SQLite/WebDB y crea tablas
+- `getDatabase()` — retorna la instancia de DB
 
 ### profile.service.js
-- getProfile(userId)
-- createProfile(profileData)
-- updateProfile(userId, profileData)
-- uploadAvatar(userId, imageFile)
-- isProfileComplete(profile)
+- `getProfile(userId)`
+- `createProfile(profileData)`
+- `updateProfile(userId, profileData)`
+- `uploadAvatar(userId, imageFile)`
+- `isProfileComplete(profile)`
 
 ### stats.service.js
-- getStats(profileId)
-- getStatsBySeason(profileId, season)
-- upsertStats(statsData)
-- deleteStats(statsId)
+- `getStats(profileId)`
+- `getStatsBySeason(profileId, season)`
+- `upsertStats(statsData)`
+- `deleteStats(statsId)`
 
 ### attributes.service.js
-- getAttributes(profileId)
-- getAttributesByDimension(profileId, dimension)
-- upsertAttributes(attributesArray)
-- calculateRadarAverages(profileId)
+- `getAttributes(profileId)`
+- `getAttributesByDimension(profileId, dimension)`
+- `upsertAttributes(attributesArray)`
+- `calculateRadarAverages(profileId)`
 
 ### media.service.js
-- uploadMedia(profileId, file, type, category, subcategory)
-- getMediaByProfile(profileId)
-- getMediaByCategory(profileId, category)
-- deleteMedia(mediaId, storagePath)
+- `uploadMedia(profileId, file, type, category, subcategory, description)`
+- `getMediaByProfile(profileId)`
+- `getMediaByCategory(profileId, category)`
+- `deleteMedia(mediaId, storagePath)`
+- `getMediaUrl(storagePath)`
+
+### storage.js (utils)
+- `storageGetItem(key)`
+- `storageSetItem(key, value)`
+- `storageDeleteItem(key)`
 
 ---
 
-## 10. Requisitos No Funcionales
+## 10. Comandos Disponibles
 
-- Perfil carga en <2s en 4G
+```bash
+npm start          # Expo Metro Bundler (LAN)
+npm run tunnel     # Expo via ngrok (WAN) — requiere @expo/ngrok
+npm run android    # Abre emulador Android
+npm run ios        # Abre simulador iOS
+npm run web        # Abre en navegador web
+```
+
+---
+
+## 11. Requisitos No Funcionales
+
 - Videos max 60s y 50MB
 - Fotos max 10MB
 - Compatible con Expo Go y standalone iOS 15+ / Android 10+
-- Orientacion: solo portrait (configurar en app.json)
+- Orientacion: solo portrait (`app.json`: `"orientation": "portrait"`)
 - Tap targets: minimo 44x44px
 
 ---
 
-## 11. Checklist de Calidad (antes de cada commit)
+## 12. Errores Comunes a Evitar
+
+- **NO usar** `@supabase/supabase-js` — no hay Supabase
+- **NO usar** NativeWind/Tailwind — no está instalado
+- **NO usar** `createServer`, Express, FastAPI — no hay backend
+- **NO asumir** que las credenciales de auth son seguras (son SHA-256 local, no hashes dedicados)
+- **NO hardcodear** colores — usar siempre `src/constants/colors.js`
+- **NO usar** `expo-file-system/legacy` — usar `expo-file-system` directamente (o verificar que `legacy` funcione en SDK 54)
+
+---
+
+## 13. Dependencias Clave (package.json)
+
+```json
+{
+  "expo": "~54.0.35",
+  "react": "19.1.0",
+  "react-native": "0.81.5",
+  "expo-sqlite": "~16.0.10",
+  "expo-secure-store": "~15.0.0",
+  "expo-crypto": "~15.0.9",
+  "expo-file-system": "~19.0.23",
+  "expo-image-picker": "~17.0.0",
+  "expo-video": "~3.0.16",
+  "react-native-svg": "15.12.1",
+  "@react-native-async-storage/async-storage": "^2.1.0",
+  "@react-navigation/native": "^7.3.3",
+  "@react-navigation/bottom-tabs": "^7.18.2",
+  "lucide-react-native": "^1.20.0",
+  "@expo/ngrok": "^4.1.0"
+}
+```
+
+---
+
+## 14. Checklist de Calidad (antes de cada commit)
 
 - [ ] JavaScript puro (no TypeScript)
 - [ ] Colores desde constants, no hardcodeados
 - [ ] Max 1-2 elementos azules por pantalla
 - [ ] Microcopy en voseo argentino
 - [ ] Tap targets >= 44x44px
-- [ ] Servicios centralizados, no inline en screens
-- [ ] RLS habilitado en todas las tablas
+- [ ] Servicios centralizados en /src/services, no inline en screens
 - [ ] Manejo de errores con try/catch
-- [ ] Mensajes de error en espanol
+- [ ] Mensajes de error en español
+- [ ] NO agregar dependencias de Supabase o backend externo
+- [ ] NO agregar NativeWind/Tailwind
 
 ---
 
-*ElPibe — Guia para IA v1.0*
+*ElPibe — Guia para IA v2.0*
