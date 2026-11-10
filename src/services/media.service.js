@@ -49,7 +49,7 @@ export const uploadMedia = async (profileId, file, type, category, subcategory =
       [id, profileId, type, category || '', subcategory || '', description || '', storagePath, now]
     );
 
-    const created = db.getFirstSync('SELECT * FROM media_items WHERE id = ?', [id]);
+    let created = db.getFirstSync('SELECT * FROM media_items WHERE id = ?', [id]);
     if (!created) {
       created = { id, profile_id: profileId, type, category, subcategory, description, storage_path: storagePath, created_at: now };
     }

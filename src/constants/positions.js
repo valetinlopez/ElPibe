@@ -8,7 +8,7 @@ export const positions = [
 ];
 
 export const footOptions = [
-  { id: 'derecha', label: 'Derecha' },
   { id: 'izquierda', label: 'Izquierda' },
   { id: 'ambidiestro', label: 'Ambidiestro' },
+  { id: 'derecha', label: 'Derecha' },
 ];

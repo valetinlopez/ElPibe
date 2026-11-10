@@ -145,7 +145,7 @@ export default function MediaLibraryScreen() {
       style={styles.mediaItem}
       onPress={() => handleMediaPress(item)}
       onLongPress={() => handleLongPress(item)}
-      onEditPress={() => handleEditPress(item)}
+      onEditPress={() => handleLongPress(item)}
     />
   );
 

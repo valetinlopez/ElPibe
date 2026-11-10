@@ -9,13 +9,13 @@ export default function StatCard({ value, label, isRecord = false, icon: Icon })
       <View style={styles.content}>
         {Icon && (
           <Icon
-            size={18}
+            size={26}
             color={isRecord ? colors.accentGold : colors.accentBlueBright}
             style={styles.icon}
           />
         )}
         <Text style={[styles.value, isRecord && styles.valueRecord]}>{value}</Text>
-        <Text style={styles.label} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>{label}</Text>
+        <Text style={styles.label} numberOfLines={1}>{label}</Text>
       </View>
     </Card>
   );
@@ -23,7 +23,9 @@ export default function StatCard({ value, label, isRecord = false, icon: Icon })
 
 const styles = StyleSheet.create({
   card: {
-    flex: 1,
+    // Dos columnas que ocupan todo el ancho (alineadas con las filas de abajo)
+    flexBasis: '45%',
+    flexGrow: 1,
   },
   content: {
     alignItems: 'center',
@@ -41,6 +43,7 @@ const styles = StyleSheet.create({
   },
   label: {
     ...typography.caption,
+    fontSize: 10,
     color: colors.textSecondary,
     textTransform: 'uppercase',
     marginTop: 2,

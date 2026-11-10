@@ -11,6 +11,17 @@ const ensureDirectoryExists = async (dir) => {
   }
 };
 
+// En iOS la ruta absoluta de documentDirectory cambia entre reinstalaciones/actualizaciones,
+// así que guardamos la ruta relativa ("avatars/...") y la resolvemos al leer.
+const resolvePhotoUrl = (profile) => {
+  if (!profile || !profile.photo_url) return profile;
+  const url = profile.photo_url;
+  if (url.startsWith('data:') || url.startsWith('http') || url.startsWith('blob:')) return profile;
+  const idx = url.indexOf('avatars/');
+  if (idx === -1 || !FileSystem.documentDirectory) return profile;
+  return { ...profile, photo_url: `${FileSystem.documentDirectory}${url.slice(idx)}` };
+};
+
 export const getProfile = async (userId) => {
   try {
     const db = getDatabase();
@@ -18,7 +29,7 @@ export const getProfile = async (userId) => {
       'SELECT * FROM profiles WHERE id = ?',
       [userId]
     );
-    return { data: result || null, error: null };
+    return { data: resolvePhotoUrl(result) || null, error: null };
   } catch (error) {
     return { data: null, error: 'No se pudo cargar el perfil' };
   }
@@ -74,7 +85,7 @@ export const updateProfile = async (userId, profileData) => {
     db.runSync(`UPDATE profiles SET ${fields.join(', ')} WHERE id = ?`, values);
 
     const updated = db.getFirstSync('SELECT * FROM profiles WHERE id = ?', [userId]);
-    return { data: updated, error: null };
+    return { data: resolvePhotoUrl(updated), error: null };
   } catch (error) {
     return { data: null, error: 'No se pudieron guardar los cambios' };
   }
@@ -82,19 +93,45 @@ export const updateProfile = async (userId, profileData) => {
 
 export const uploadAvatar = async (userId, imageFile) => {
   try {
+    const db = getDatabase();
+
+    // Web: no hay filesystem, guardamos la imagen como data URI
+    if (!FileSystem.documentDirectory) {
+      const blob = await (await fetch(imageFile.uri)).blob();
+      const dataUri = await new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+      db.runSync('UPDATE profiles SET photo_url = ? WHERE id = ?', [dataUri, userId]);
+      return { data: { photo_url: dataUri }, error: null };
+    }
+
     await ensureDirectoryExists(AVATARS_DIR);
-
-    const fileExt = imageFile.uri.split('.').pop();
-    const fileName = `${userId}/avatar.${fileExt}`;
-    const destPath = `${AVATARS_DIR}${fileName}`;
-
     const destDir = `${AVATARS_DIR}${userId}/`;
     await ensureDirectoryExists(destDir);
 
+    // Extensión segura (la URI de iOS puede traer query o no tener extensión)
+    const cleanUri = imageFile.uri.split('?')[0];
+    const rawExt = cleanUri.includes('.') ? cleanUri.split('.').pop().toLowerCase() : '';
+    const fileExt = /^[a-z0-9]{2,5}$/.test(rawExt) ? rawExt : 'jpg';
+
+    // Nombre único para evitar que la imagen quede cacheada con la foto vieja
+    const relativePath = `avatars/${userId}/avatar-${Date.now()}.${fileExt}`;
+    const destPath = `${FileSystem.documentDirectory}${relativePath}`;
+
     await FileSystem.copyAsync({ from: imageFile.uri, to: destPath });
 
-    const db = getDatabase();
-    db.runSync('UPDATE profiles SET photo_url = ? WHERE id = ?', [destPath, userId]);
+    // Borrar fotos anteriores del usuario
+    const files = await FileSystem.readDirectoryAsync(destDir);
+    await Promise.all(
+      files
+        .filter((f) => `${destDir}${f}` !== destPath)
+        .map((f) => FileSystem.deleteAsync(`${destDir}${f}`, { idempotent: true }))
+    );
+
+    db.runSync('UPDATE profiles SET photo_url = ? WHERE id = ?', [relativePath, userId]);
 
     return { data: { photo_url: destPath }, error: null };
   } catch (error) {

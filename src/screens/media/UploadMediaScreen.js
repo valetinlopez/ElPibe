@@ -47,6 +47,16 @@ export default function UploadMediaScreen() {
   const [toast, setToast] = useState({ visible: false, type: 'success', message: '' });
 
   const pickFromGallery = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      setToast({
+        visible: true,
+        type: 'error',
+        message: 'Necesitás permitir acceso a la galería para subir videos',
+      });
+      return;
+    }
+
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ['videos'],
       quality: 1,
@@ -60,15 +70,44 @@ export default function UploadMediaScreen() {
   };
 
   const recordVideo = async () => {
-    const result = await ImagePicker.launchCameraAsync({
-      mediaTypes: ['videos'],
-      quality: 1,
-      videoMaxDuration: 60,
-    });
+    try {
+      const { status: camStatus } = await ImagePicker.requestCameraPermissionsAsync();
+      if (camStatus !== 'granted') {
+        setToast({
+          visible: true,
+          type: 'error',
+          message: 'Necesitás permitir acceso a la cámara para grabar videos',
+        });
+        return;
+      }
 
-    if (!result.canceled) {
-      const asset = result.assets[0];
-      validateAndSetFile(asset, 'video');
+      const { status: micStatus } = await ImagePicker.requestMicrophonePermissionsAsync();
+      if (micStatus !== 'granted') {
+        setToast({
+          visible: true,
+          type: 'error',
+          message: 'Necesitás permitir acceso al micrófono para grabar videos',
+        });
+        return;
+      }
+
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes: ['videos'],
+        quality: 1,
+        videoMaxDuration: 60,
+      });
+
+      if (!result.canceled) {
+        const asset = result.assets[0];
+        validateAndSetFile(asset, 'video');
+      }
+    } catch (error) {
+      console.warn('Error al grabar video:', error);
+      setToast({
+        visible: true,
+        type: 'error',
+        message: 'No pudimos abrir la cámara, probá de nuevo',
+      });
     }
   };
 

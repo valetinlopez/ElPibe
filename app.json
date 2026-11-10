@@ -7,14 +7,14 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0B0E14"
-    },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.elpibe.app"
+      "bundleIdentifier": "com.elpibe.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "ElPibe necesita acceso a la cámara para grabar tus jugadas.",
+        "NSMicrophoneUsageDescription": "ElPibe necesita acceso al micrófono para grabar video con audio.",
+        "NSPhotoLibraryUsageDescription": "ElPibe necesita acceso a tu galería para subir videos de tus jugadas."
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -36,7 +36,16 @@
       "expo-secure-store",
       "expo-image-picker",
       "expo-sqlite",
-      "expo-video"
+      "expo-video",
+      "expo-status-bar",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0B0E14"
+        }
+      ]
     ]
   }
 }

@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Trophy, AlertTriangle, Sliders, MapPin, Clock, User } from 'lucide-react-native';
 import FootballIcon from '../../components/FootballIcon';
+import PitchIcon from '../../components/PitchIcon';
 import BootIcon from '../../components/BootIcon';
 import { useAuth } from '../../context/AuthContext';
 import { getStatsBySeason, upsertStats } from '../../services/stats.service';
@@ -158,7 +159,7 @@ export default function StatsScreen() {
         {loading ? renderLoading() : (
           <>
             <View style={styles.statsGrid}>
-              <StatCard value={matches || '0'} label="PARTIDOS" icon={MapPin} />
+              <StatCard value={matches || '0'} label="PARTIDOS" icon={PitchIcon} />
               <StatCard value={goals || '0'} label="GOLES" icon={FootballIcon} />
               <StatCard value={assists || '0'} label="ASISTENCIAS" icon={BootIcon} />
               <StatCard value={minutes || '0'} label="MINUTOS" icon={Clock} />

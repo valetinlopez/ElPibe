@@ -1,5 +1,4 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { ChevronLeft } from 'lucide-react-native';
 import { colors } from '../constants/colors';
@@ -7,7 +6,6 @@ import { typography } from '../constants/typography';
 import { spacing } from '../constants/spacing';
 
 export default function Header({ title, onBack, rightAction, rightLabel }) {
-  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
   const canGoBack = navigation.canGoBack() || !!onBack;
@@ -15,8 +13,8 @@ export default function Header({ title, onBack, rightAction, rightLabel }) {
   const handleBack = () => {
     if (onBack) {
       onBack();
-    } else if (canGoBack) {
-      navigation.goBack();
+    } else {
+      navigation.navigate('TabPerfil', { screen: 'MiPerfil' });
     }
   };
 
@@ -25,7 +23,7 @@ export default function Header({ title, onBack, rightAction, rightLabel }) {
   };
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 2 }]}>
+    <View style={styles.container}>
       <View style={styles.row}>
         <View style={styles.leftSlot}>
           {canGoBack ? (
@@ -36,7 +34,7 @@ export default function Header({ title, onBack, rightAction, rightLabel }) {
               accessibilityLabel="Volver"
               hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
             >
-              <ChevronLeft size={26} color={colors.textPrimary} />
+              <ChevronLeft size={24} color={colors.textPrimary} />
             </TouchableOpacity>
           ) : (
             <View style={styles.placeholder} />
@@ -88,33 +86,34 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.bgBase,
     paddingHorizontal: spacing[4],
-    paddingBottom: spacing[1],
+    paddingTop: spacing[1],
+    paddingBottom: 2,
   },
   row: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 40,
+    height: 36,
   },
   leftSlot: {
-    width: 44,
+    width: 40,
     alignItems: 'flex-start',
     justifyContent: 'center',
   },
   rightSlot: {
-    width: 44,
+    width: 40,
     alignItems: 'flex-end',
     justifyContent: 'center',
   },
   backButton: {
-    width: 44,
-    height: 40,
+    width: 40,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
   },
   placeholder: {
-    width: 44,
-    height: 40,
+    width: 40,
+    height: 36,
   },
   logoContainer: {
     flex: 1,
@@ -122,9 +121,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   logoImage: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
   },
   titleContainer: {
     flex: 1,
@@ -137,8 +136,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   rightButton: {
-    minWidth: 44,
-    height: 40,
+    minWidth: 40,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
   },

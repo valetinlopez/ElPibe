@@ -19,6 +19,11 @@ function VideoThumbnail({ uri }) {
     );
   }
 
+  return <ThumbnailPlayer uri={uri} />;
+}
+
+// Componente aparte para no llamar hooks después de un return condicional
+function ThumbnailPlayer({ uri }) {
   const player = useVideoPlayer(uri, (p) => {
     p.loop = false;
     p.muted = true;

@@ -1,27 +1,37 @@
-import Svg, { Path, G, Line } from 'react-native-svg';
+import Svg, { Path } from 'react-native-svg';
 
+// Botín de fútbol de perfil: caña, empeine con cordones, suela con tapones
 export default function BootIcon({ size = 20, color = '#4C8DFF' }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path
-        d="M5 4 L5 14 Q5 18 9 19 L20 20 Q23 20 23 17 L23 14 Q23 12 20 12 L14 11 L10 8 Q8 7 6 7 L5 7 Z"
+        d="M3 4.5 L10.5 4.5 L10.5 8 Q10.5 10 13 10.8 L19 12.5 Q22 13.4 22 16 L22 17 L3 17 Z"
         stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
+        strokeWidth="1.7"
         strokeLinejoin="round"
+        strokeLinecap="round"
         fill="none"
       />
-      <G stroke={color} strokeWidth="1.2" strokeLinecap="round" opacity="0.7">
-        <Line x1="8" y1="9" x2="12" y2="11" />
-        <Line x1="9" y1="11" x2="13" y2="12.5" />
-        <Line x1="10" y1="13" x2="14" y2="14" />
-      </G>
       <Path
-        d="M5 14 L5 17 Q5 19 7 19 L9 19"
+        d="M3 17 L3 19 L22 19 L22 17"
         stroke={color}
-        strokeWidth="1.8"
-        strokeLinecap="round"
+        strokeWidth="1.7"
         strokeLinejoin="round"
+        strokeLinecap="round"
+        fill={color}
+      />
+      <Path
+        d="M5.5 19 L5.5 21.5 M10.5 19 L10.5 21.5 M15.5 19 L15.5 21.5 M20 19 L20 21.5"
+        stroke={color}
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        fill="none"
+      />
+      <Path
+        d="M13 12.2 L14.2 10.9 M15.8 13 L17 11.7"
+        stroke={color}
+        strokeWidth="1.4"
+        strokeLinecap="round"
         fill="none"
       />
     </Svg>
