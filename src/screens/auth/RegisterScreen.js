@@ -7,6 +7,7 @@ import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import ProgressBar from '../../components/ProgressBar';
+import { validateEmail } from '../../utils/validations';
 import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
@@ -33,16 +34,21 @@ export default function RegisterScreen() {
       return;
     }
 
+    if (!validateEmail(email.trim())) {
+      setError('Ingresá un correo válido, ej: nombre@correo.com');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
-    const { error: authError } = await signUp(email, password, fullName);
+    const { error: authError } = await signUp(email.trim(), password, fullName);
 
     if (authError) {
       setError(authError);
       setLoading(false);
     } else {
-      navigation.reset({ index: 0, routes: [{ name: 'Onboarding' }] });
+      navigation.navigate('Onboarding');
     }
   };
 
@@ -96,6 +102,8 @@ export default function RegisterScreen() {
               placeholder="correo@ejemplo.com"
               icon={Mail}
               keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
 
             <Input

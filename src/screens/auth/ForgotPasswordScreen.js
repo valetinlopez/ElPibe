@@ -6,6 +6,7 @@ import { Mail, ChevronLeft } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { validateEmail } from '../../utils/validations';
 import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
@@ -25,10 +26,15 @@ export default function ForgotPasswordScreen() {
       return;
     }
 
+    if (!validateEmail(email.trim())) {
+      setError('Ingresá un correo válido, ej: nombre@correo.com');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
-    const { error: resetError } = await resetPassword(email);
+    const { error: resetError } = await resetPassword(email.trim());
 
     if (resetError) {
       setError(resetError);
@@ -74,6 +80,8 @@ export default function ForgotPasswordScreen() {
                 placeholder="correo@ejemplo.com"
                 icon={Mail}
                 keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
                 error={error}
               />
 

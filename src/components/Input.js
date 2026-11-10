@@ -14,6 +14,8 @@ export default function Input({
   error,
   secureTextEntry = false,
   keyboardType = 'default',
+  autoCapitalize,
+  autoCorrect,
   onIconPress,
   style,
 }) {
@@ -47,6 +49,8 @@ export default function Input({
           placeholderTextColor={colors.textTertiary}
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
+          autoCapitalize={autoCapitalize}
+          autoCorrect={autoCorrect}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           accessibilityLabel={label || placeholder}

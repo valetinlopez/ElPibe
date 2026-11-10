@@ -6,6 +6,7 @@ import { Mail, Lock, Eye, EyeOff, LogIn } from 'lucide-react-native';
 import { useAuth } from '../../context/AuthContext';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import { validateEmail } from '../../utils/validations';
 import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
@@ -27,10 +28,15 @@ export default function LoginScreen() {
       return;
     }
 
+    if (!validateEmail(email.trim())) {
+      setError('Ingresá un correo válido, ej: nombre@correo.com');
+      return;
+    }
+
     setLoading(true);
     setError('');
 
-    const { error: authError } = await signIn(email, password);
+    const { error: authError } = await signIn(email.trim(), password);
 
     if (authError) {
       setError(authError);
@@ -72,6 +78,8 @@ export default function LoginScreen() {
               placeholder="correo@ejemplo.com"
               icon={Mail}
               keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
             />
 
             <Input

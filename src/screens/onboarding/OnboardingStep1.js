@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, ScrollView, TouchableOpacity, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { ChevronLeft } from 'lucide-react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import ProgressBar from '../../components/ProgressBar';
@@ -7,7 +8,7 @@ import { colors } from '../../constants/colors';
 import { typography } from '../../constants/typography';
 import { spacing } from '../../constants/spacing';
 
-export default function OnboardingStep1({ data, onNext }) {
+export default function OnboardingStep1({ data, onNext, onBack }) {
   const [fullName, setFullName] = useState(data?.fullName || '');
   const [age, setAge] = useState(data?.age || '');
   const [city, setCity] = useState(data?.city || '');
@@ -31,6 +32,16 @@ export default function OnboardingStep1({ data, onNext }) {
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
+        {onBack ? (
+          <TouchableOpacity
+            onPress={onBack}
+            style={styles.backButton}
+            hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+          >
+            <ChevronLeft size={28} color={colors.textPrimary} />
+          </TouchableOpacity>
+        ) : null}
+
         <ProgressBar currentStep={1} totalSteps={3} />
 
         <Text style={styles.title}>DATOS PERSONALES</Text>
@@ -89,6 +100,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing[4],
     paddingTop: spacing[6],
     paddingBottom: spacing[8],
+  },
+  backButton: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    marginBottom: spacing[2],
   },
   title: {
     ...typography.displayMD,

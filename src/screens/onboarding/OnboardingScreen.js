@@ -91,7 +91,7 @@ export default function OnboardingScreen({ navigation }) {
   const renderStep = () => {
     switch (step) {
       case 1:
-        return <OnboardingStep1 data={formData} onNext={handleNext} />;
+        return <OnboardingStep1 data={formData} onNext={handleNext} onBack={() => navigation.goBack()} />;
       case 2:
         return <OnboardingStep2 data={formData} onNext={handleNext} onBack={handleBack} />;
       case 3:
